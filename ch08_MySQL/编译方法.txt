@@ -1,0 +1,7 @@
+# 配置动态库
+$ cp -r mysqlconnector /usr/local
+$ echo "/usr/local/mysqlconnector/linux/lib" >> /etc/ld.so.conf
+$ ldconfig
+
+# 执行下面的编译命令
+$ gcc -g -Wall -I/usr/local/mysqlconnector/linux/include -L/usr/local/mysqlconnector/linux/lib -lmysqlclient connect1.c 
