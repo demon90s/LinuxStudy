@@ -1,9 +1,14 @@
 #! /bin/bash
 
-// 提交代码到github
+# 提交代码到github
 
 show_status() {
-	git status
+	if git status | grep 'nothing to commit'; then
+		return 1
+	else
+		git status
+		return 0
+	fi
 }
 
 commit() {
@@ -13,7 +18,9 @@ commit() {
 }
 
 main() {
-	show_status
+	if ! show_status; then
+		return 0
+	fi
 
 	echo -e "\n--------------------------\nIs it ok [y/n]: \c"
 	read answer
