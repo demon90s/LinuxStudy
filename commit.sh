@@ -14,6 +14,8 @@ show_status() {
 commit() {
 	git add *
 	git commit -m "commit"
+
+	echo "committing ..."
 	git push origin master
 }
 
