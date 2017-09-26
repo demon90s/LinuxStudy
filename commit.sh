@@ -6,7 +6,8 @@ show_status() {
 	if git status | grep 'nothing to commit'; then
 		return 1
 	else
-		git status
+		echo "Changed file(s):"
+		git status -s -u
 		return 0
 	fi
 }
@@ -24,7 +25,7 @@ main() {
 		return 0
 	fi
 
-	echo -e "\n--------------------------\nIs it ok [y/n]: \c"
+	echo -e "--------------------------\nIs it ok [y/n]: \c"
 	read answer
 
 	if [ "$answer" == "y" ]; then
