@@ -1,0 +1,23 @@
+#! /bin/bash
+
+# 查找可执行命令所在的目录
+# 例子：findcmd gcc
+
+path=$(parsepath)
+cmd=$1
+
+if [ -z $cmd ]; then
+	exit 0
+fi
+
+for sub_path in $path
+do
+	if ls -l $sub_path 2> /dev/null | grep [[:digit:]][[:blank:]]$cmd$ > /dev/null # 命令名前有一个数字和一个空格，且作为ls -l命令的末尾字符串
+	then
+		echo "$cmd is in this path: $sub_path"
+		exit 0
+	fi
+done
+
+echo Can not find command $cmd
+exit 1
