@@ -1,0 +1,7 @@
+#! /bin/bash
+
+# 查询并输出（C语言）常量的定义
+
+grep -r --color=auto "define $1 " /usr/include/*
+
+exit 0
