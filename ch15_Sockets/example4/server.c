@@ -8,6 +8,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define handle_error(msg) \
+do { perror(msg); exit(EXIT_FAILURE); } while(0)
+
 int main()
 {
 	int server_sockfd, client_sockfd;
@@ -22,7 +25,9 @@ int main()
 	server_address.sin_addr.s_addr = htonl(INADDR_ANY);
 	server_address.sin_port = htons(9734);
 	server_len = sizeof(server_address);
-	bind(server_sockfd, (struct sockaddr*)&server_address, server_len);
+	if (-1 == bind(server_sockfd, (struct sockaddr*)&server_address, server_len)) {
+		handle_error("bind");
+	}
 
 	// Create a connection queue and wait for client
 	listen(server_sockfd, 5);
