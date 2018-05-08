@@ -1,8 +1,8 @@
 EXEC=main
-CXXFLAGS=-g -Wall 
+CXXFLAGS=-g -Wall -std=c++11
 
-SRCS=$(wildcard *.c)
-OBJS=$(SRCS:.c=.o)
+SRCS=$(wildcard *.cpp)
+OBJS=$(SRCS:.cpp=.o)
 
 all:$(OBJS)
 	g++ -o $(EXEC) $(OBJS)
