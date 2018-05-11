@@ -1,9 +1,12 @@
-site_name: Linux程序设计学习笔记
+site_name: 《Linux程序设计》学习笔记
+site_description: Beginning Linux Programming Note
+
+copyright: 'Copyright &copy; 2018 Diwen Liu'
 
 docs_dir: study_notes
 
 repo_url: https://github.com/demon90s/Beginning_Linux_Programming_CodeNote
-edit_uri: ""
+edit_uri: "tree/master/study_notes"
 
 pages:
   - Home: index.md
@@ -14,9 +17,29 @@ pages:
       - 文件操作1: ch03 文件操作_1.md
       - 文件操作2: ch03 文件操作_2.md
     - ch08 MySQL: ch08 MySQL.md
+    - ch11 进程和信号: ch11 进程和信号.md
     - ch15 套接字:
       - 套接字1: ch15 套接字_1.md
       - 套接字2: ch15 套接字_2.md
       - 套接字3: ch15 套接字_3.md
 
-theme: 
+theme:
+  name: 'material'
+  logo:
+    icon: 'school'
+  palette:
+    primary: 'blue grey'
+    accent: 'light blue'
+  font:
+    text: 'Open Sans'
+    code: 'Open Sans Mono'
+  language: 'zh'
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.mark
+
+google_analytics:
+  - 'UA-XXXXXXXX-X'
+  - 'auto'
