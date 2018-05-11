@@ -21,6 +21,8 @@ commit() {
 }
 
 main() {
+	rm -fr site
+
 	if ! show_status; then
 		return 0
 	fi
