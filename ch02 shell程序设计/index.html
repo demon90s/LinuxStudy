@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>ch02 shell程序设计 - Linux程序设计学习笔记</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+	
+	<script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="..">Linux程序设计学习笔记</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chapters <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../ch01%20%E5%85%A5%E9%97%A8/">ch01 入门</a>
+</li>
+                            
+<li class="active">
+    <a href="./">ch02 shell程序设计</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">ch03 文件操作</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../ch03%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C_1/">文件操作1</a>
+</li>
+            
+<li >
+    <a href="../ch03%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C_2/">文件操作2</a>
+</li>
+    </ul>
+  </li>
+                            
+<li >
+    <a href="../ch08%20MySQL/">ch08 MySQL</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">ch15 套接字</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../ch15%20%E5%A5%97%E6%8E%A5%E5%AD%97_1/">套接字1</a>
+</li>
+            
+<li >
+    <a href="../ch15%20%E5%A5%97%E6%8E%A5%E5%AD%97_2/">套接字2</a>
+</li>
+            
+<li >
+    <a href="../ch15%20%E5%A5%97%E6%8E%A5%E5%AD%97_3/">套接字3</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li >
+                        <a rel="next" href="../ch01%20%E5%85%A5%E9%97%A8/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../ch03%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C_1/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#shell">为什么使用shell编程</a></li>
+        <li class="main "><a href="#_1">一点哲学</a></li>
+        <li class="main "><a href="#shell_1">什么是shell</a></li>
+        <li class="main "><a href="#_2">管道和重定向</a></li>
+            <li><a href="#_3">重定向输出</a></li>
+            <li><a href="#_4">重定向输入</a></li>
+            <li><a href="#_5">管道</a></li>
+        <li class="main "><a href="#shell_2">作为程序设计语言的shell</a></li>
+            <li><a href="#_6">交互式程序</a></li>
+            <li><a href="#_7">创建脚本</a></li>
+            <li><a href="#_8">把脚本设置为可执行</a></li>
+        <li class="main "><a href="#shell_3">shell的语法</a></li>
+            <li><a href="#_9">变量</a></li>
+            <li><a href="#_10">条件</a></li>
+            <li><a href="#_11">控制结构</a></li>
+            <li><a href="#_12">函数</a></li>
+            <li><a href="#here">here文档</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="shell">为什么使用shell编程</h1>
+<p>原因之一是，可以快速、简单地完成编程。而且最基本的Linux安装也会提供一个shell。</p>
+<p>shell非常适合于编写一些执行相对简单的任务的小工具，因为它们强调的是易于配置、易于维护和可移植性，而不是很看重执行效率。</p>
+<p>使用shell可以使命令按照预定顺序执行。</p>
+<h1 id="_1">一点哲学</h1>
+<p>UNIX架构非常依赖于代码的高度可重用性。Linux提供了各种各样小巧而简单的工具，比如：</p>
+<pre><code>$ ls -al | more
+</code></pre>
+
+<p>通常可以将许多小巧的脚本程序组合起来以创建一个庞大而复杂的程序。</p>
+<h1 id="shell_1">什么是shell</h1>
+<p>shell是一个作为用户与Linux系统间接口的程序，它允许用户向操作系统输入需要执行的命令。</p>
+<p>shell程序和其他程序环绕在Linux内核的四周。</p>
+<p>shell程序有很多种，在Linux系统中，标准shell是GNU工具集中的bash。使用如下命令查看bash的版本号：</p>
+<pre><code>$ /bin/bash --version
+</code></pre>
+
+<h1 id="_2">管道和重定向</h1>
+<h2 id="_3">重定向输出</h2>
+<p>把Linux程序（不仅仅是shell程序）的输出保存到文件：</p>
+<pre><code>$ ls -l &gt; lsoutput.txt
+</code></pre>
+
+<p>需要知道的是：文件描述符0代表一个程序的标准输入，文件描述符1代表标准输出，文件描述符2代表标准错误输出。</p>
+<p><code>&gt;</code>操作符把标准输出重定向到一个文件。默认情况下，如果该文件已经存在，它的内容将被覆盖。</p>
+<p>使用<code>&gt;&gt;</code>操作符将输出内容附加到一个文件的尾部。例如：</p>
+<pre><code>$ ps &gt;&gt; lsoutput.txt
+</code></pre>
+
+<p>使用<code>2&gt;</code>操作符可以重定向标准错误输出。</p>
+<p>下面的命令将把标准输出和标准错误输出分别重定向到不同的文件中：</p>
+<pre><code>$ kill -HUP 1234 &gt;killout.txt 2&gt;killerr.txt
+</code></pre>
+
+<p>如果想把两组输出都重定向到一个文件中，可以使用<code>&gt;&amp;</code>操作符来结合两个输出，如：</p>
+<pre><code>$ kill -HUP 1234 &gt;killout.txt 2&gt;&amp;1
+</code></pre>
+
+<p>这条命令的含义是：将标准输出重定向到文件killout.txt，然后将标准错误输出重定向到与标准输出相同的地方。</p>
+<p>这样可以丢弃所有的输出信息：</p>
+<pre><code>$ kill -HUP 1234 &gt;/dev/null 2&gt;&amp;1
+</code></pre>
+
+<p>/dev/null是Linux通用的“回收站”。</p>
+<h2 id="_4">重定向输入</h2>
+<p>使用<code>&lt;</code>操作符，如：</p>
+<pre><code>$ more &lt; killout.txt
+</code></pre>
+
+<p>但这样做意义不大，因为more命令可以接受文件名作为参数。</p>
+<h2 id="_5">管道</h2>
+<p>可以用管道操作符|来连接进程。Linux下通过管道连接的进程可以同时运行，并且随着数据流在它们之间的传递可以自动地进行协调。</p>
+<p>举一个列子，可以使用sort命令对ps命令的输出进行排序：</p>
+<pre><code>$ ps | sort
+</code></pre>
+
+<p>如果有一系列的命令需要执行，相应的输出文件是在这一组命令被创建的同时立刻被创建或写入的，所以决不要在命令流中重复使用相同的文件名。比如：</p>
+<pre><code>cat mydata.txt | sort &gt; mydata.txt
+</code></pre>
+
+<p>最终将得到一个空文件，因为在读取文件mydata.txt之前就已经覆盖了这个文件的内容。</p>
+<h1 id="shell_2">作为程序设计语言的shell</h1>
+<p>编写shell脚本程序有两种方式：输入一系列命令让shell交互地执行他们；把这些命令保存到一个文件中，然后将该文件作为一个程序来调用。</p>
+<h2 id="_6">交互式程序</h2>
+<p>即在命令行上直接输入shell脚本。当shell期待进一步的输入时，正常的$shell提示符将改变为&gt;提示符，由shell来判断何时输入完毕并立即执行脚本程序。</p>
+<p>比如：</p>
+<pre><code>$ for file in *
+&gt; do
+&gt; if grep -l POSIX $file
+&gt; then
+&gt; more file
+&gt; fi
+&gt; done
+</code></pre>
+
+<p>grep -l找到当前路径下包含POSIX字符串的文件，more命令将文件的内容显示在屏幕上。</p>
+<p>扩展的花括号{}允许将任意字符串放在一个集合中，以供shell进行扩展，比如：</p>
+<pre><code>$ ls my_{finger,toe}s
+</code></pre>
+
+<p>将列出文件my_fingers和my_toes。</p>
+<h2 id="_7">创建脚本</h2>
+<p>一个简单的模板（见first.sh）：</p>
+<pre><code>#! /bin/bash
+
+# filename: ...
+# description: ...
+
+shell语句
+
+exit 0
+</code></pre>
+
+<p>程序中的注释以#号开始，一直持续到该行的结束。</p>
+<p><code>#! /bin/bash</code>是一种特殊形式的注释，#!字符告诉系统紧跟在它后面的那个参数是用来执行本文件的程序（使用绝对路径）。</p>
+<p>因为脚本程序本质上被看作是shell的标准输入，所以它可以包含任何能够通过你的PATH环境变量引用到的Linux命令。</p>
+<p>exit命令的作用是确保脚本程序能够返回一个有意义的退出码，表示此脚本是否执行成功。在shell程序设计里，0表示成功。</p>
+<p>Linux很少利用文件扩展名来决定文件的类型，可以为脚本使用.sh或其他扩展名，但shell并不关心这一点。大多数预安装的脚本程序并没有使用任何文件扩展名。检查文件是否是脚本程序的最好方法是使用file命令，如：<code>file first.sh</code>。</p>
+<h2 id="_8">把脚本设置为可执行</h2>
+<p>运行脚本程序的方法是：</p>
+<pre><code>$ sh fist.sh
+</code></pre>
+
+<p>也可以只输入脚本名字就运行程序，这需要给脚本文件加上可执行权限：</p>
+<pre><code>$ chmod +x first.sh
+$ ./fist.sh
+</code></pre>
+
+<h1 id="shell_3">shell的语法</h1>
+<h2 id="_9">变量</h2>
+<p>在shell里，使用变量之前无需为它们做出声明，通过使用它们（比如给它们赋初值时）来创建它们。</p>
+<p>默认情况下，所有的变量都被看作字符串并以字符串来存储。shell和一些工具程序会在需要时把数值型字符串转换为对应的数值。</p>
+<p>变量区分大小写。</p>
+<p>在变量名前加一个$符号来访问它的内容。比如：</p>
+<pre><code>$ salutation=Hello
+$ echo $salutation
+</code></pre>
+
+<p>如果字符串里包含空格，就必须用引号把它们括起来；等号两边不能有空格。</p>
+<p>使用read命令将用户的输入赋值给一个变量，通常情况下，在用户按下回车键时，read命令结束。如：</p>
+<pre><code>$ read a
+hello world
+$ echo $a
+hello world
+</code></pre>
+
+<p><strong>使用引号</strong></p>
+<p>一般情况下，脚本文件的参数以空白字符分隔，如果想在一个参数中包含空白字符，必须给参数加上引号。</p>
+<p>如果把一个$变量表达式放在双引号中，程序执行到这一行时就会把变量替换为它的值；如果把它放在单引号中，就不会发生替换现象。在$符前面加上\字符以取消它的特殊含义。</p>
+<p><strong>环境变量</strong></p>
+<p>当一个shell脚本程序开始执行时，一些变量会根据环境设置中的值进行初始化。这些变量通常用大写字母做名字，用户在脚本里定义的变量通常用小写字母做名字。</p>
+<p>主要的环境变量有：</p>
+<table>
+<thead>
+<tr>
+<th>环境变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$PATH</td>
+<td>搜索命令的目录列表</td>
+</tr>
+<tr>
+<td>$HOME</td>
+<td>用户宿主目录</td>
+</tr>
+<tr>
+<td>$PS1</td>
+<td>命令提示符</td>
+</tr>
+<tr>
+<td>$PS2</td>
+<td>二级提示符，一般是<code>&gt;</code></td>
+</tr>
+<tr>
+<td>$IFS</td>
+<td>输入域分隔符，比如空格符，换行符</td>
+</tr>
+<tr>
+<td>$0</td>
+<td>shell脚本的名字</td>
+</tr>
+<tr>
+<td>$#</td>
+<td>传递给脚本的参数个数</td>
+</tr>
+<tr>
+<td>$$</td>
+<td>脚本的进程ID，可用于生成一个唯一的文件</td>
+</tr>
+</tbody>
+</table>
+<p><strong>参数变量</strong></p>
+<p>如果脚本程序在调用时带有参数，一些额外的变量就会被创建：</p>
+<table>
+<thead>
+<tr>
+<th>参数变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$*</code>, <code>$@</code></td>
+<td>列出所有的参数，更推荐使用<code>$@</code>，因为<code>$*</code>会根据$IFS进行分隔</td>
+</tr>
+<tr>
+<td><code>$1</code>, <code>$2</code>, ...</td>
+<td>第n个参数</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_10">条件</h2>
+<p>一个shell脚本能够对任何可以从命令行上调用的命令的退出码进行测试。</p>
+<p><strong>test或[命令</strong></p>
+<p>在实际工作中，大多数脚本程序都会广泛使用shell的布尔判断命令test或[。test命令的退出码（表明条件是否满足）决定是否需要执行后面的条件代码。</p>
+<p>为了可读性，当使用[命令时，还可以使用符号]来结尾。</p>
+<p>一个用户检查文件是否存在的例子：</p>
+<pre><code>if test -f fred.c
+then
+...
+fi
+</code></pre>
+
+<p>或者写成：</p>
+<pre><code>if [ -f fred.c ]
+then
+...
+fi
+</code></pre>
+
+<p>test命令可以使用的条件类型可以归为3类：字符串比较、算术比较和文件有关的条件测试。</p>
+<p>一些条件如下表：</p>
+<table>
+<thead>
+<tr>
+<th>字符串比较</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string1 = string2</td>
+<td>如果字符串相等，返回真</td>
+</tr>
+<tr>
+<td>string1 != string2</td>
+<td>如果字符串不相等，返回真</td>
+</tr>
+<tr>
+<td>-n string</td>
+<td>如果字符串不为空则返回真</td>
+</tr>
+<tr>
+<td>-z string</td>
+<td>如果字符串为空则返回真</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>算术比较</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>expr1 -eq expr2</td>
+<td>两个表达式相等，返回真</td>
+</tr>
+<tr>
+<td>expr1 -nq expr2</td>
+<td>两个表达式不相等。返回真</td>
+</tr>
+<tr>
+<td>expr1 -gt expr2</td>
+<td>表达式1大于表达式2，返回真</td>
+</tr>
+<tr>
+<td>expr1 -ge expr2</td>
+<td>表达式1大于等于表达式2，返回真</td>
+</tr>
+<tr>
+<td>expr1 -lt expr2</td>
+<td>表达式1小于表达式2，返回真</td>
+</tr>
+<tr>
+<td>expr1 -le expr2</td>
+<td>表达式1小于等于表达式2，返回真</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>文件条件测试</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-d file</td>
+<td>如果file是目录，则为真</td>
+</tr>
+<tr>
+<td>-f file</td>
+<td>如果file存在，则为真</td>
+</tr>
+<tr>
+<td>-s file</td>
+<td>如果file大小不为0，则为真</td>
+</tr>
+</tbody>
+</table>
+<p>test命令是bash的内置命令，使用help test命令可以获得test命令的详细信息（或者man test）。</p>
+<h2 id="_11">控制结构</h2>
+<p><strong>if语句</strong></p>
+<p>它对某个命令的执行结果进行测试，然后根据测试结果有条件地执行一组语句。如：</p>
+<pre><code>if condition
+then
+    statements
+elif condition
+then
+    statements
+else
+    statements
+fi
+</code></pre>
+
+<p><strong>for语句</strong></p>
+<p>可以利用for结构来循环处理一组值，这组值可以是任意字符串的集合。它们可以在程序里被列出，更常见的做法是使用shell的文件名扩展结果。</p>
+<p>简单语法是：</p>
+<pre><code>for variable in values
+do
+    statements
+done
+</code></pre>
+
+<p><strong>while语句</strong></p>
+<p>如果需要重复执行一个命令序列，但事先又不知道这个命令序列应该执行的次数，你通常会使用一个while循环，它的语法如下：</p>
+<pre><code>while condition
+do
+    statements
+done
+</code></pre>
+
+<p><strong>until语句</strong></p>
+<p>语法如下：</p>
+<pre><code>until condition
+do
+    statements
+done
+</code></pre>
+
+<p>循环将反复执行，直到条件为真。</p>
+<p><strong>case语句</strong></p>
+<p>语法如下：</p>
+<pre><code>case variable in
+    partion [ | pattern] ...) statements;;
+    partion [ | pattern] ...) statements;;
+    ...
+esac
+</code></pre>
+
+<p>case结构允许你通过一种比较复杂的方式将变量的内容和模式进行匹配，然后再根据匹配的模式去执行不同的代码。</p>
+<p>每个模式行都以双分号结尾。</p>
+<p>case将使用第一个匹配的模式，即使后续的模式有更加精确的匹配也是如此。</p>
+<p><strong>命令列表</strong></p>
+<p>AND和OR专门用于处理命令列表。</p>
+<p>- AND列表</p>
+<p>AND列表结构允许你按照这样的方式执行一系列命令，只有在前面的所有命令执行成功的情况下，才执行后一条命令：</p>
+<pre><code>statement1 &amp;&amp; statement2 &amp;&amp; statement3
+</code></pre>
+
+<p>只有列表中的所有命令都执行成功时，才算它执行成功，否则就算它失败。</p>
+<p>- OR列表</p>
+<p>OR列表结构允许我们执行一系列命令直到有一条命令成功为止，其后的命令将不再被执行：</p>
+<pre><code>statement1 || statement2 || statement3
+</code></pre>
+
+<p>这些列表类型结构的执行方式被称为<strong>短路求值（short circuit evaluation）</strong>。</p>
+<p>还可以把这两种结构结合在一起，比如：</p>
+<pre><code>[ -f file ] &amp;&amp; cmd1 || cmd2
+</code></pre>
+
+<p>上面的语句中，如果file存在，则执行cmd1，否则执行cmd2。还可以使用括号来强制求值的顺序。</p>
+<p><strong>语句块</strong></p>
+<p>如果想在某些只允许使用单个语句的地方使用多条语句，你可以把它们括在花括号中来构造一个语句块。</p>
+<h2 id="_12">函数</h2>
+<p>定义一个函数的语法如下：</p>
+<pre><code>function_name() {
+    statements
+}
+</code></pre>
+
+<p>当程序遇到函数定义时，它会记住此函数名，然后从}字符之后的位置继续执行。当执行到function_name时，shell就知道应该去执行刚才定义的函数了。这个函数执行完毕以后，执行过程会返回到调用函数那条语句的后面继续执行。</p>
+<p>当一个函数被调用时，脚本程序的位置参数（$*, $@, $#, $1, $2）等会被替换为函数的参数，这也是读取传递给函数的参数的办法。当函数执行完毕后，这些参数会恢复为它们先前的值。</p>
+<p>可以通过return命令让函数返回数字值。如果想让函数返回字符串，可以让函数将字符串保存在一个变量中，该变量然后可以在函数结束之后使用。或者可以echo一个字符串并捕获其结果。如：</p>
+<pre><code>foo() { echo JAY; }
+...
+result = &quot;$(foo)&quot;
+</code></pre>
+
+<p>如果在函数里没有使用return指定一个返回值，函数返回的就是执行的最后一条命令的退出码。</p>
+<p>可以使用local关键字在shell函数中声明局部变量，使其仅在函数内有效。函数可以访问全局作用范围内的其他shell变量。</p>
+<h2 id="here">here文档</h2>
+<p>在shell脚本程序中向一条命令传递输入的一种特殊方法是使用here文档。它允许一条命令在获得输入数据时就好像是在读取一个文件或键盘一样，而实际上是从脚本程序中得到输入数据。</p>
+<p>更多见代码案例以及书本。</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

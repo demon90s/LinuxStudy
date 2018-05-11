@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>ch01 入门 - Linux程序设计学习笔记</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+	
+	<script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="..">Linux程序设计学习笔记</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chapters <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li class="active">
+    <a href="./">ch01 入门</a>
+</li>
+                            
+<li >
+    <a href="../ch02%20shell%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">ch02 shell程序设计</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">ch03 文件操作</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../ch03%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C_1/">文件操作1</a>
+</li>
+            
+<li >
+    <a href="../ch03%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C_2/">文件操作2</a>
+</li>
+    </ul>
+  </li>
+                            
+<li >
+    <a href="../ch08%20MySQL/">ch08 MySQL</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">ch15 套接字</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../ch15%20%E5%A5%97%E6%8E%A5%E5%AD%97_1/">套接字1</a>
+</li>
+            
+<li >
+    <a href="../ch15%20%E5%A5%97%E6%8E%A5%E5%AD%97_2/">套接字2</a>
+</li>
+            
+<li >
+    <a href="../ch15%20%E5%A5%97%E6%8E%A5%E5%AD%97_3/">套接字3</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li >
+                        <a rel="next" href="..">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../ch02%20shell%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#unixlinuxgnu">UNIX、Linux和GNU简介</a></li>
+            <li><a href="#unix">什么是UNIX</a></li>
+            <li><a href="#linux">什么是Linux</a></li>
+            <li><a href="#gnu">GNU项目和自由软件基金会</a></li>
+            <li><a href="#linux_1">Linux发行版</a></li>
+        <li class="main "><a href="#linux_2">Linux程序设计</a></li>
+            <li><a href="#linux_3">Linux程序</a></li>
+            <li><a href="#_1">文本编辑器</a></li>
+            <li><a href="#c">C语言编译器</a></li>
+            <li><a href="#_2">开发系统导引</a></li>
+        <li class="main "><a href="#_3">获得帮助</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="unixlinuxgnu">UNIX、Linux和GNU简介</h1>
+<p>Linux现已成为一个切实可行的操作系统，特别是在服务器市场中。</p>
+<p>Linux的成功要归功于在它之前诞生的系统和应用程序——UNIX和GNU软件。</p>
+<h2 id="unix">什么是UNIX</h2>
+<p>UNIX操作系统最初是由贝尔实验室开发的。UNIX现已成为一种非常流行的多用户、多任务操作系统。UNIX操作系统可以运行在大量不同种类的硬件平台上。</p>
+<p><strong>UNIX哲学</strong></p>
+<p>UNIX操作系统（包括Linux）鼓励一种特定的编程风格。下面列出了一些典型的UNIX程序和系统所具有的特点。</p>
+<p>- <strong>简单性</strong>。“小而简单”（KISS, Keep It Small and Simple）是一种值得学习的技术。</p>
+<p>- <strong>集中性</strong>。在UNIX中，通常把小工具组合起来以完成复杂的任务，而不是试图将一个用户期望的所有功能放在一个大程序里。</p>
+<p>- <strong>可重用组件</strong>。将应用程序的核心实现为库。</p>
+<p>- <strong>过滤器</strong>。许多UNIX应用程序可用作过滤器，它们对输入进行转换并产生输出。</p>
+<p>比较详细的介绍见书本p2。</p>
+<h2 id="linux">什么是Linux</h2>
+<p>Linux是一个可以自由发布的类UNIX内核实现，它是一个操作系统的底层核心。它是由赫尔基辛大学的Linux Torvalds开发的，期间得到了因特网上广大UNIX程序员的帮助。</p>
+<h2 id="gnu">GNU项目和自由软件基金会</h2>
+<p>操作系统内核本身仅仅是可用开发系统的一小部分。传统上，商业化的UNIX系统都包含提供系统服务和工具的应用程序。对于Linux系统来说，这些额外的程序是由许多程序员编写并自由发布的。</p>
+<p>GNU项目是由Richard Stallman发起的，它为软件社区提供了许多UNIX系统上应用程序的仿制品。所有这些程序，即GNU软件，都是在GNU通用公共许可证（GPL）的条款下发布的。</p>
+<p>可以在 http://www.gnu.org 上找到更多关于自由软件的概念。</p>
+<h2 id="linux_1">Linux发行版</h2>
+<p>Linux实际上只是一个内核。你可以获得内核源代码，编译并安装它，然后获得并安装许多其他自由发布的软件，从而完成一个完整的Linux系统的安装。</p>
+<p>但这样的安装并非易事，幸运的是，许多人制作了Linux发行版，它不仅包含内核，还包含许多其他编程工具和应用程序。它通常都会包含一个X视窗系统的实现，即一个图形化环境。Linux发行版通常还带有安装程序和附加文档（一般在CD上），帮助你安装自己的Linux系统。</p>
+<blockquote>
+<p>my note: 学习中，我使用的Linux发行版是centos 7，官网是：https://www.centos.org/</p>
+</blockquote>
+<h1 id="linux_2">Linux程序设计</h1>
+<p>UNIX最初是用C语言编写的，并且UNIX的大多数应用程序也是用C语言编写的，但C语言并不是Linux程序员或UNIX程序员的唯一选择。</p>
+<blockquote>
+<p>my note: 还有许多其他的语言可以选择，不过书中主要讲解的是shell和C语言。</p>
+</blockquote>
+<h2 id="linux_3">Linux程序</h2>
+<p>Linux应用程序表现为两种特殊类型的文件，可执行文件和脚本文件。可执行文件是计算机可以直接运行的程序，它们相当于Windows中的.exe文件。脚本文件是一组指令的集合，这些指令将由另一个程序（解释器）来执行，相当于Windows的bat文件。</p>
+<p>当登陆进Linux系统时，你与一个shell程序进行交互，它像Windows中的命令提示窗口一样运行程序。它在一组指定的目录路径下按照你给出的程序名搜索与之同名的文件。搜索目录路径存储在shell变量PATH里。</p>
+<blockquote>
+<p>my note: PATH变量定义在文件~/.bash_profile中。</p>
+</blockquote>
+<h2 id="_1">文本编辑器</h2>
+<p>本书的两位作者都喜欢Emacs，并建议读者花一点时间来学习这个功能强大的编辑器。</p>
+<blockquote>
+<p>my note: 不过我使用vim，目前感觉足够了。</p>
+</blockquote>
+<h2 id="c">C语言编译器</h2>
+<p>在本书中，我们将使用gcc，这是因为它随Linux的发行版一起提供，并且它支持C语言的ANSI标准语法。</p>
+<p>当用gcc命令生成一个可执行程序后（比如gcc -o hello hello.c），可用下面的命令执行此程序：</p>
+<pre><code>./hello
+</code></pre>
+
+<p>在程序名前加上一个./特别指示shell去执行当前目录下的程序。</p>
+<p>如果不使用-o name选项告诉编译器可执行程序的名字，编译器就会把程序放在一个名为a.out的文件里（含义是assembler output，即汇编输出）。</p>
+<h2 id="_2">开发系统导引</h2>
+<p>对Linux开发人员来说，了解软件工具和开发资源在系统中存放的位置是很重要的。以下几节介绍一些重要的目录和文件。</p>
+<p><strong>应用程序</strong></p>
+<p>系统为正常使用提供的程序，包括用于程序开发的工具，都可在目录/usr/bin中找到；系统管理员为某个特定的主机或本地网络添加的程序通常可在目录/usr/local/bin或/opt中找到。</p>
+<p>我们建议对于系统级的应用程序，你可以将它放在/usr/local目录中来运行和访问所需的文件。对于开发用和个人的应用程序，最好在你的家目录中使用一个文件夹来存放它。</p>
+<blockquote>
+<p>my note: 我写了一个脚本，放在utility目录下，叫findcmd，可以查看这些程序所在的目录。</p>
+</blockquote>
+<p><strong>头文件</strong></p>
+<p>用C语言进行程序设计时，你需要用头文件来提供对常量的定义和对系统函数及库函数调用的声明。对C语言来说，这些头文件几乎总是位于/usr/include目录及其子目录中。</p>
+<p>在调用C语言编译器时，你可以使用-I标志来包含保存在子目录或非标准位置中的头文件。例如：</p>
+<pre><code class="shell">$ gcc -I/usr/openwin/include fred.c
+</code></pre>
+
+<p>它指示编译器不仅在标准位置，也在/usr/openwin/include目录中查找程序fred.c中包含的头文件。</p>
+<p>更多细节可以参看使用手册：man gcc</p>
+<p>用grep命令来搜索包含某些特定定义和函数原型的头文件是很方便的。比如：</p>
+<pre><code>grep EXIT_ /usr/include/*.h
+</code></pre>
+
+<p>可以查看到退出状态的定义。</p>
+<p><strong>库文件</strong></p>
+<p>库是一组预先编译好的函数的集合，这些函数都是按照可重用的原则编写的。</p>
+<p>标准系统库文件一般存储在/lib和/usr/lib目录中。C语言编译器需要知道要搜索哪些库文件，因为在默认情况下，它只搜索标准C语言库。库文件还必须遵循特定的命名规范并且要在命令行中明确指定。</p>
+<p>库文件的名字总是以lib开头，随后的部分指明这是什么库，之后是后缀，给出库文件的类型：</p>
+<p>- .a代表传统的静态函数库；
+- .so代表共享函数库。</p>
+<p>函数库通常同时以静态库和共享库两种格式存在。可以通过完整的库文件路径名或用-l标志来告诉编译器要搜索的库文件。例如：</p>
+<pre><code>$ gcc -o fred fred.c /usr/lib/libm.a
+$ gcc -o fred fred.c -lm
+</code></pre>
+
+<p>-lm代表标准库目录中名为libm.a的函数库。-lm标志的另一个好处是如果有共享库，编译器会自动选择共享库。</p>
+<p>可以通过使用-L标志位编译器增加库的搜索路径。例如：</p>
+<pre><code>$ gcc -o x11fred -L/usr/openwin/lib x11fred.c -lX11
+</code></pre>
+
+<p><strong>静态库</strong></p>
+<p>函数库最简单的形式是一组处于“准备好使用”状态的目标文件。程序包含库函数的头文件，编译器和链接器负责将程序代码和函数库结合在一起以组成一个单独的可执行文件。你必须使用-l选项指明除标准C语言运行库外还需使用的库。</p>
+<p>静态库也称作归档文件（archive），使用gcc -c命令和ar命令就可以创建静态库。</p>
+<p>举个例子：</p>
+<pre><code>$ gcc -c bill.c fred.c
+$ ar crv libfoo.a bill.o fred.o
+$ gcc -o program program.o libfoo.a
+</code></pre>
+
+<p>gcc的-c选项阻止编译器创建一个完整的程序，只生成一份目标文件。</p>
+<p>ar命令用来创建归档文件。接着就可以引入此静态库了。</p>
+<p>你也可以使用-l选项来访问函数库，但因其未保存在标准位置，所以你必须使用-L选项来告诉编译器在何处可以找到它，如下所示：</p>
+<pre><code>$ gcc -o program program.o -L. -lfoo
+</code></pre>
+
+<p>如有要查看哪些函数被包含在目标文件、函数库或可执行文件里，你可以使用nm命令。当程序被创建时，它只包含函数库中它实际需要的函数。</p>
+<p>Windows下有许多相似之处：</p>
+<p>|项目|UNIX|Windows|
+|-|-|
+|目标模块|func.o|FUNC.OBJ|
+|静态函数库|lib.a|LIB.LIB|
+|程序|program|PROGRAM.EXE|</p>
+<p><strong>共享库</strong></p>
+<p>静态库的一个缺点是，当同时运行的程序中都使用了同一个函数库的函数时，内存中就会有同一函数的多份副本。且程序文件中也包含了副本。这将消耗大量宝贵的内存和磁盘空间。</p>
+<p>共享库可以克服上述不足。</p>
+<p>当一个程序使用共享库时，它的链接方式是这样的：程序本身不再包含函数代码，而是引用运行时可访问的共享代码。</p>
+<p>通过这种方法，系统可以只保留共享库的一份副本供许多程序同时使用，并且在磁盘上也仅保存一份。另一个好处是共享库的更新可以独立于依赖它的应用程序，例如，文件/lib/libm.so实际上是/lib/libm.so.N的符号链接，其中N代表主版本号。</p>
+<p>对Linux系统来说，负责装载共享库并解析客户程序函数引用的程序是ld.so。用于搜索共享库的额外位置可以在文件/etc/ld.so.conf中配置，如果修改了这个文件，你需要执行命令ldconfig来处理它。</p>
+<p>你可以通过运行工具ldd来查看一个程序需要的共享库。如：</p>
+<pre><code>$ ldd program
+</code></pre>
+
+<p>生成共享库的命令可以是：</p>
+<pre><code>gcc -shared -o libfunctions.so -fPIC libfunctions.c
+</code></pre>
+
+<p>链接共享库的方法和静态库一样。但使用前需要配置过一次ldconfig，即此共享库所在的目录已配置在/etc/ld.so.conf中，并执行过一次ldconfig命令。</p>
+<h1 id="_3">获得帮助</h1>
+<p>man命令可以用来访问在线手册页。</p>
+<p>GNU软件和其他一些自由软件还使用名为info的在线文档系统。你可以通过专用程序info或通过emacs编辑器中的info命令来在线浏览全部的文档。</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

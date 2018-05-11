@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>文件操作1 - Linux程序设计学习笔记</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+	
+	<script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="..">Linux程序设计学习笔记</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chapters <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../ch01%20%E5%85%A5%E9%97%A8/">ch01 入门</a>
+</li>
+                            
+<li >
+    <a href="../ch02%20shell%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">ch02 shell程序设计</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">ch03 文件操作</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">文件操作1</a>
+</li>
+            
+<li >
+    <a href="../ch03%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C_2/">文件操作2</a>
+</li>
+    </ul>
+  </li>
+                            
+<li >
+    <a href="../ch08%20MySQL/">ch08 MySQL</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">ch15 套接字</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../ch15%20%E5%A5%97%E6%8E%A5%E5%AD%97_1/">套接字1</a>
+</li>
+            
+<li >
+    <a href="../ch15%20%E5%A5%97%E6%8E%A5%E5%AD%97_2/">套接字2</a>
+</li>
+            
+<li >
+    <a href="../ch15%20%E5%A5%97%E6%8E%A5%E5%AD%97_3/">套接字3</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li >
+                        <a rel="next" href="../ch02%20shell%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../ch03%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C_2/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#linux">Linux文件结构</a></li>
+            <li><a href="#_1">目录</a></li>
+            <li><a href="#_2">文件和设备</a></li>
+        <li class="main "><a href="#_3">系统调用和设备驱动程序</a></li>
+        <li class="main "><a href="#_4">库函数</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="linux">Linux文件结构</h1>
+<p>Linux环境中的文件具有特别重要的意义，因为它们为操作系统服务和设备提供了一个简单而一致的接口。在Linux中，<strong>一切（或几乎一切）都是文件</strong>。</p>
+<p>这就意味着，通常程序完全可以像使用文件那样使用磁盘文件、串行口、打印机和其他设备。大多数情况下，你只需要使用5个基本的函数——open、close、read、write和ioctl。</p>
+<p>目录是一种特殊类型的文件，在现代的UNIX（包括Linux）版本中，即使是超级用户可能也不再被允许直接对目录进行写操作了。所有用户通常使用上层的opendir/readdir接口来读取目录。</p>
+<h2 id="_1">目录</h2>
+<p>文件，除了本身包含的内容以外，它还会有一个名字和一些属性。这些属性被保存在文件的inode（节点）中，它是文件系统中的一个特殊的数据块，它同时还包含文件的长度和文件在磁盘上的存放位置。系统使用的是文件的inode编号，目录结构为文件命名仅仅是为了便于人们使用。</p>
+<p>目录是用于保存其他文件的节点号和名字的文件。目录文件中的每个数据项都是指向某个文件节点的链接，删除文件名就等于删除与之对应的链接（文件的节点号可以通过ls -i命令查看）。你可以通过使用ln命令在不同的目录中创建指向同一个文件的链接。</p>
+<hr />
+<p><strong>【my note】</strong></p>
+<p>假如有一个文件名为foo.txt，然后执行：</p>
+<pre><code>$ ln foo2.txt foo.txt # 如此一来，foo2.txt和foo.txt将是同一个文件
+$ ls -il foo*
+</code></pre>
+
+<p>可以看到，这两个文件的节点号是一致的，且链接数都是2。</p>
+<hr />
+<p>删除一个文件时，实质上是删除了该文件对应的目录项，同时指向该文件的链接数减1。如果指向某个文件的链接数（即ls -l命令输出中跟在访问权限后面的那个数字）变为0，就表示该节点以及其指向的数据不再被使用，磁盘上的相应位置就会被标记为可用空间。</p>
+<p>文件被安排在目录中，目录中可能还包含子目录。这就构成了文件系统层次结构。如图：</p>
+<p><img alt="" src="../index_files/Linux_u6587_u4EF6_u5C42_u6B21_u7ED3_u6784.png" /></p>
+<h2 id="_2">文件和设备</h2>
+<p>硬件设备在Linux中通常也被表示（映射）为文件。例如，作为超级用户，你可以使用如下命令将IDE CD-ROM驱动器挂载为一个文件：</p>
+<pre><code># mount -t iso9660 /dev/hdc /mnt/cdrom
+# cd /mnt/cdrom
+</code></pre>
+
+<p>这个命令将CD-ROM设备中的当前内容挂载为/mnt/cdrom目录下的文件结构。然后，你就可以像往常一样浏览CD-ROM的目录，只不过其内容是只读的。</p>
+<hr />
+<p><strong>【my note】</strong></p>
+<p>我使用的是安装在虚拟机里的CentOS 7，挂载的方法是：先打开虚拟机设置-&gt;存储，把iso镜像添加成IDE，然后输入命令：</p>
+<pre><code># mkdir -p /mnt/cdrom
+# mount -t iso9660 /dev/cdrom /mnt/cdrom
+</code></pre>
+
+<p>卸载的命令是：</p>
+<pre><code># umount /mnt/cdrom
+</code></pre>
+
+<hr />
+<p>UNIX和Linux众比较重要的设备文件有3个：/dev/console、/dev/tty和/dev/null</p>
+<blockquote>
+<p>my note: 书上讲的概念性比较强，读到此处时还没能完全理解（除了/dev/null比较好理解），所以还是看书吧。</p>
+</blockquote>
+<p>设备被分为字符设备和块设备，两者的区别在于访问设备时是否需要一次读写一整块。比如硬盘就是一个块设备。</p>
+<h1 id="_3">系统调用和设备驱动程序</h1>
+<p>系统调用函数，由Linux直接提供，它们是通向操作系统本身的接口。</p>
+<p>操作系统的核心部分，即内核，是一组设备驱动程序。它们是一组对系统硬件进行控制的底层接口。</p>
+<p>下面是用于访问设备驱动程序的底层函数（系统调用）。</p>
+<ul>
+<li>
+<p>open：打开文件或设备。</p>
+</li>
+<li>
+<p>read：从打开的文件或设备里读数据。</p>
+</li>
+<li>
+<p>write：向文件或设备写数据。</p>
+</li>
+<li>
+<p>close：关闭文件或设备。</p>
+</li>
+<li>
+<p>ioctl：把控制信息传递给设备驱动程序。</p>
+</li>
+</ul>
+<p>系统调用ioctl用于提供一些与特定硬件设备有关的必要控制（与正常的输入输出相反），所以它的用法随设备的不同而不同。</p>
+<p>系统调用的文档一般放在手册页的第二节。</p>
+<h1 id="_4">库函数</h1>
+<p>针对输入输出操作直接使用底层系统调用的一个问题是它们的效率非常低。为什么呢？</p>
+<ul>
+<li>
+<p>使用系统调用会影响系统的性能。与函数调用相比，系统调用的开销要大些，因为在执行系统调用时，Linux必须从运行用户代码切换到执行内核代码，然后再返回用户代码。</p>
+</li>
+<li>
+<p>硬件会限制对底层系统调用一次所能读写的数据块大小。</p>
+</li>
+</ul>
+<p>为了给设备和磁盘文件提供更高层的接口，Linux发行版提供了一系列的标准库函数。你可以高效地写任意长度的数据块，库函数则在数据满足数据块长度要求时安排执行底层系统调用。这就极大降低了系统调用的开销。</p>
+<p>库函数的文档一般放在手册页的第三节。</p>
+<p>下图显示了Linux系统中各种文件函数与用户、设备驱动程序、内核和硬件之间的关系。</p>
+<p><img alt="" src="../index_files/Linux_u7CFB_u7EDF_u8C03_u7528.png" /></p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
