@@ -13,9 +13,9 @@ namespace utility
 
 void ParseParam(const char *str, std::vector<std::string> &result, const char *delim)
 {
-	static char temp[1024];
+	char *temp = (char*)malloc(strlen(str) + 1);
 	
-	strncpy(temp, str, sizeof(temp));
+	strncpy(temp, str, strlen(str) + 1);
 	result.clear();
 
 	char *token = strtok(temp, delim);
@@ -24,6 +24,8 @@ void ParseParam(const char *str, std::vector<std::string> &result, const char *d
 		result.push_back(token);
 		token = strtok(NULL, delim);
 	}
+
+	free(temp);
 }
 
 bool CopyFile(const char *src_file, const char *dest_file)
