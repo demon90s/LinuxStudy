@@ -11,6 +11,7 @@
 #include "StringTrans.h"
 #include "Alarm.h"
 #include "String.h"
+#include "Clock.h"
 
 using namespace utility;
 
@@ -22,7 +23,8 @@ int main(int argc, char* argv[])
 	//Test_ProcessFork();
 	//Test_StringTrans();
 	//Test_Alarm();
-	Test_String();
+	//Test_String();
+	Test_Clock();
 
 	exit(0);
 }
