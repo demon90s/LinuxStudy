@@ -3,7 +3,7 @@
 # 查找可执行命令所在的目录
 # 例子：findcmd gcc
 
-path=$(parsepath)
+path=$(./parsepath)
 cmd=$1
 
 if [ -z $cmd ]; then
