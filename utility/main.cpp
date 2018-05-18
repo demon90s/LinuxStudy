@@ -12,6 +12,8 @@
 #include "Alarm.h"
 #include "String.h"
 #include "Clock.h"
+#include "HeartBeat.h"
+#include "Timer.h"
 
 using namespace utility;
 
@@ -24,7 +26,9 @@ int main(int argc, char* argv[])
 	//Test_StringTrans();
 	//Test_Alarm();
 	//Test_String();
-	Test_Clock();
+	//Test_Clock();
+	//Test_HeartBeat();
+	Test_Timer();
 
 	exit(0);
 }
