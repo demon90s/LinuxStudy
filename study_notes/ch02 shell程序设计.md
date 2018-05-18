@@ -1,4 +1,8 @@
-# 为什么使用shell编程
+# 第二章 shell程序设计
+
+---
+
+## 为什么使用shell编程
 
 原因之一是，可以快速、简单地完成编程。而且最基本的Linux安装也会提供一个shell。
 
@@ -6,17 +10,17 @@ shell非常适合于编写一些执行相对简单的任务的小工具，因为
 
 使用shell可以使命令按照预定顺序执行。
 
-# 一点哲学
+## 一点哲学
 
 UNIX架构非常依赖于代码的高度可重用性。Linux提供了各种各样小巧而简单的工具，比如：
 
-```
+```bash
 $ ls -al | more
 ```
 
 通常可以将许多小巧的脚本程序组合起来以创建一个庞大而复杂的程序。
 
-# 什么是shell
+## 什么是shell
 
 shell是一个作为用户与Linux系统间接口的程序，它允许用户向操作系统输入需要执行的命令。
 
@@ -24,17 +28,17 @@ shell程序和其他程序环绕在Linux内核的四周。
 
 shell程序有很多种，在Linux系统中，标准shell是GNU工具集中的bash。使用如下命令查看bash的版本号：
 
-```
+```bash
 $ /bin/bash --version
 ```
 
-# 管道和重定向
+## 管道和重定向
 
-## 重定向输出
+### 重定向输出
 
 把Linux程序（不仅仅是shell程序）的输出保存到文件：
 
-```
+```bash
 $ ls -l > lsoutput.txt
 ```
 
@@ -44,7 +48,7 @@ $ ls -l > lsoutput.txt
 
 使用`>>`操作符将输出内容附加到一个文件的尾部。例如：
 
-```
+```bash
 $ ps >> lsoutput.txt
 ```
 
@@ -52,13 +56,13 @@ $ ps >> lsoutput.txt
 
 下面的命令将把标准输出和标准错误输出分别重定向到不同的文件中：
 
-```
+```bash
 $ kill -HUP 1234 >killout.txt 2>killerr.txt
 ```
 
 如果想把两组输出都重定向到一个文件中，可以使用`>&`操作符来结合两个输出，如：
 
-```
+```bash
 $ kill -HUP 1234 >killout.txt 2>&1
 ```
 
@@ -66,45 +70,45 @@ $ kill -HUP 1234 >killout.txt 2>&1
 
 这样可以丢弃所有的输出信息：
 
-```
+```bash
 $ kill -HUP 1234 >/dev/null 2>&1
 ```
 
 /dev/null是Linux通用的“回收站”。
 
-## 重定向输入
+### 重定向输入
 
 使用`<`操作符，如：
 
-```
+```bash
 $ more < killout.txt
 ```
 
 但这样做意义不大，因为more命令可以接受文件名作为参数。
 
-## 管道
+### 管道
 
 可以用管道操作符|来连接进程。Linux下通过管道连接的进程可以同时运行，并且随着数据流在它们之间的传递可以自动地进行协调。
 
 举一个列子，可以使用sort命令对ps命令的输出进行排序：
 
-```
+```bash
 $ ps | sort
 ```
 
 如果有一系列的命令需要执行，相应的输出文件是在这一组命令被创建的同时立刻被创建或写入的，所以决不要在命令流中重复使用相同的文件名。比如：
 
-```
+```bash
 cat mydata.txt | sort > mydata.txt
 ```
 
 最终将得到一个空文件，因为在读取文件mydata.txt之前就已经覆盖了这个文件的内容。
 
-# 作为程序设计语言的shell
+## 作为程序设计语言的shell
 
 编写shell脚本程序有两种方式：输入一系列命令让shell交互地执行他们；把这些命令保存到一个文件中，然后将该文件作为一个程序来调用。
 
-## 交互式程序
+### 交互式程序
 
 即在命令行上直接输入shell脚本。当shell期待进一步的输入时，正常的$shell提示符将改变为>提示符，由shell来判断何时输入完毕并立即执行脚本程序。
 
@@ -124,21 +128,21 @@ grep -l找到当前路径下包含POSIX字符串的文件，more命令将文件
 
 扩展的花括号{}允许将任意字符串放在一个集合中，以供shell进行扩展，比如：
 
-```
+```bash
 $ ls my_{finger,toe}s
 ```
 
 将列出文件my_fingers和my_toes。
 
-## 创建脚本
+### 创建脚本
 
 一个简单的模板（见first.sh）：
 
-```
+```bash
 #! /bin/bash
 
-# filename: ...
-# description: ...
+## filename: ...
+## description: ...
 
 shell语句
 
@@ -155,24 +159,24 @@ exit命令的作用是确保脚本程序能够返回一个有意义的退出码�
 
 Linux很少利用文件扩展名来决定文件的类型，可以为脚本使用.sh或其他扩展名，但shell并不关心这一点。大多数预安装的脚本程序并没有使用任何文件扩展名。检查文件是否是脚本程序的最好方法是使用file命令，如：`file first.sh`。
 
-## 把脚本设置为可执行
+### 把脚本设置为可执行
 
 运行脚本程序的方法是：
 
-```
+```bash
 $ sh fist.sh
 ```
 
 也可以只输入脚本名字就运行程序，这需要给脚本文件加上可执行权限：
 
-```
+```bash
 $ chmod +x first.sh
 $ ./fist.sh
 ```
 
-# shell的语法
+## shell的语法
 
-## 变量
+### 变量
 
 在shell里，使用变量之前无需为它们做出声明，通过使用它们（比如给它们赋初值时）来创建它们。
 
@@ -182,7 +186,7 @@ $ ./fist.sh
 
 在变量名前加一个$符号来访问它的内容。比如：
 
-```
+```bash
 $ salutation=Hello
 $ echo $salutation
 ```
@@ -191,7 +195,7 @@ $ echo $salutation
 
 使用read命令将用户的输入赋值给一个变量，通常情况下，在用户按下回车键时，read命令结束。如：
 
-```
+```bash
 $ read a
 hello world
 $ echo $a
@@ -230,7 +234,7 @@ hello world
 |`$*`, `$@`|列出所有的参数，更推荐使用`$@`，因为`$*`会根据$IFS进行分隔|
 |`$1`, `$2`, ...|第n个参数|
 
-## 条件
+### 条件
 
 一个shell脚本能够对任何可以从命令行上调用的命令的退出码进行测试。
 
@@ -242,7 +246,7 @@ hello world
 
 一个用户检查文件是否存在的例子：
 
-```
+```bash
 if test -f fred.c
 then
 ...
@@ -251,7 +255,7 @@ fi
 
 或者写成：
 
-```
+```bash
 if [ -f fred.c ]
 then
 ...
@@ -286,13 +290,13 @@ test命令可以使用的条件类型可以归为3类：字符串比较、算术
 
 test命令是bash的内置命令，使用help test命令可以获得test命令的详细信息（或者man test）。
 
-## 控制结构
+### 控制结构
 
 **if语句**
 
 它对某个命令的执行结果进行测试，然后根据测试结果有条件地执行一组语句。如：
 
-```
+```bash
 if condition
 then
     statements
@@ -310,7 +314,7 @@ fi
 
 简单语法是：
 
-```
+```bash
 for variable in values
 do
     statements
@@ -321,7 +325,7 @@ done
 
 如果需要重复执行一个命令序列，但事先又不知道这个命令序列应该执行的次数，你通常会使用一个while循环，它的语法如下：
 
-```
+```bash
 while condition
 do
     statements
@@ -332,7 +336,7 @@ done
 
 语法如下：
 
-```
+```bash
 until condition
 do
     statements
@@ -345,7 +349,7 @@ done
 
 语法如下：
 
-```
+```bash
 case variable in
     partion [ | pattern] ...) statements;;
     partion [ | pattern] ...) statements;;
@@ -367,7 +371,7 @@ AND和OR专门用于处理命令列表。
 
 AND列表结构允许你按照这样的方式执行一系列命令，只有在前面的所有命令执行成功的情况下，才执行后一条命令：
 
-```
+```bash
 statement1 && statement2 && statement3
 ```
 
@@ -377,7 +381,7 @@ statement1 && statement2 && statement3
 
 OR列表结构允许我们执行一系列命令直到有一条命令成功为止，其后的命令将不再被执行：
 
-```
+```bash
 statement1 || statement2 || statement3
 ```
 
@@ -385,7 +389,7 @@ statement1 || statement2 || statement3
 
 还可以把这两种结构结合在一起，比如：
 
-```
+```bash
 [ -f file ] && cmd1 || cmd2
 ```
 
@@ -395,11 +399,11 @@ statement1 || statement2 || statement3
 
 如果想在某些只允许使用单个语句的地方使用多条语句，你可以把它们括在花括号中来构造一个语句块。
 
-## 函数
+### 函数
 
 定义一个函数的语法如下：
 
-```
+```bash
 function_name() {
     statements
 }
@@ -411,7 +415,7 @@ function_name() {
 
 可以通过return命令让函数返回数字值。如果想让函数返回字符串，可以让函数将字符串保存在一个变量中，该变量然后可以在函数结束之后使用。或者可以echo一个字符串并捕获其结果。如：
 
-```
+```bash
 foo() { echo JAY; }
 ...
 result = "$(foo)"
@@ -421,7 +425,7 @@ result = "$(foo)"
 
 可以使用local关键字在shell函数中声明局部变量，使其仅在函数内有效。函数可以访问全局作用范围内的其他shell变量。
 
-## here文档
+### here文档
 
 在shell脚本程序中向一条命令传递输入的一种特殊方法是使用here文档。它允许一条命令在获得输入数据时就好像是在读取一个文件或键盘一样，而实际上是从脚本程序中得到输入数据。
 
