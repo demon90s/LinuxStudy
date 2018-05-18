@@ -13,15 +13,10 @@ pages:
   - Chapters:
     - ch01 入门: ch01 入门.md
     - ch02 shell程序设计: ch02 shell程序设计.md
-    - ch03 文件操作:
-      - 文件操作1: ch03 文件操作_1.md
-      - 文件操作2: ch03 文件操作_2.md
+    - ch03 文件操作: ch03 文件操作.md
     - ch08 MySQL: ch08 MySQL.md
     - ch11 进程和信号: ch11 进程和信号.md
-    - ch15 套接字:
-      - 套接字1: ch15 套接字_1.md
-      - 套接字2: ch15 套接字_2.md
-      - 套接字3: ch15 套接字_3.md
+    - ch15 套接字: ch15 套接字.md
 
 theme:
   name: 'material'

@@ -1,3 +1,5 @@
+# 第八章 MySQL
+
 MySQL是一种关系型数据库管理系统（RDBMS，Relation Database Management System）。
 
 MySQL是开源的。
@@ -6,23 +8,25 @@ MySQL是开源的。
 
 MySQL读如"my sequel"。
 
-# 安装
+---
+
+## 安装
 
 CentOS 7已经安装好了MySQL，启动的命令是：
 
-```
+```bash
 $ systemctl start mariadb.service
 $ mysql
 ```
 
 其他安装方法见书本。
 
-## 安装后的配置
+### 安装后的配置
 
 安装完后，输入：
 
-```
-mysql -u root mysql
+```bash
+$ mysql -u root mysql
 ```
 
 如果进入到MySQL控制台，就表示服务器正在运行。输入\s可得到更多关于服务器的信息。输入quit或\q退出控制台。
@@ -31,23 +35,23 @@ mysql -u root mysql
 
 使用mysqladmin命令查看正在运行的服务器状态以及服务器的版本号：
 
-```
-mysqladmin -u root version
+```bash
+$ mysqladmin -u root version
 ```
 
 输出正在运行的服务器中所有的配置选项：
 
-```
-mysqladmin variables -u root
+```bash
+$ mysqladmin variables -u root
 ```
 
 其中有几个特别有用的变量：
 
-- datadir，表示MySQL在哪里存储它的数据。
+- datadir，表示MySQL在哪里存储它的数据。
 
-- have_innodb，通常是YES，表明MySQL服务器支持InnoDB存储引擎。
+- have_innodb，通常是YES，表明MySQL服务器支持InnoDB存储引擎。
 
-- default_storage_engine，当前MySQL服务器使用的存储引擎。
+- default_storage_engine，当前MySQL服务器使用的存储引擎。
 
 为了把InnoDB设置成默认存储引擎，需要修改MySQL服务器配置文件，在mysqld一节中添加：
 
@@ -63,20 +67,20 @@ MySQL的root用户和系统的root用户毫无关系。MySQL只不过默认使�
 
 一个最简单的设置密码的命令：
 
-```
+```bash
 $ mysqladmin -u root password newpassword
 ```
 
 或者：
 
-```
+```bash
 $ mysql -u root
 mysql> SET password=PASSWORD('newpassword');
 ```
 
 如果想删除密码，则可以：
 
-```
+```bash
 mysql> SET password=PASSWORD('');
 ```
 
@@ -86,13 +90,13 @@ SQL关键字不区分大小写，但使用大写可以便于阅读。
 
 设置了密码的用户，必须提供密码参数才能登陆MySQL客户端程序：
 
-```
+```bash
 $ mysql -u root -p
 ```
 
 **检查权限表确认密码设置**
 
-```
+```bash
 mysql> use mysql
 mysql> SELECT user, host, password FROM user;
 ```
@@ -107,7 +111,7 @@ MySQL不仅能为用户保存不同的权限，也能为基于主机名的连接
 
 为ldw创建一个本地登录：
 
-```
+```bash
 mysql> GRANT ALL ON *.* TO ldw@localhost IDENTIFIED BY '123456';
 mysql> SELECT user, host, password FROM mysql.user;
 ```
@@ -116,7 +120,7 @@ IDENTIFIED BY是一个用于设定初始密码的语法。
 
 `*.*`给予了用户非常广泛的权限。
 
-## 安装后的故障修复
+### 安装后的故障修复
 
 如果连接mysql失败，可使用ps命令检查服务器进程是否正在运行：`ps aux | grep mysql`
 
@@ -124,16 +128,16 @@ IDENTIFIED BY是一个用于设定初始密码的语法。
 
 其它的方法见书本。
 
-# MySQL管理
+## MySQL管理
 
 包含在MySQL发行版中的一些有用的工具程序使管理工作变得容易。
 
-## 命令
+### 命令
 
 除了mysqlshow命令外，所有的MySQL命令都接受如下3个标准参数：
 
 |命令选项|参数|说明|
-|-|-|
+|-|-|-|
 |-u|用户名|指定一个用户名作为MySQL的用户名，默认情况下，mysql工具会尝试把当前的Linux用户名作为MySQL用户名|
 |-p|[密码]|如果给出了-p参数但是未提供密码，系统会提示输入密码。若没给-p参数，MySQL命令假设不需要密码|
 |-h|主机名|用于连接位于不同主机上的服务器。对于本地服务器，总是可以省略|
@@ -144,13 +148,13 @@ IDENTIFIED BY是一个用于设定初始密码的语法。
 
 默认使用数据库foo来启动控制台（客户端）的命令如：
 
-```
+```bash
 $ mysql -u ldw -p foo
 ```
 
 通过非交互模式运行mysql：
 
-```
+```bash
 $ mysql -u ldw --password=123456 foo < sqlcmd.sql
 ```
 
@@ -209,7 +213,7 @@ mysqldump命令对于迁移数据或快速备份非常有用。
 
 一个转储数据库的例子：
 
-```
+```bash
 $ mysqldump -u ldw -p123456 > foo_bak.dump
 ```
 
@@ -221,15 +225,15 @@ mysqlimport命令用于批量将数据导入到一个表中。
 
 这个小工具能够让你快速了解MySQL安装及其组成数据库的信息。
 
-- 不提供参数，列出所有可用的数据库。
+- 不提供参数，列出所有可用的数据库。
 
-- 以一个数据库为参数，列出该数据库中的表。
+- 以一个数据库为参数，列出该数据库中的表。
 
-- 以数据库和表名为参数，列出表的列。
+- 以数据库和表名为参数，列出表的列。
 
-- 以数据库、表和列为参数，列出指定列的详细信息。
+- 以数据库、表和列为参数，列出指定列的详细信息。
 
-## 创建用户并赋予权限
+### 创建用户并赋予权限
 
 MySQL管理员最常见的工作就是维护用户信息——在MySQL中添加和删除用户并管理他们的权限。
 
@@ -239,7 +243,7 @@ MySQL管理员最常见的工作就是维护用户信息——在MySQL中添加�
 
 MySQL的grant命令几乎完全遵循SQL92的语法。其常规格式是：
 
-```
+```bash
 grant <privilege> on <object> to <user> [identified by user-password] [with grant option];
 ```
 
@@ -255,7 +259,7 @@ grant <privilege> on <object> to <user> [identified by user-password] [
 
 创建一个可以从任何主机进行连接的用户：
 
-```
+```bash
 mysql> GRANT ALL ON foo.* TO ldw@'%' IDENTIFIED BY '123456';
 ```
 
@@ -269,13 +273,13 @@ revoke <a_privilege> on <an_object> from <a_user>
 
 如：
 
-```
+```bash
 mysql> REVOKE INSERT ON foo.* FROM rick@'%';
 ```
 
 revoke命令不能删除用户，如果要完全删除一个用户，不要只是修改他们的权限，而应用revoke来删除他们的权限。然后，切换到mysql数据库，通过从user表中删除相应的行来完全删除一个用户：
 
-```
+```bash
 mysql> use mysql
 mysql> DELETE FROM USER WHERE user = "ldw";
 mysql> FLUSH PRIVILEGES;
@@ -283,31 +287,31 @@ mysql> FLUSH PRIVILEGES;
 
 FLUSH PRIVILEGES告诉服务器，需要重载权限表。
 
-## 密码
+### 密码
 
 如果想为尚未拥有密码的用户指定密码，或者希望改变自己或别人的密码，你就需要以root用户身份连接到MySQL服务器，然后直接更新用户信息。例如：
 
-```
+```bash
 mysql> use mysql
 mysql> UPDATE user SET password = password('bar') WHERE user = 'ldw';
 mysql> FLUSH PRIVILEGES;
 ```
 
-## 创建数据库
+### 创建数据库
 
 创建一个数据库的命令可以是：
 
-```
+```bash
 mysql> CREATE DATABASE test;
 ```
 
-## 数据类型
+### 数据类型
 
 MySQL的数据类型非常标准，书本里只做了简要的浏览，MySQL网站上的MySQL手册对此进行了更为详细的讨论。
 
 见书本。
 
-## 创建表
+### 创建表
 
 一个数据库表非常像电子表格，除了每行都必须包含相同数目和类型的列，而且每行必须以某种方式不同于表中的其他行。
 
@@ -315,27 +319,27 @@ MySQL的数据类型非常标准，书本里只做了简要的浏览，MySQL网�
 
 见书本。
 
-## 图形化工具
+### 图形化工具
 
 我使用工作上用的navicat, 其它工具见书本。
 
-# 使用C语言访问MySQL数据库
+## 使用C语言访问MySQL数据库
 
 可以使用许多不同的编程语言来访问MySQL，比如C, C++, PHP, Python。在此讨论C语言的接口。
 
-## 连接例程
+### 连接例程
 
 见connect1.c。
 
 用C语言连接MySQL数据库包含两个步骤：
 
-- 初始化一个连接句柄结构；
+- 初始化一个连接句柄结构；
 
-- 实际进行连接。
+- 实际进行连接。
 
 使用mysql_init来初始化连接句柄：
 
-```
+```c
 #include <mysql.h>
 MYSQL *mysql_init(MYSQL *);
 ```
@@ -344,7 +348,7 @@ MYSQL *mysql_init(MYSQL *);
 
 使用mysql_real_connect来向一个连接提供参数：
 
-```
+```c
 MYSQL *mysql_real_connect(MYSQL *connection,
     const char *server_host,
     const char *sql_user_name,
@@ -363,7 +367,7 @@ flag参数默认填0即可，对于介绍性的章节来说，没什么用。
 
 使用完连接之后，通常在程序退出时，调用mysql_close关闭连接：
 
-```
+```c
 void mysql_close(MYSQL *connection);
 ```
 
@@ -371,13 +375,13 @@ void mysql_close(MYSQL *connection);
 
 mysql_options仅能在mysql_init和mysql_real_connect之间调用，可以设置一些选项。见书本。
 
-## 错误处理
+### 错误处理
 
 见connect2.c。
 
 MySQL使用一系列由连接句柄结构报告的返回码。两个必备的例程是：
 
-```
+```c
 unsigned int mysql_errno(MYSQL *connection);
 char *mysql_error(MYSQL *connection);
 ```
@@ -386,13 +390,13 @@ mysql_errno获得错误码，如果未设定错误，它将返回0。因为每�
 
 mysql_error获得文本错误信息，这些信息被写入一些内部静态内存空间中，如果想保存错误文本，需要把它复制到别的地方。
 
-## 执行SQL语句
+### 执行SQL语句
 
 见insert1.c。
 
 执行SQL语句的主要API函数为：
 
-```
+```c
 int mysql_query(MYSQL *connection, const char *query);
 ```
 
@@ -400,7 +404,7 @@ query是字符串形式的有效SQL语句（没有结束的分号）。如果成
 
 用于检测受影响的行数的函数：
 
-```
+```c
 my_ulonglong mysql_affected_rows(MYSQL *connection);
 ```
 
@@ -416,7 +420,7 @@ my_ulonglong mysql_affected_rows(MYSQL *connection);
 
 MySQL提供了LAST_INSERT_ID()函数，无论何时MySQL向AUTO_INCREMENT列中插入数据，MySQL都会基于每个用户对最后分配的值进行跟踪。用户可以这样发现该值：
 
-```
+```c
 mysql> SELECT LAST_INSERT_ID();
 ```
 
@@ -424,19 +428,19 @@ mysql> SELECT LAST_INSERT_ID();
 
 **返回数据的语句**
 
-见select*.c。
+见select\*.c。
 
 数据是使用SELECT语句提取的。
 
 在C应用程序中提取数据一般需要下面4个步骤：
 
-- 执行查询；
+- 执行查询；
 
-- 提取数据；
+- 提取数据；
 
-- 处理数据；
+- 处理数据；
 
-- 必要的清理工作。
+- 必要的清理工作。
 
 使用完mysql_qurey发送SQL语句后，使用mysql_store_result或mysql_use_result来提取数据。接着使用一系列mysql_fetch_row调用来处理数据。最后使用mysql_free_result释放查询占用的内存资源。
 
@@ -444,7 +448,7 @@ mysql> SELECT LAST_INSERT_ID();
 
 可以使用mysql_store_result在一次调用中从SELECT中提取所有数据：
 
-```
+```c
 MYSQL_RES *mysql_store_result(MYSQL *connection);
 ```
 
@@ -452,7 +456,7 @@ MYSQL_RES *mysql_store_result(MYSQL *connection);
 
 mysql_num_rows返回记录的数据，如果没有返回行，这个值将是0。
 
-```
+```c
 my_ulonglong mysql_num_rows(MYSQL_RES *result);
 ```
 
@@ -460,13 +464,13 @@ my_ulonglong mysql_num_rows(MYSQL_RES *result);
 
 mysql_fetch_row: 这个函数从结果集中提取一行数据，并把它放到一个行结构中。当数据用完或发生错误时返回NULL。
 
-```
+```c
 MYSQL_ROW mysql_fetch_row(MYSQL_RES *result);
 ```
 
 在完成了对结果集的操作后，必须总是调用mysql_free_result函数来让MySQL库清理它分配的对象：
 
-```
+```c
 void mysql_free_result(MYSQL_RES *result);
 ```
 
@@ -474,7 +478,7 @@ void mysql_free_result(MYSQL_RES *result);
 
 依靠mysql_use_result可以逐行提取数据：
 
-```
+```c
 MYSQL_RES *mysql_use_result(MYSQL *connection);
 ```
 
@@ -486,24 +490,24 @@ mysql_use_result在遇到错误时返回NULL。如果成功，返回指向结果
 
 MySQL返回两种类型的数据：
 
-- 列数据，即从表中提取的信息
+- 列数据，即从表中提取的信息
 
-- 元数据（matadata），如列名和类型
+- 元数据（matadata），如列名和类型
 
 mysql_field_count函数返回结果集中的字段（列）数目：
 
-```
+```c
 unsigned int mysql_field_count(MYSQL *connection);
 ```
 
 使用mysql_fetch_field函数可以将元数据和数据提取到一个新的结构中：
 
-```
+```c
 MYSQL_FIELD *mysql_fetch_field(MYSQL_RES *result);
 ```
 
 此函数需要重复调用，直到返回表示数据结束的NULL值为止。MYSQL_FIELD包含了关于列的信息。见书本。
 
-## 更多的函数
+### 更多的函数
 
 见书本。
