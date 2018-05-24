@@ -12,7 +12,13 @@ MySQL读如"my sequel"。
 
 ## 安装
 
-CentOS 7已经安装好了MySQL，启动的命令是：
+CentOS 7已经安装好了MySQL，如果没有安装，则使用下面命令安装：
+
+```bash
+$ yum install mariadb-server mariadb
+```
+
+启动的命令是：
 
 ```bash
 $ systemctl start mariadb.service
