@@ -24,5 +24,24 @@ mysql> SET password=PASSWORD('your_password');
 
 # 去除用户密码
 mysql> SET password=PASSWORD('');
+
+# 创建用户ldw并赋予广泛的权限
+mysql> GRANT ALL ON foo.* TO ldw@'%' IDENTIFIED BY '123456';
 ```
 
+## MySQL操作
+
+```bash
+# 通过非交互模式运行mysql
+$ mysql -u ldw --password=123456 foo < sqlcmd.sql
+$ mysql -uroot -p123456 foo -e 'SELECT * FROM boo'
+
+# 转储数据库
+$ mysqldump -u ldw -p123456 > foo_bak.dump
+
+# 创建一个数据库
+mysql> CREATE DATABASE test;
+
+# 查看所有数据库
+mysql > SHOW DATABASES;
+```
