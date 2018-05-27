@@ -17,6 +17,8 @@ pages:
     - ch08 MySQL: ch08 MySQL.md
     - ch11 进程和信号: ch11 进程和信号.md
     - ch15 套接字: ch15 套接字.md
+  - CheatSheet:
+    - MySQL操作: cheatsheet/MySQL操作.md
 
 theme:
   name: 'material'
