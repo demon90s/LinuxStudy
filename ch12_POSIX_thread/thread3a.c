@@ -1,5 +1,6 @@
 /*
  * 一个线程信号量（p424）
+ * 一个细微错误的例子，由于增加了多次信号量导致字符统计线程反复统计多次
  */
 
 #include <stdio.h>
@@ -35,7 +36,13 @@ int main(int argc, char* argv[])
 
 	printf("Input some text, Enter 'end' to finish\n");
 	while (strncmp("end", work_area, 3) != 0) {
-		fgets(work_area, WORK_SIZE, stdin);
+		if (strncmp("FAST", work_area, 4) == 0) { // 出于演示目的而人为制造的问题
+			sem_post(&bin_sem);
+			strcpy(work_area, "Wheeee...");
+		}
+		else {
+			fgets(work_area, WORK_SIZE, stdin);
+		}
 		sem_post(&bin_sem);
 	}
 	printf("\nWaiting for thread to finish...\n");
@@ -57,7 +64,7 @@ void *thread_function(void *arg)
 {
 	sem_wait(&bin_sem);
 	while (strncmp("end", work_area, 3) != 0) {
-		printf("You input %lu characters\n", strlen(work_area) - 1);
+		printf("You input %lu characters: %s\n", strlen(work_area) - 1, work_area);
 		sem_wait(&bin_sem);
 	}
 	pthread_exit(NULL);
