@@ -38,6 +38,10 @@ private:
 	struct TimerItem
 	{
 		TimerItem(long long _trigger_ms_time, Callback _callback) : trigger_ms_time(_trigger_ms_time), callback(_callback) {}
+		bool operator<(const TimerItem &rhs) const
+		{
+			return trigger_ms_time < rhs.trigger_ms_time;
+		}
 
 		long long trigger_ms_time;
 		Callback callback;

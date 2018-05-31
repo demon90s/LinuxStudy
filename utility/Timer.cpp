@@ -10,15 +10,22 @@ void Test_Timer()
 	class BooCallback : public ITimerCallback
 	{
 	public:
+		BooCallback(int id) : m_id(id) {}
+
 		void OnTimer() override
 		{
-			std::cout << "BooCallback OnTimer" << std::endl;
+			std::cout << "BooCallback OnTimer, id: " << m_id << std::endl;
 		}
+	private:
+		int m_id;
 	};
 
 	Timer timer;
-	std::shared_ptr<ITimerCallback> callback(new BooCallback);
-	timer.CreateTimerItem(2000, callback);
+	std::shared_ptr<ITimerCallback> callback1(new BooCallback(1));
+	timer.CreateTimerItem(2000, callback1);
+
+	std::shared_ptr<ITimerCallback> callback2(new BooCallback(2));
+	timer.CreateTimerItem(1000, callback2);
 
 	HeartBeat heart_beat(10); // 10ms 心跳检测一次
 	heart_beat.Register(&timer, &Timer::Check);
@@ -45,6 +52,8 @@ void Timer::Check()
 void Timer::CreateTimerItem(long long cd_ms, std::shared_ptr<ITimerCallback> callback)
 {
 	m_timer_item_list.push_back({m_clock.MsTime() + cd_ms, callback});
+
+	m_timer_item_list.sort();
 }
 
 }
