@@ -20,6 +20,7 @@ pages:
     - ch15 套接字: ch15 套接字.md
   - CheatSheet:
     - MySQL操作: cheatsheet/MySQL操作.md
+    - 用echo输出带颜色的文本: cheatsheet/用echo输出带颜色的文本.md
 
 theme:
   name: 'material'
