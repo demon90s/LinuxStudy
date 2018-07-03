@@ -1,247 +1,892 @@
+
+
+
+
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Beginning Linux Programming Note">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.3">
+    
+    
+      
+        <title>ch08 MySQL - 《Linux程序设计》学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.8d40d89b.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.6079476c.css">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700|Open+Sans+Mono">
+        <style>body,input{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Open Sans Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue-grey" data-md-color-accent="light-blue">
+  
+    <svg class="md-svg">
+      <defs>
         
         
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
         
-        <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>ch08 MySQL - Linux程序设计学习笔记</title>
-        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="../css/highlight.css">
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
-        <script src="../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../js/highlight.pack.js"></script> 
-    </head>
-
-    <body>
-
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="..">Linux程序设计学习笔记</a>
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <a href="#mysql" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="《Linux程序设计》学习笔记" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">school</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                《Linux程序设计》学习笔记
+              </span>
+              <span class="md-header-nav__topic">
+                ch08 MySQL
+              </span>
+            
+          
         </div>
-
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                    <li >
-                        <a href="..">Home</a>
-                    </li>
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chapters <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
-<li >
-    <a href="../ch01%20%E5%85%A5%E9%97%A8/">ch01 入门</a>
-</li>
-                            
-<li >
-    <a href="../ch02%20shell%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">ch02 shell程序设计</a>
-</li>
-                            
-  <li class="dropdown-submenu">
-    <a href="#">ch03 文件操作</a>
-    <ul class="dropdown-menu">
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
             
-<li >
-    <a href="../ch03%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C_1/">文件操作1</a>
-</li>
-            
-<li >
-    <a href="../ch03%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C_2/">文件操作2</a>
-</li>
-    </ul>
-  </li>
-                            
-<li class="active">
-    <a href="./">ch08 MySQL</a>
-</li>
-                            
-  <li class="dropdown-submenu">
-    <a href="#">ch15 套接字</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../ch15%20%E5%A5%97%E6%8E%A5%E5%AD%97_1/">套接字1</a>
-</li>
-            
-<li >
-    <a href="../ch15%20%E5%A5%97%E6%8E%A5%E5%AD%97_2/">套接字2</a>
-</li>
-            
-<li >
-    <a href="../ch15%20%E5%A5%97%E6%8E%A5%E5%AD%97_3/">套接字3</a>
-</li>
-    </ul>
-  </li>
-                        </ul>
-                    </li>
-                </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
-                    <li >
-                        <a rel="next" href="../ch03%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C_2/">
-                            <i class="fa fa-arrow-left"></i> Previous
-                        </a>
-                    </li>
-                    <li >
-                        <a rel="prev" href="../ch15%20%E5%A5%97%E6%8E%A5%E5%AD%97_1/">
-                            Next <i class="fa fa-arrow-right"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
-                    </li>
-            </ul>
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
         </div>
+      </div>
     </div>
+  </div>
 </div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
 
-        <div class="container">
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#_1">安装</a></li>
-            <li><a href="#_2">安装后的配置</a></li>
-            <li><a href="#_3">安装后的故障修复</a></li>
-        <li class="main "><a href="#mysql">MySQL管理</a></li>
-            <li><a href="#_4">命令</a></li>
-            <li><a href="#_5">创建用户并赋予权限</a></li>
-            <li><a href="#_6">密码</a></li>
-            <li><a href="#_7">创建数据库</a></li>
-            <li><a href="#_8">数据类型</a></li>
-            <li><a href="#_9">创建表</a></li>
-            <li><a href="#_10">图形化工具</a></li>
-        <li class="main "><a href="#cmysql">使用C语言访问MySQL数据库</a></li>
-            <li><a href="#_11">连接例程</a></li>
-            <li><a href="#_12">错误处理</a></li>
-            <li><a href="#sql">执行SQL语句</a></li>
-            <li><a href="#_13">更多的函数</a></li>
+
+  
+
+
+  <a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon">school</i>
+      
+    </span>
+    《Linux程序设计》学习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Chapters
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Chapters
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch01%20%E5%85%A5%E9%97%A8/" title="ch01 入门" class="md-nav__link">
+      ch01 入门
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch02%20shell%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" title="ch02 shell程序设计" class="md-nav__link">
+      ch02 shell程序设计
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch03%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" title="ch03 文件操作" class="md-nav__link">
+      ch03 文件操作
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        ch08 MySQL
+      </label>
+    
+    <a href="./" title="ch08 MySQL" class="md-nav__link md-nav__link--active">
+      ch08 MySQL
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="安装" class="md-nav__link">
+    安装
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="安装后的配置" class="md-nav__link">
+    安装后的配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="安装后的故障修复" class="md-nav__link">
+    安装后的故障修复
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql_1" title="MySQL管理" class="md-nav__link">
+    MySQL管理
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="命令" class="md-nav__link">
+    命令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="创建用户并赋予权限" class="md-nav__link">
+    创建用户并赋予权限
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="密码" class="md-nav__link">
+    密码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="创建数据库" class="md-nav__link">
+    创建数据库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="数据类型" class="md-nav__link">
+    数据类型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="创建表" class="md-nav__link">
+    创建表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="图形化工具" class="md-nav__link">
+    图形化工具
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmysql" title="使用C语言访问MySQL数据库" class="md-nav__link">
+    使用C语言访问MySQL数据库
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="连接例程" class="md-nav__link">
+    连接例程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="错误处理" class="md-nav__link">
+    错误处理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql" title="执行SQL语句" class="md-nav__link">
+    执行SQL语句
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="更多的函数" class="md-nav__link">
+    更多的函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
     </ul>
-</div></div>
-                <div class="col-md-9" role="main">
+  
+</nav>
+    
+  </li>
 
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch11%20%E8%BF%9B%E7%A8%8B%E5%92%8C%E4%BF%A1%E5%8F%B7/" title="ch11 进程和信号" class="md-nav__link">
+      ch11 进程和信号
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch12%20POSIX%E7%BA%BF%E7%A8%8B/" title="ch12 POSIX线程" class="md-nav__link">
+      ch12 POSIX线程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch15%20%E5%A5%97%E6%8E%A5%E5%AD%97/" title="ch15 套接字" class="md-nav__link">
+      ch15 套接字
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      CheatSheet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        CheatSheet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/MySQL%E6%93%8D%E4%BD%9C/" title="MySQL操作" class="md-nav__link">
+      MySQL操作
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/%E7%94%A8echo%E8%BE%93%E5%87%BA%E5%B8%A6%E9%A2%9C%E8%89%B2%E7%9A%84%E6%96%87%E6%9C%AC/" title="用echo输出带颜色的文本" class="md-nav__link">
+      用echo输出带颜色的文本
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/%E8%AE%A9%E8%BF%9B%E7%A8%8B%E5%9C%A8%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C/" title="让进程在后台运行" class="md-nav__link">
+      让进程在后台运行
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="安装" class="md-nav__link">
+    安装
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="安装后的配置" class="md-nav__link">
+    安装后的配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="安装后的故障修复" class="md-nav__link">
+    安装后的故障修复
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql_1" title="MySQL管理" class="md-nav__link">
+    MySQL管理
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="命令" class="md-nav__link">
+    命令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="创建用户并赋予权限" class="md-nav__link">
+    创建用户并赋予权限
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="密码" class="md-nav__link">
+    密码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="创建数据库" class="md-nav__link">
+    创建数据库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="数据类型" class="md-nav__link">
+    数据类型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="创建表" class="md-nav__link">
+    创建表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="图形化工具" class="md-nav__link">
+    图形化工具
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmysql" title="使用C语言访问MySQL数据库" class="md-nav__link">
+    使用C语言访问MySQL数据库
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="连接例程" class="md-nav__link">
+    连接例程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="错误处理" class="md-nav__link">
+    错误处理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql" title="执行SQL语句" class="md-nav__link">
+    执行SQL语句
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="更多的函数" class="md-nav__link">
+    更多的函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/tree/master/study_notes/ch08 MySQL.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="mysql">第八章 MySQL</h1>
 <p>MySQL是一种关系型数据库管理系统（RDBMS，Relation Database Management System）。</p>
 <p>MySQL是开源的。</p>
 <p>虽然MySQL在许多场合下的使用是遵循GPL的，但是也有许多场合下必须购买它的商业许可证才能使用它。</p>
 <p>MySQL读如"my sequel"。</p>
-<h1 id="_1">安装</h1>
-<p>CentOS 7已经安装好了MySQL，启动的命令是：</p>
-<pre><code>$ systemctl start mariadb.service
+<hr />
+<h2 id="_1">安装</h2>
+<p>CentOS 7已经安装好了MySQL，如果没有安装，则使用下面命令安装：</p>
+<div class="codehilite"><pre><span></span>$ yum install mariadb-server mariadb
+</pre></div>
+
+
+<p>启动的命令是：</p>
+<div class="codehilite"><pre><span></span>$ systemctl start mariadb.service
 $ mysql
-</code></pre>
+</pre></div>
+
 
 <p>其他安装方法见书本。</p>
-<h2 id="_2">安装后的配置</h2>
+<h3 id="_2">安装后的配置</h3>
 <p>安装完后，输入：</p>
-<pre><code>mysql -u root mysql
-</code></pre>
+<div class="codehilite"><pre><span></span>$ mysql -u root mysql
+</pre></div>
+
 
 <p>如果进入到MySQL控制台，就表示服务器正在运行。输入\s可得到更多关于服务器的信息。输入quit或\q退出控制台。</p>
 <p>使用命令<code>mysql -?</code>可以获得更多有关服务器的信息，此命令的输出中，有一条<code>Default options are read from the following files in the given order:</code>，它告诉你在哪里可以找到配置文件，此配置文件用于配置MySQL服务器，通常是<code>/etc/my.cnf</code>。</p>
 <p>使用mysqladmin命令查看正在运行的服务器状态以及服务器的版本号：</p>
-<pre><code>mysqladmin -u root version
-</code></pre>
+<div class="codehilite"><pre><span></span>$ mysqladmin -u root version
+</pre></div>
+
 
 <p>输出正在运行的服务器中所有的配置选项：</p>
-<pre><code>mysqladmin variables -u root
-</code></pre>
+<div class="codehilite"><pre><span></span>$ mysqladmin variables -u root
+</pre></div>
+
 
 <p>其中有几个特别有用的变量：</p>
-<p>- datadir，表示MySQL在哪里存储它的数据。</p>
-<p>- have_innodb，通常是YES，表明MySQL服务器支持InnoDB存储引擎。</p>
-<p>- default_storage_engine，当前MySQL服务器使用的存储引擎。</p>
+<ul>
+<li>
+<p>datadir，表示MySQL在哪里存储它的数据。</p>
+</li>
+<li>
+<p>have_innodb，通常是YES，表明MySQL服务器支持InnoDB存储引擎。</p>
+</li>
+<li>
+<p>default_storage_engine，当前MySQL服务器使用的存储引擎。</p>
+</li>
+</ul>
 <p>为了把InnoDB设置成默认存储引擎，需要修改MySQL服务器配置文件，在mysqld一节中添加：</p>
-<pre><code>default_storage_engine=InnoDB
-</code></pre>
+<div class="codehilite"><pre><span></span>default_storage_engine=InnoDB
+</pre></div>
+
 
 <p>更多信息可访问：<a href="../www.mysql.com">MySQL官网</a></p>
 <p><strong>用户密码设置</strong></p>
 <p>MySQL的root用户和系统的root用户毫无关系。MySQL只不过默认使用一个称为"root"的用户作为管理用户。</p>
 <p>一个最简单的设置密码的命令：</p>
-<pre><code>$ mysqladmin -u root password newpassword
-</code></pre>
+<div class="codehilite"><pre><span></span>$ mysqladmin -u root password newpassword
+</pre></div>
+
 
 <p>或者：</p>
-<pre><code>$ mysql -u root
-mysql&gt; SET password=PASSWORD('newpassword');
-</code></pre>
+<div class="codehilite"><pre><span></span>$ mysql -u root
+mysql&gt; SET <span class="nv">password</span><span class="o">=</span>PASSWORD<span class="o">(</span><span class="s1">&#39;newpassword&#39;</span><span class="o">)</span><span class="p">;</span>
+</pre></div>
+
 
 <p>如果想删除密码，则可以：</p>
-<pre><code>mysql&gt; SET password=PASSWORD('');
-</code></pre>
+<div class="codehilite"><pre><span></span>mysql&gt; SET <span class="nv">password</span><span class="o">=</span>PASSWORD<span class="o">(</span><span class="s1">&#39;&#39;</span><span class="o">)</span><span class="p">;</span>
+</pre></div>
+
 
 <p>一条SQL命令以分号结尾，严格来说，分号不属于SQL命令的一部分，它只是用来告诉MySQL客户端程序，一条SQL语句已经准备好被执行了。</p>
 <p>SQL关键字不区分大小写，但使用大写可以便于阅读。</p>
 <p>设置了密码的用户，必须提供密码参数才能登陆MySQL客户端程序：</p>
-<pre><code>$ mysql -u root -p
-</code></pre>
+<div class="codehilite"><pre><span></span>$ mysql -u root -p
+</pre></div>
+
 
 <p><strong>检查权限表确认密码设置</strong></p>
-<pre><code>mysql&gt; use mysql
-mysql&gt; SELECT user, host, password FROM user;
-</code></pre>
+<div class="codehilite"><pre><span></span>mysql&gt; use mysql
+mysql&gt; SELECT user, host, password FROM user<span class="p">;</span>
+</pre></div>
+
 
 <p>MySQL不仅能为用户保存不同的权限，也能为基于主机名的连接类保存不同的权限。</p>
 <p><strong>添加用户</strong></p>
 <p>以root用户身份连接到MySQL，然后使用grant命令来创建用户并赋予权限。</p>
 <p>例子：</p>
 <p>为ldw创建一个本地登录：</p>
-<pre><code>mysql&gt; GRANT ALL ON *.* TO ldw@localhost IDENTIFIED BY '123456';
-mysql&gt; SELECT user, host, password FROM mysql.user;
-</code></pre>
+<div class="codehilite"><pre><span></span>mysql&gt; GRANT ALL ON *.* TO ldw@localhost IDENTIFIED BY <span class="s1">&#39;123456&#39;</span><span class="p">;</span>
+mysql&gt; SELECT user, host, password FROM mysql.user<span class="p">;</span>
+</pre></div>
+
 
 <p>IDENTIFIED BY是一个用于设定初始密码的语法。</p>
 <p><code>*.*</code>给予了用户非常广泛的权限。</p>
-<h2 id="_3">安装后的故障修复</h2>
+<h3 id="_3">安装后的故障修复</h3>
 <p>如果连接mysql失败，可使用ps命令检查服务器进程是否正在运行：<code>ps aux | grep mysql</code></p>
 <p>在CentOS 7上面，可以使用这个命令检查：<code>systemctl status mariadb.service</code></p>
 <p>其它的方法见书本。</p>
-<h1 id="mysql">MySQL管理</h1>
+<h2 id="mysql_1">MySQL管理</h2>
 <p>包含在MySQL发行版中的一些有用的工具程序使管理工作变得容易。</p>
-<h2 id="_4">命令</h2>
+<h3 id="_4">命令</h3>
 <p>除了mysqlshow命令外，所有的MySQL命令都接受如下3个标准参数：</p>
-<p>|命令选项|参数|说明|
-|-|-|
-|-u|用户名|指定一个用户名作为MySQL的用户名，默认情况下，mysql工具会尝试把当前的Linux用户名作为MySQL用户名|
-|-p|[密码]|如果给出了-p参数但是未提供密码，系统会提示输入密码。若没给-p参数，MySQL命令假设不需要密码|
-|-h|主机名|用于连接位于不同主机上的服务器。对于本地服务器，总是可以省略|</p>
+<table>
+<thead>
+<tr>
+<th>命令选项</th>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-u</td>
+<td>用户名</td>
+<td>指定一个用户名作为MySQL的用户名，默认情况下，mysql工具会尝试把当前的Linux用户名作为MySQL用户名</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>[密码]</td>
+<td>如果给出了-p参数但是未提供密码，系统会提示输入密码。若没给-p参数，MySQL命令假设不需要密码</td>
+</tr>
+<tr>
+<td>-h</td>
+<td>主机名</td>
+<td>用于连接位于不同主机上的服务器。对于本地服务器，总是可以省略</td>
+</tr>
+</tbody>
+</table>
 <p><strong>mysql命令</strong></p>
 <p>这是MySQL一个主要的且功能强大的命令行工具。</p>
 <p>默认使用数据库foo来启动控制台（客户端）的命令如：</p>
-<pre><code>$ mysql -u ldw -p foo
-</code></pre>
+<div class="codehilite"><pre><span></span>$ mysql -u ldw -p foo
+</pre></div>
+
 
 <p>通过非交互模式运行mysql：</p>
-<pre><code>$ mysql -u ldw --password=123456 foo &lt; sqlcmd.sql
-</code></pre>
+<div class="codehilite"><pre><span></span>$ mysql -u ldw --password<span class="o">=</span><span class="m">123456</span> foo &lt; sqlcmd.sql
+</pre></div>
+
 
 <p>当mysql客户端连接到服务器后，除了标准的SQL92命令集以外，还有一些特定的命令被mysql支持。如：</p>
 <table>
@@ -373,24 +1018,36 @@ mysql&gt; SELECT user, host, password FROM mysql.user;
 <p>默认情况下，mysqldump将数据发送到标准输出，可以把它重定向到文件。</p>
 <p>mysqldump命令对于迁移数据或快速备份非常有用。</p>
 <p>一个转储数据库的例子：</p>
-<pre><code>$ mysqldump -u ldw -p123456 &gt; foo_bak.dump
-</code></pre>
+<div class="codehilite"><pre><span></span>$ mysqldump -u ldw -p123456 &gt; foo_bak.dump
+</pre></div>
+
 
 <p><strong>mysqlimport</strong></p>
 <p>mysqlimport命令用于批量将数据导入到一个表中。</p>
 <p><strong>mysqlshow</strong></p>
 <p>这个小工具能够让你快速了解MySQL安装及其组成数据库的信息。</p>
-<p>- 不提供参数，列出所有可用的数据库。</p>
-<p>- 以一个数据库为参数，列出该数据库中的表。</p>
-<p>- 以数据库和表名为参数，列出表的列。</p>
-<p>- 以数据库、表和列为参数，列出指定列的详细信息。</p>
-<h2 id="_5">创建用户并赋予权限</h2>
+<ul>
+<li>
+<p>不提供参数，列出所有可用的数据库。</p>
+</li>
+<li>
+<p>以一个数据库为参数，列出该数据库中的表。</p>
+</li>
+<li>
+<p>以数据库和表名为参数，列出表的列。</p>
+</li>
+<li>
+<p>以数据库、表和列为参数，列出指定列的详细信息。</p>
+</li>
+</ul>
+<h3 id="_5">创建用户并赋予权限</h3>
 <p>MySQL管理员最常见的工作就是维护用户信息——在MySQL中添加和删除用户并管理他们的权限。</p>
 <p>通过在MySQL控制台中使用grant和revoke命令来管理用户权限。</p>
 <p><strong>grant命令</strong></p>
 <p>MySQL的grant命令几乎完全遵循SQL92的语法。其常规格式是：</p>
-<pre><code>grant &lt;privilege&gt; on &lt;object&gt; to &lt;user&gt; [identified by user-password] [with grant option];
-</code></pre>
+<div class="codehilite"><pre><span></span>grant &lt;privilege&gt; on &lt;object&gt; to &lt;user&gt; <span class="o">[</span>identified by user-password<span class="o">]</span> <span class="o">[</span>with grant option<span class="o">]</span><span class="p">;</span>
+</pre></div>
+
 
 <p>可以授予的特权值见书本。</p>
 <p>授予特权的对象被标识为：database_name.table_name</p>
@@ -398,98 +1055,116 @@ mysql&gt; SELECT user, host, password FROM mysql.user;
 <p>如果指定的用户已经存在，他的特权会被编辑以反映所做的修改。如果用户不存在，他就会以指定的特权被创建。</p>
 <p>在SQL语法中，特殊字符%代表通配符，它与shell环境中的*号的作用完全一致。任何时候使用%通配符都必须把它放到引号中，以与其他文本分开。</p>
 <p>创建一个可以从任何主机进行连接的用户：</p>
-<pre><code>mysql&gt; GRANT ALL ON foo.* TO ldw@'%' IDENTIFIED BY '123456';
-</code></pre>
+<div class="codehilite"><pre><span></span>mysql&gt; GRANT ALL ON foo.* TO ldw@<span class="s1">&#39;%&#39;</span> IDENTIFIED BY <span class="s1">&#39;123456&#39;</span><span class="p">;</span>
+</pre></div>
+
 
 <p><strong>revoke命令</strong></p>
 <p>管理员可以剥夺用户的权限。通过revoke命令：</p>
-<pre><code>revoke &lt;a_privilege&gt; on &lt;an_object&gt; from &lt;a_user&gt;
-</code></pre>
+<div class="codehilite"><pre><span></span>revoke &lt;a_privilege&gt; on &lt;an_object&gt; from &lt;a_user&gt;
+</pre></div>
+
 
 <p>如：</p>
-<pre><code>mysql&gt; REVOKE INSERT ON foo.* FROM rick@'%';
-</code></pre>
+<div class="codehilite"><pre><span></span>mysql&gt; REVOKE INSERT ON foo.* FROM rick@<span class="s1">&#39;%&#39;</span><span class="p">;</span>
+</pre></div>
+
 
 <p>revoke命令不能删除用户，如果要完全删除一个用户，不要只是修改他们的权限，而应用revoke来删除他们的权限。然后，切换到mysql数据库，通过从user表中删除相应的行来完全删除一个用户：</p>
-<pre><code>mysql&gt; use mysql
-mysql&gt; DELETE FROM USER WHERE user = &quot;ldw&quot;;
-mysql&gt; FLUSH PRIVILEGES;
-</code></pre>
+<div class="codehilite"><pre><span></span>mysql&gt; use mysql
+mysql&gt; DELETE FROM USER WHERE <span class="nv">user</span> <span class="o">=</span> <span class="s2">&quot;ldw&quot;</span><span class="p">;</span>
+mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
+</pre></div>
+
 
 <p>FLUSH PRIVILEGES告诉服务器，需要重载权限表。</p>
-<h2 id="_6">密码</h2>
+<h3 id="_6">密码</h3>
 <p>如果想为尚未拥有密码的用户指定密码，或者希望改变自己或别人的密码，你就需要以root用户身份连接到MySQL服务器，然后直接更新用户信息。例如：</p>
-<pre><code>mysql&gt; use mysql
-mysql&gt; UPDATE user SET password = password('bar') WHERE user = 'ldw';
-mysql&gt; FLUSH PRIVILEGES;
-</code></pre>
+<div class="codehilite"><pre><span></span>mysql&gt; use mysql
+mysql&gt; UPDATE user SET <span class="nv">password</span> <span class="o">=</span> password<span class="o">(</span><span class="s1">&#39;bar&#39;</span><span class="o">)</span> WHERE <span class="nv">user</span> <span class="o">=</span> <span class="s1">&#39;ldw&#39;</span><span class="p">;</span>
+mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
+</pre></div>
 
-<h2 id="_7">创建数据库</h2>
+
+<h3 id="_7">创建数据库</h3>
 <p>创建一个数据库的命令可以是：</p>
-<pre><code>mysql&gt; CREATE DATABASE test;
-</code></pre>
+<div class="codehilite"><pre><span></span>mysql&gt; CREATE DATABASE test<span class="p">;</span>
+</pre></div>
 
-<h2 id="_8">数据类型</h2>
+
+<h3 id="_8">数据类型</h3>
 <p>MySQL的数据类型非常标准，书本里只做了简要的浏览，MySQL网站上的MySQL手册对此进行了更为详细的讨论。</p>
 <p>见书本。</p>
-<h2 id="_9">创建表</h2>
+<h3 id="_9">创建表</h3>
 <p>一个数据库表非常像电子表格，除了每行都必须包含相同数目和类型的列，而且每行必须以某种方式不同于表中的其他行。</p>
 <p>创建数据库对象的完整SQL语法被称为DDL（data definition language, 数据库定义语言）。</p>
 <p>见书本。</p>
-<h2 id="_10">图形化工具</h2>
+<h3 id="_10">图形化工具</h3>
 <p>我使用工作上用的navicat, 其它工具见书本。</p>
-<h1 id="cmysql">使用C语言访问MySQL数据库</h1>
+<h2 id="cmysql">使用C语言访问MySQL数据库</h2>
 <p>可以使用许多不同的编程语言来访问MySQL，比如C, C++, PHP, Python。在此讨论C语言的接口。</p>
-<h2 id="_11">连接例程</h2>
+<h3 id="_11">连接例程</h3>
 <p>见connect1.c。</p>
 <p>用C语言连接MySQL数据库包含两个步骤：</p>
-<p>- 初始化一个连接句柄结构；</p>
-<p>- 实际进行连接。</p>
+<ul>
+<li>
+<p>初始化一个连接句柄结构；</p>
+</li>
+<li>
+<p>实际进行连接。</p>
+</li>
+</ul>
 <p>使用mysql_init来初始化连接句柄：</p>
-<pre><code>#include &lt;mysql.h&gt;
-MYSQL *mysql_init(MYSQL *);
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;mysql.h&gt;</span><span class="cp"></span>
+<span class="n">MYSQL</span> <span class="o">*</span><span class="nf">mysql_init</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="p">);</span>
+</pre></div>
+
 
 <p>如果传递给NULL给此接口，它会返回一个指向新分配的连接句柄结构的指针。如果传递一个已有结构，它将被重新初始化。出错时返回NULL。</p>
 <p>使用mysql_real_connect来向一个连接提供参数：</p>
-<pre><code>MYSQL *mysql_real_connect(MYSQL *connection,
-    const char *server_host,
-    const char *sql_user_name,
-    const char *sql_password,
-    const char *db_name,
-    usigned int port_number,
-    const char *unix_sock_name,
-    unsigned int flags);
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">MYSQL</span> <span class="o">*</span><span class="nf">mysql_real_connect</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">,</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">server_host</span><span class="p">,</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">sql_user_name</span><span class="p">,</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">sql_password</span><span class="p">,</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">db_name</span><span class="p">,</span>
+    <span class="n">usigned</span> <span class="kt">int</span> <span class="n">port_number</span><span class="p">,</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">unix_sock_name</span><span class="p">,</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">);</span>
+</pre></div>
+
 
 <p>connection必须指向已经被mysql_init初始化过的结构。server_host是主机名（可以是IP地址，或者localhost）。sql_user_name和sql_password和字面含义一样。</p>
 <p>port_number和unix_socket_name默认为0和NULL，表示采用MySQL的默认设置。</p>
 <p>flag参数默认填0即可，对于介绍性的章节来说，没什么用。</p>
 <p>使用完连接之后，通常在程序退出时，调用mysql_close关闭连接：</p>
-<pre><code>void mysql_close(MYSQL *connection);
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="nf">mysql_close</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">);</span>
+</pre></div>
+
 
 <p>如果connection是由mysql_init建立的，MYSQL结构会被释放，指针将会失效并无法再次使用。</p>
 <p>mysql_options仅能在mysql_init和mysql_real_connect之间调用，可以设置一些选项。见书本。</p>
-<h2 id="_12">错误处理</h2>
+<h3 id="_12">错误处理</h3>
 <p>见connect2.c。</p>
 <p>MySQL使用一系列由连接句柄结构报告的返回码。两个必备的例程是：</p>
-<pre><code>unsigned int mysql_errno(MYSQL *connection);
-char *mysql_error(MYSQL *connection);
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">mysql_errno</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">);</span>
+<span class="kt">char</span> <span class="o">*</span><span class="nf">mysql_error</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">);</span>
+</pre></div>
+
 
 <p>mysql_errno获得错误码，如果未设定错误，它将返回0。因为每次调用库都会更新错误码，所以只能得到最后一个执行命令的错误码，但上面两个例程是例外，它们不会导致错误码更新。</p>
 <p>mysql_error获得文本错误信息，这些信息被写入一些内部静态内存空间中，如果想保存错误文本，需要把它复制到别的地方。</p>
-<h2 id="sql">执行SQL语句</h2>
+<h3 id="sql">执行SQL语句</h3>
 <p>见insert1.c。</p>
 <p>执行SQL语句的主要API函数为：</p>
-<pre><code>int mysql_query(MYSQL *connection, const char *query);
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="kt">int</span> <span class="nf">mysql_query</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">query</span><span class="p">);</span>
+</pre></div>
+
 
 <p>query是字符串形式的有效SQL语句（没有结束的分号）。如果成功，返回0。对于包含二进制数据的查询，可以使用mysql_real_query。</p>
 <p>用于检测受影响的行数的函数：</p>
-<pre><code>my_ulonglong mysql_affected_rows(MYSQL *connection);
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">my_ulonglong</span> <span class="nf">mysql_affected_rows</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">);</span>
+</pre></div>
+
 
 <p>返回一个my_ulonglong类型是出于移植性的考虑，可以把它转换成无符号长整型。函数返回受之前的UPDATE, INSERT, DELETE查询影响的行数。</p>
 <p>通常返回值0表示没有行受到影响，正数则是实际的结果，一般表示受语句影响的行数。如果是DELETE删除整个表的数据，由程序返回的结果是0。</p>
@@ -497,92 +1172,185 @@ char *mysql_error(MYSQL *connection);
 <p>见insert2.c。</p>
 <p>如果一个列的类型是AUTO_INCREMENT，那么它会由MySQL自动分配ID。如何知道刚刚插入的记录的这个ID呢？</p>
 <p>MySQL提供了LAST_INSERT_ID()函数，无论何时MySQL向AUTO_INCREMENT列中插入数据，MySQL都会基于每个用户对最后分配的值进行跟踪。用户可以这样发现该值：</p>
-<pre><code>mysql&gt; SELECT LAST_INSERT_ID();
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">mysql</span><span class="o">&gt;</span> <span class="n">SELECT</span> <span class="n">LAST_INSERT_ID</span><span class="p">();</span>
+</pre></div>
+
 
 <p>返回的数字在本次会话中是唯一的。</p>
 <p><strong>返回数据的语句</strong></p>
 <p>见select*.c。</p>
 <p>数据是使用SELECT语句提取的。</p>
 <p>在C应用程序中提取数据一般需要下面4个步骤：</p>
-<p>- 执行查询；</p>
-<p>- 提取数据；</p>
-<p>- 处理数据；</p>
-<p>- 必要的清理工作。</p>
+<ul>
+<li>
+<p>执行查询；</p>
+</li>
+<li>
+<p>提取数据；</p>
+</li>
+<li>
+<p>处理数据；</p>
+</li>
+<li>
+<p>必要的清理工作。</p>
+</li>
+</ul>
 <p>使用完mysql_qurey发送SQL语句后，使用mysql_store_result或mysql_use_result来提取数据。接着使用一系列mysql_fetch_row调用来处理数据。最后使用mysql_free_result释放查询占用的内存资源。</p>
 <p><strong>一次提取所有数据的函数</strong></p>
 <p>可以使用mysql_store_result在一次调用中从SELECT中提取所有数据：</p>
-<pre><code>MYSQL_RES *mysql_store_result(MYSQL *connection);
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="nf">mysql_store_result</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">);</span>
+</pre></div>
+
 
 <p>需要在成功调用mysql_query之后使用此函数。这个函数将立刻保存在客户端中返回的所有数据。它返回一个指向结果集结构的指针，如果失败则返回NULL。</p>
 <p>mysql_num_rows返回记录的数据，如果没有返回行，这个值将是0。</p>
-<pre><code>my_ulonglong mysql_num_rows(MYSQL_RES *result);
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">my_ulonglong</span> <span class="nf">mysql_num_rows</span><span class="p">(</span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="n">result</span><span class="p">);</span>
+</pre></div>
+
 
 <p>接下来，可以使用mysql_fetch_row来处理结果集，也可以使用mysql_data_seek, mysql_row_seek, mysql_row_tell在数据集中来回移动。</p>
 <p>mysql_fetch_row: 这个函数从结果集中提取一行数据，并把它放到一个行结构中。当数据用完或发生错误时返回NULL。</p>
-<pre><code>MYSQL_ROW mysql_fetch_row(MYSQL_RES *result);
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">MYSQL_ROW</span> <span class="nf">mysql_fetch_row</span><span class="p">(</span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="n">result</span><span class="p">);</span>
+</pre></div>
+
 
 <p>在完成了对结果集的操作后，必须总是调用mysql_free_result函数来让MySQL库清理它分配的对象：</p>
-<pre><code>void mysql_free_result(MYSQL_RES *result);
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="nf">mysql_free_result</span><span class="p">(</span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="n">result</span><span class="p">);</span>
+</pre></div>
+
 
 <p><strong>一次提取一行数据</strong></p>
 <p>依靠mysql_use_result可以逐行提取数据：</p>
-<pre><code>MYSQL_RES *mysql_use_result(MYSQL *connection);
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="nf">mysql_use_result</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">);</span>
+</pre></div>
+
 
 <p>mysql_use_result在遇到错误时返回NULL。如果成功，返回指向结果集对象的指针。但是，它未将提取的数据放到它初始化的结果集中。</p>
 <p>在之后使用mysql_fetch_row返回行结果必须通过网络。</p>
 <p><strong>处理返回的数据</strong></p>
 <p>MySQL返回两种类型的数据：</p>
-<p>- 列数据，即从表中提取的信息</p>
-<p>- 元数据（matadata），如列名和类型</p>
+<ul>
+<li>
+<p>列数据，即从表中提取的信息</p>
+</li>
+<li>
+<p>元数据（matadata），如列名和类型</p>
+</li>
+</ul>
 <p>mysql_field_count函数返回结果集中的字段（列）数目：</p>
-<pre><code>unsigned int mysql_field_count(MYSQL *connection);
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">mysql_field_count</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">);</span>
+</pre></div>
+
 
 <p>使用mysql_fetch_field函数可以将元数据和数据提取到一个新的结构中：</p>
-<pre><code>MYSQL_FIELD *mysql_fetch_field(MYSQL_RES *result);
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">MYSQL_FIELD</span> <span class="o">*</span><span class="nf">mysql_fetch_field</span><span class="p">(</span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="n">result</span><span class="p">);</span>
+</pre></div>
+
 
 <p>此函数需要重复调用，直到返回表示数据结束的NULL值为止。MYSQL_FIELD包含了关于列的信息。见书本。</p>
-<h2 id="_13">更多的函数</h2>
-<p>见书本。</p></div>
-        </div>
+<h3 id="_13">更多的函数</h3>
+<p>见书本。</p>
+                
+                  
+                
+              
+              
+                
 
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
-        <script src="../js/base.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
-                <form role="form">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
+
+              
+            </article>
+          </div>
         </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../ch03%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" title="ch03 文件操作" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                ch03 文件操作
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../ch11%20%E8%BF%9B%E7%A8%8B%E5%92%8C%E4%BF%A1%E5%8F%B7/" title="ch11 进程和信号" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                ch11 进程和信号
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
     </div>
-</div>
-
-    </body>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2018 Diwen Liu
+          </div>
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.b438e6c5.js"></script>
+      
+        
+        
+          
+          <script src="../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"0.17.3",url:{base:".."}})</script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-XXXXXXXX-X","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
 </html>

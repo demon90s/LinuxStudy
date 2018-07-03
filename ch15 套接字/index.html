@@ -1,0 +1,1057 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Beginning Linux Programming Note">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.3">
+    
+    
+      
+        <title>ch15 套接字 - 《Linux程序设计》学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.8d40d89b.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.6079476c.css">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700|Open+Sans+Mono">
+        <style>body,input{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Open Sans Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue-grey" data-md-color-accent="light-blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <a href="#_1" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="《Linux程序设计》学习笔记" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">school</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                《Linux程序设计》学习笔记
+              </span>
+              <span class="md-header-nav__topic">
+                ch15 套接字
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon">school</i>
+      
+    </span>
+    《Linux程序设计》学习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Chapters
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Chapters
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch01%20%E5%85%A5%E9%97%A8/" title="ch01 入门" class="md-nav__link">
+      ch01 入门
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch02%20shell%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" title="ch02 shell程序设计" class="md-nav__link">
+      ch02 shell程序设计
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch03%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" title="ch03 文件操作" class="md-nav__link">
+      ch03 文件操作
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch08%20MySQL/" title="ch08 MySQL" class="md-nav__link">
+      ch08 MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch11%20%E8%BF%9B%E7%A8%8B%E5%92%8C%E4%BF%A1%E5%8F%B7/" title="ch11 进程和信号" class="md-nav__link">
+      ch11 进程和信号
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch12%20POSIX%E7%BA%BF%E7%A8%8B/" title="ch12 POSIX线程" class="md-nav__link">
+      ch12 POSIX线程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        ch15 套接字
+      </label>
+    
+    <a href="./" title="ch15 套接字" class="md-nav__link md-nav__link--active">
+      ch15 套接字
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="什么是套接字" class="md-nav__link">
+    什么是套接字
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="套接字连接" class="md-nav__link">
+    套接字连接
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="套接字属性" class="md-nav__link">
+    套接字属性
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="创建套接字" class="md-nav__link">
+    创建套接字
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="套接字地址" class="md-nav__link">
+    套接字地址
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="命名套接字" class="md-nav__link">
+    命名套接字
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="创建套接字队列" class="md-nav__link">
+    创建套接字队列
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="接受连接" class="md-nav__link">
+    接受连接
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="请求连接" class="md-nav__link">
+    请求连接
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="关闭套接字" class="md-nav__link">
+    关闭套接字
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="套接字通讯" class="md-nav__link">
+    套接字通讯
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="主机字节序和网络字节序" class="md-nav__link">
+    主机字节序和网络字节序
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" title="多客户" class="md-nav__link">
+    多客户
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#select" title="select系统调用" class="md-nav__link">
+    select系统调用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" title="多客户" class="md-nav__link">
+    多客户
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" title="数据报" class="md-nav__link">
+    数据报
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      CheatSheet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        CheatSheet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/MySQL%E6%93%8D%E4%BD%9C/" title="MySQL操作" class="md-nav__link">
+      MySQL操作
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/%E7%94%A8echo%E8%BE%93%E5%87%BA%E5%B8%A6%E9%A2%9C%E8%89%B2%E7%9A%84%E6%96%87%E6%9C%AC/" title="用echo输出带颜色的文本" class="md-nav__link">
+      用echo输出带颜色的文本
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/%E8%AE%A9%E8%BF%9B%E7%A8%8B%E5%9C%A8%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C/" title="让进程在后台运行" class="md-nav__link">
+      让进程在后台运行
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="什么是套接字" class="md-nav__link">
+    什么是套接字
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="套接字连接" class="md-nav__link">
+    套接字连接
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="套接字属性" class="md-nav__link">
+    套接字属性
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="创建套接字" class="md-nav__link">
+    创建套接字
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="套接字地址" class="md-nav__link">
+    套接字地址
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="命名套接字" class="md-nav__link">
+    命名套接字
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="创建套接字队列" class="md-nav__link">
+    创建套接字队列
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="接受连接" class="md-nav__link">
+    接受连接
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="请求连接" class="md-nav__link">
+    请求连接
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="关闭套接字" class="md-nav__link">
+    关闭套接字
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="套接字通讯" class="md-nav__link">
+    套接字通讯
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="主机字节序和网络字节序" class="md-nav__link">
+    主机字节序和网络字节序
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" title="多客户" class="md-nav__link">
+    多客户
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#select" title="select系统调用" class="md-nav__link">
+    select系统调用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" title="多客户" class="md-nav__link">
+    多客户
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" title="数据报" class="md-nav__link">
+    数据报
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/tree/master/study_notes/ch15 套接字.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="_1">第十五章 套接字</h1>
+<p><strong>套接字接口（socket interface）</strong>是一种通信工具。一台机器上的进程可以使用套接字和另外一台机器上的进程通信，这样就可以支持分布在网络中的客户/服务器系统。同一台机器上的进程之间也可以使用套接字进行通信。</p>
+<h2 id="_2">什么是套接字</h2>
+<p>套接字是一种通信机制，它明确地将客户和服务器区分开来。套接字机制可以实现多个客户端连接到一个服务器。</p>
+<h2 id="_3">套接字连接</h2>
+<p>首先，服务器应用程序用系统调用socket来创建一个套接字，它是类似文件描述符的资源，不能与其他进程共享。</p>
+<p>接下来，服务器进程会给套接字起个名字。本地套接字的名字是Linux文件系统中的文件名，一般放在/tmp或/usr/tmp目录中。对于网络套接字，它的名字是与网络有关的标识符（比如端口号）。这个标识符允许Linux将进入的针对特定端口号的连接转到正确的服务器进程。</p>
+<p>我们用系统调用bind来给套接字命名。然后服务器进程就开始等待客户端连接到这个命名套接字。</p>
+<p>系统调用listen的作用是，创建一个队列并将其用于存放来自客户的进入连接。服务器通过系统调用accept来接受客户的连接。</p>
+<p>服务器调用accept时，它会创建一个新套接字，这个新套接字只用于与这个特定的客户进行通信。而命名套接字则被保留下来继续处理来自其他客户的连接。</p>
+<p>基于套接字系统的客户端首先调用socket创建一个未命名套接字，然后将服务器的命名套接字作为一个地址，调用connect与服务器建立连接。</p>
+<p>一旦连接建立，我们就可以开始双向的数据通信。</p>
+<p>一个简单的案例见：client1.c, server1.c</p>
+<h3 id="_4">套接字属性</h3>
+<p>套接字的特性由3个属性确定：域（domain）、类型（type）和协议（protocol）。套接字还用地址作为它的名字。</p>
+<p><strong>套接字的域</strong></p>
+<p>域指定套接字通信中使用的网络介质。最常见的套接字域是AF_INET（adress format internet），它指的是Internet网络，并使用IP地址来指定网络中的计算机。</p>
+<p>所有的IP地址都用4个数字来表示，每个数字都小于256，即所谓的点分四元组表示法（dotted quad）。</p>
+<p>当客户使用套接字进行跨网络的连接时，它就需要用到服务器计算机的IP地址。客户可以通过IP端口来指定一台联网机器上的某个特定服务。端口通过分配一个唯一的16位整数来标识。套接字必须在开始通信之前绑定一个端口。</p>
+<p>书中第一个例子的域是UNIX文件系统域AF_UNIX，它的地址就是文件名。还有一些其他的域，但不在讨论范围。</p>
+<p><strong>套接字类型</strong></p>
+<p>因特网协议提供了了两种通信机制：流（stream）和数据报（datagram）。</p>
+<p><strong>流套接字</strong></p>
+<p>流套接字提供的是一个有序、可靠、双向字节流的连接。</p>
+<p>流套接字由类型SOCK_STREAM指定，它们是在AF_INET域中通过TCP/IP连接实现的。</p>
+<p><strong>数据报套接字</strong></p>
+<p>由类型SOCK_DGRAM指定，它不建立和维持一个连接。它对可以发送的数据报的长度有限制。数据报作为一个单独的网络消息被传输，它可能会丢失、复制或乱序到达。</p>
+<p>数据报套接字是在AF_INET域中通过UDP/IP连接实现的，它提供的是一种无序的不可靠服务。相对来说它们开销比较小，速度也很快。</p>
+<p><strong>套接字协议</strong></p>
+<p>UNIX网络套接字和文件系统套接字不需要选择一个特定的协议，只需要使用其默认值即可。</p>
+<h3 id="_5">创建套接字</h3>
+<p>socket系统调用创建一个套接字并返回一个描述符，该描述符可以用来访问该套接字。</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">socket</span><span class="p">(</span><span class="kt">int</span> <span class="n">domain</span><span class="p">,</span> <span class="kt">int</span> <span class="n">type</span><span class="p">,</span> <span class="kt">int</span> <span class="n">protocol</span><span class="p">);</span>
+</pre></div>
+
+
+<p>创建的套接字是一条通信线路的一个端点。domain参数最常用的取值是AF_UNIX和AF_INET。type的取值可以是SOCK_STREAM和SOCK_DGRAM。protocol通常不需要选择，本章节中都是用0，表示使用默认协议。</p>
+<h3 id="_6">套接字地址</h3>
+<p>每个套接字域都有自己的地址格式。对于AF_UNIX域套接字来说，它的地址由结构sockaddr_un来描述：</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;sys/un.h&gt;</span><span class="cp"></span>
+
+<span class="k">struct</span> <span class="n">sockaddr_un</span> <span class="p">{</span>
+    <span class="n">sa_family_t</span>    <span class="n">sun_family</span><span class="p">;</span>    <span class="cm">/* AF_UNIX */</span>
+    <span class="kt">char</span>           <span class="n">sun_path</span><span class="p">[];</span>    <span class="cm">/* pathname */</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>对套接字进行处理的系统调用可能需要接受不同类型的地址，每种地址格式都使用一种类似的结构来描述，它们都以一个指定地址类型（套接字域）的成员开始。</p>
+<p>在AF_INET域中，套接字地址由结构sockaddr_in来指定：</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp"></span>
+
+<span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="p">{</span>
+    <span class="kt">short</span> <span class="kt">int</span>          <span class="n">sin_family</span><span class="p">;</span>    <span class="cm">/* AF_INET */</span>
+    <span class="kt">unsigned</span> <span class="kt">short</span> <span class="kt">int</span> <span class="n">sin_port</span><span class="p">;</span>      <span class="cm">/* Port number */</span>
+    <span class="k">struct</span> <span class="n">in_addr</span>     <span class="n">sin_addr</span><span class="p">;</span>      <span class="cm">/* Internet address */</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>结构in_addr是IP地址：</p>
+<div class="codehilite"><pre><span></span><span class="k">struct</span> <span class="n">in_addr</span> <span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">int</span> <span class="n">s_addr</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>IP地址中的4个字节组成一个32位的值。一个AF_INET套接字由它的域、IP地址和端口号完全确定。</p>
+<h3 id="_7">命名套接字</h3>
+<p>想要套接字被使用，服务器程序就必须给该套接字命名。这样，AF_UNIX套接字就会关联到一个文件系统的路径名。AF_INET套接字就会关联到一个IP端口号。</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">bind</span><span class="p">(</span><span class="kt">int</span> <span class="n">socket</span><span class="p">,</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="n">address</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">address_len</span><span class="p">);</span>
+</pre></div>
+
+
+<p>bind系统调用把参数address中的地址分配给与socket描述符关联的未命名套接字。地址结构的长度由参数address_len传递。</p>
+<p>bind函数调用成功返回0，失败返回-1并设置errno。可取值见书本。</p>
+<h3 id="_8">创建套接字队列</h3>
+<p>为了能够在套接字上接受进入的连接，服务器程序必须创建一个队列来保存未处理的请求。</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">listen</span><span class="p">(</span><span class="kt">int</span> <span class="n">socket</span><span class="p">,</span> <span class="kt">int</span> <span class="n">backlog</span><span class="p">);</span>
+</pre></div>
+
+
+<p>listen函数将队列长度设置为backlog参数的值，等待处理的进入连接的个数最多不能超过这个数字。再往后的连接将被拒绝，导致客户的连接请求失败。backog参数常用的值是5。</p>
+<p>listen函数成功返回0，失败返回-1并设置errno。见书本。</p>
+<h3 id="_9">接受连接</h3>
+<p>通过accept系统调用来等待客户建立对该套接字的连接。</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">accept</span><span class="p">(</span><span class="kt">int</span> <span class="n">socket</span><span class="p">,</span> <span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="n">address</span><span class="p">,</span> <span class="kt">size_t</span> <span class="o">*</span><span class="n">address_len</span><span class="p">);</span>
+</pre></div>
+
+
+<p>accept系统调用只有当客户程序试图连接到由socket参数指定的套接字上时才会返回。这里的客户指的是在套接字队列中排在第一个的未处理的连接。accept函数将创建一个新套接字来与该客户进行通信，并且返回新套接字的描述符。</p>
+<p>连接客户的地址将被放入address参数指向的sockaddr结构中，如果不关心这个地址，可以设置为空指针。</p>
+<p>参数address_len指定客户结构的长度，如果客户地址的长度超过这个值，它将被截断。这个调用返回时，address_len将被设置为连接客户地址结构的实际长度。</p>
+<p>如果套接字队列中没有未处理的连接，accept将阻塞直到有客户建立连接为止。可以通过对套接字描述符设置O_NONBLOCK标志来改变这一行为：</p>
+<div class="codehilite"><pre><span></span><span class="kt">int</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">fcntl</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">F_GETFL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">fcntl</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">F_SETFL</span><span class="p">,</span> <span class="n">O_NONBLOCK</span><span class="o">|</span><span class="n">flags</span><span class="p">);</span>
+</pre></div>
+
+
+<p>如果发生错误，accept函数将返回-1。</p>
+<h3 id="_10">请求连接</h3>
+<p>客户程序通过在一个未命名套接字和服务器监听套接字之间建立连接的方法来连接到服务器。</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">connect</span><span class="p">(</span><span class="kt">int</span> <span class="n">socket</span><span class="p">,</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="n">address</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">address_len</span><span class="p">);</span>
+</pre></div>
+
+
+<p>参数socket是通过socket调用获得的一个有效的描述符，其指定的套接字将连接到参数address指定的服务器套接字，address指向的结构的长度由参数address_len指定。</p>
+<p>成功时，connect调用返回0，失败时返回-1，并设置errno。见书本。</p>
+<p>如果连接不能立刻建立，connect调用将阻塞一段不确定的超时时间，一旦超时时间到达，连接将被放弃，connect调用失败。</p>
+<p>connect调用的阻塞特性可以通过设置该文件描述符的O_NONBLOCK标志来改变，此时如果连接不能立刻建立，connect将失败并把errno设置为EINPROGRESS，而连接将以异步方式继续进行。可以用select调用来检查套接字是否已处于写就绪状态。</p>
+<h3 id="_11">关闭套接字</h3>
+<p>你可以通过调用close函数来终止服务器和客户上的套接字连接。</p>
+<p>对于服务器来说，应该在read调用返回0时关闭套接字，但如果套接字是一个面向连接类型的，并设置了SOCK_LINGER选项，close调用会在该套接字还有未传输数据时阻塞。</p>
+<h3 id="_12">套接字通讯</h3>
+<p>我们不能使用小于1024的端口号，因为它们是为系统使用保留的。其它的端口号信息通常列在系统文件<code>/etc/services</code>中。编写基于套接字的应用程序时，请注意总要选择没有列在该配置文件中的端口号。</p>
+<p>我们将在局域网中运行客户和服务器。UNIX计算机通常会配置一个回路网络，它只包含一台计算机（自身），传统上它被称为localhost，它有一个标准的IP地址170.0.0.1。这就是本地主机。</p>
+<p>见代码案例：example2，但这个案例有一个故意设置的错误（没有考虑主机序和网络序）。</p>
+<h3 id="_13">主机字节序和网络字节序</h3>
+<p>使用netstat命令可以查看网络连接情况，包括连接对应的服务器和客户的端口号。</p>
+<p>如上例，显示的服务器套接字的端口号是错误的，这是因为没有把主机字节序转换成网络字节序（不同计算机的主机字节序可能不同，为了保证不同计算机的一致性，所以要转换成统一的网络字节序）。</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp"></span>
+
+<span class="kt">uint32_t</span> <span class="nf">htonl</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">hostlong</span><span class="p">);</span>
+<span class="kt">uint16_t</span> <span class="nf">htons</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">hostshort</span><span class="p">);</span>
+<span class="kt">uint32_t</span> <span class="nf">ntohl</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">netlong</span><span class="p">);</span>
+<span class="kt">uint16_t</span> <span class="nf">ntohs</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">netshort</span><span class="p">);</span>
+</pre></div>
+
+
+<p>这些函数将16位和32位整数在主机字节序和标准的网络字节序之间进行转换。函数名是与之对应的转换操作的简写形式。例如“host to network, long”（htonl，长整数从主机字节序到网络字节序的转换）。</p>
+<p>如果计算机的主机字节序与网络字节序相同，这些函数的内容实际上就是空操作。</p>
+<p>为了保证有正确的字节序，服务器和客户需要使用这些函数来进行转换：</p>
+<div class="codehilite"><pre><span></span><span class="n">server_address</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span> <span class="o">=</span> <span class="n">htonl</span><span class="p">(</span><span class="n">INADDR_ANY</span><span class="p">);</span>
+<span class="n">server_address</span><span class="p">.</span><span class="n">sin_port</span> <span class="o">=</span> <span class="n">htons</span><span class="p">(</span><span class="mi">9734</span><span class="p">);</span>
+</pre></div>
+
+
+<p>但不需要对函数调用inet_addr("127.0.0.1")进行转换，因为inet_addr已经被定义为产生一个网络字节序的结果。</p>
+<p>见example3。</p>
+<h2 id="_14">多客户</h2>
+<p>考虑有多个客户同时连接一个服务器的情况。服务器程序在接受来自客户的一个新连接时，会创建出一个新的套接字，而原先的监听套接字将被保留以继续监听以后的连接。如果服务器不能立刻接受后来的连接，它们将被放到队列中以等待处理。</p>
+<p>原先的套接字仍然可用并且套接字的行为就像文件描述符，这一事实给我们提供了一种同时服务多个客户的方法。如果服务器调用fork为自己创建第二份副本，打开的新套接字就将被新的子进程所继承。新的子进程可以和连接的客户进行通信，而主服务器进程可以继续接受以后的客户连接。</p>
+<p>由于我们创建子进程，但并不等待它们完成，所以必须安排服务器忽略SIGCHLD信号以避免出现僵尸进程。</p>
+<blockquote>
+<p>个人理解：这里所说的方法即是：每当接受（accept）队列中一个连接后，就fork一个子进程，由子进程使用新获得的sockfd和客户通信。而父进程继续处理以后的客户连接。</p>
+</blockquote>
+<p>事例代码见example4。</p>
+<h3 id="select">select系统调用</h3>
+<p>select系统调用允许程序同时在多个底层文件描述符上等待输入的到达（或输出的完成）。这意味着终端仿真程序可以一直阻塞到有事情可做为止。类似地，服务器也可以通过同时在多个打开的套接字上等待请求到来的方法来处理多个客户。</p>
+<p>select函数对数据结构fd_set进行操作，它是由打开的文件描述符构成的集合。有一组定义好的宏可以用来控制这些集合：</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;sys/time.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">FD_CLR</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="n">fd_set</span> <span class="o">*</span><span class="n">set</span><span class="p">);</span>
+<span class="kt">int</span>  <span class="nf">FD_ISSET</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="n">fd_set</span> <span class="o">*</span><span class="n">set</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">FD_SET</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="n">fd_set</span> <span class="o">*</span><span class="n">set</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">FD_ZERO</span><span class="p">(</span><span class="n">fd_set</span> <span class="o">*</span><span class="n">set</span><span class="p">);</span>
+</pre></div>
+
+
+<p>FD_ZERO用于将fd_set初始化为空集合，FD_SET和FD_CLR分别用于在集合中设置和清除由参数fd传递的文件描述符。如果FD_ISSET宏中由参数fd指向的文件描述符是由参数fdset指向的fd_set集合中的一个元素，FD_ISSET将返回非零值。</p>
+<p>fd_set结构中可以容纳的文件描述符的最大数目由常量FD_SETSIZE指定。</p>
+<p>select函数用一个超时值来防止无限期的阻塞，这个超时值由一个timeval结构给出。</p>
+<div class="codehilite"><pre><span></span><span class="k">struct</span> <span class="n">timeval</span> <span class="p">{</span>
+    <span class="kt">long</span>    <span class="n">tv_sec</span><span class="p">;</span>         <span class="cm">/* seconds */</span>
+    <span class="kt">long</span>    <span class="n">tv_usec</span><span class="p">;</span>        <span class="cm">/* microseconds */</span>
+<span class="p">};</span>
+</pre></div>
+
+
+<p>select系统调用的原型如下：</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;sys/time.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">select</span><span class="p">(</span><span class="kt">int</span> <span class="n">nfds</span><span class="p">,</span> <span class="n">fd_set</span> <span class="o">*</span><span class="n">readfds</span><span class="p">,</span> <span class="n">fd_set</span> <span class="o">*</span><span class="n">writefds</span><span class="p">,</span>
+                  <span class="n">fd_set</span> <span class="o">*</span><span class="n">exceptfds</span><span class="p">,</span> <span class="k">struct</span> <span class="n">timeval</span> <span class="o">*</span><span class="n">timeout</span><span class="p">);</span>
+</pre></div>
+
+
+<p>select调用用于测试文件描述符集合中，是否有一个文件描述符已处于可读状态或可写状态或错误状态，它将阻塞以等待某个文件描述符进入这些状态。</p>
+<p>参数nfds指定需要测试的文件描述符数目，测试的描述符范围从0到nfds-1。3个描述符集合都可以被设置为空指针，这表示不执行相应的测试。</p>
+<p>select函数会在发生以下情况时返回：readfds中有描述符可读、writefds中有描述符可写或errorfds中有描述符遇到错误条件。如果这3种情况都没有发生，select将在timeout指定的超时时间经过后返回，如果timeout是一个空指针，这个调用会一直阻塞下去。</p>
+<p>当select返回时，描述符集合将被修改以指示哪些描述符正处于可读、可写或有错误的状态。可以使用FD_ISSET对描述符进行测试，来找出需要注意的描述符。</p>
+<p>select调用返回状态发生变化的描述符总数。失败时它将返回-1并设置errno。timeout参数指向的结构可能还会被修改为剩余的超时时间。</p>
+<p>见代码案例：select.c。</p>
+<h3 id="_15">多客户</h3>
+<p>通过使用select调用来同时处理多个客户就无需依赖于子进程了。但在把这个技巧应用到实际的应用程序中时，必须要注意，不能在处理第一个连接的客户时让其他客户等太长的时间。</p>
+<p>服务器可以使用select调用同时检查监听套接字和客户连接的套接字。一旦select调用指示有活动发生，就可以调用FD_ISSET来遍历所有可能的文件描述符，以检查是哪个上面有活动发生。</p>
+<p>如果是监听套接字可读，说明正有一个客户试图建立连接，此时就可以调用accept而不必担心其阻塞。如果是客户描述符准备好，说明有一个客户请求需要我们读取和处理。</p>
+<p>见代码案例：example5。</p>
+<h2 id="_16">数据报</h2>
+<p>当客户需要发送一个短小的查询请求给服务器，并且期望接收到一个短小的响应时，我们一般就使用由UDP服务提供的服务。</p>
+<p>sendto系统调用从buffer缓冲区中给使用指定套接字地址的目标服务器发送一个数据报。它的原型如下所示：</p>
+<div class="codehilite"><pre><span></span><span class="kt">int</span> <span class="nf">sendto</span><span class="p">(</span><span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span>
+               <span class="k">const</span> <span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="n">dest_addr</span><span class="p">,</span> <span class="kt">socklen_t</span> <span class="n">addrlen</span><span class="p">);</span>
+</pre></div>
+
+
+<p>在正常应用中，flag参数一般被设置为0。</p>
+<p>recvfrom系统调用在套接字上等待从特定地址到来的数据报，并将它放入buffer缓冲区。它的原型如下所示：</p>
+<div class="codehilite"><pre><span></span><span class="kt">ssize_t</span> <span class="nf">recvfrom</span><span class="p">(</span><span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span>
+                 <span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="n">src_addr</span><span class="p">,</span> <span class="kt">socklen_t</span> <span class="o">*</span><span class="n">addrlen</span><span class="p">);</span>
+</pre></div>
+
+
+<p>同样，在正常应用中，flag参数一般被设置为0。</p>
+<p>当错误发生时，sendto和recvfrom都将返回-1并设置errno。</p>
+<p>除非用fcntl将套接字设置为非阻塞方式，否则recvfrom调用将一直阻塞。我们可以用与前面的面向连接服务器一样的方式，通过select调用和超时设置来判断是否有数据到达套接字。</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../ch12%20POSIX%E7%BA%BF%E7%A8%8B/" title="ch12 POSIX线程" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                ch12 POSIX线程
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../cheatsheet/MySQL%E6%93%8D%E4%BD%9C/" title="MySQL操作" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                MySQL操作
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2018 Diwen Liu
+          </div>
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.b438e6c5.js"></script>
+      
+        
+        
+          
+          <script src="../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"0.17.3",url:{base:".."}})</script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-XXXXXXXX-X","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

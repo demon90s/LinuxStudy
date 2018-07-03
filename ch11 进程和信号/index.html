@@ -1,0 +1,1303 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Beginning Linux Programming Note">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.3">
+    
+    
+      
+        <title>ch11 进程和信号 - 《Linux程序设计》学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.8d40d89b.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.6079476c.css">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700|Open+Sans+Mono">
+        <style>body,input{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Open Sans Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue-grey" data-md-color-accent="light-blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <a href="#11" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="《Linux程序设计》学习笔记" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">school</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                《Linux程序设计》学习笔记
+              </span>
+              <span class="md-header-nav__topic">
+                ch11 进程和信号
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon">school</i>
+      
+    </span>
+    《Linux程序设计》学习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Chapters
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Chapters
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch01%20%E5%85%A5%E9%97%A8/" title="ch01 入门" class="md-nav__link">
+      ch01 入门
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch02%20shell%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" title="ch02 shell程序设计" class="md-nav__link">
+      ch02 shell程序设计
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch03%20%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" title="ch03 文件操作" class="md-nav__link">
+      ch03 文件操作
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch08%20MySQL/" title="ch08 MySQL" class="md-nav__link">
+      ch08 MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        ch11 进程和信号
+      </label>
+    
+    <a href="./" title="ch11 进程和信号" class="md-nav__link md-nav__link--active">
+      ch11 进程和信号
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="什么是进程？" class="md-nav__link">
+    什么是进程？
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="进程的结构" class="md-nav__link">
+    进程的结构
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="进程表" class="md-nav__link">
+    进程表
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="查看进程" class="md-nav__link">
+    查看进程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="系统进程" class="md-nav__link">
+    系统进程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="进程调度" class="md-nav__link">
+    进程调度
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" title="启动新进程" class="md-nav__link">
+    启动新进程
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system" title="使用system函数" class="md-nav__link">
+    使用system函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="替换进程映像" class="md-nav__link">
+    替换进程映像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="复制进程映像" class="md-nav__link">
+    复制进程映像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="等待一个进程" class="md-nav__link">
+    等待一个进程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="僵尸进程" class="md-nav__link">
+    僵尸进程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="输入和输出重定向" class="md-nav__link">
+    输入和输出重定向
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" title="信号" class="md-nav__link">
+    信号
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" title="发送信号" class="md-nav__link">
+    发送信号
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch12%20POSIX%E7%BA%BF%E7%A8%8B/" title="ch12 POSIX线程" class="md-nav__link">
+      ch12 POSIX线程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch15%20%E5%A5%97%E6%8E%A5%E5%AD%97/" title="ch15 套接字" class="md-nav__link">
+      ch15 套接字
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      CheatSheet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        CheatSheet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/MySQL%E6%93%8D%E4%BD%9C/" title="MySQL操作" class="md-nav__link">
+      MySQL操作
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/%E7%94%A8echo%E8%BE%93%E5%87%BA%E5%B8%A6%E9%A2%9C%E8%89%B2%E7%9A%84%E6%96%87%E6%9C%AC/" title="用echo输出带颜色的文本" class="md-nav__link">
+      用echo输出带颜色的文本
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/%E8%AE%A9%E8%BF%9B%E7%A8%8B%E5%9C%A8%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C/" title="让进程在后台运行" class="md-nav__link">
+      让进程在后台运行
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="什么是进程？" class="md-nav__link">
+    什么是进程？
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="进程的结构" class="md-nav__link">
+    进程的结构
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="进程表" class="md-nav__link">
+    进程表
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="查看进程" class="md-nav__link">
+    查看进程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="系统进程" class="md-nav__link">
+    系统进程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="进程调度" class="md-nav__link">
+    进程调度
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" title="启动新进程" class="md-nav__link">
+    启动新进程
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system" title="使用system函数" class="md-nav__link">
+    使用system函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="替换进程映像" class="md-nav__link">
+    替换进程映像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="复制进程映像" class="md-nav__link">
+    复制进程映像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="等待一个进程" class="md-nav__link">
+    等待一个进程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="僵尸进程" class="md-nav__link">
+    僵尸进程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="输入和输出重定向" class="md-nav__link">
+    输入和输出重定向
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" title="信号" class="md-nav__link">
+    信号
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" title="发送信号" class="md-nav__link">
+    发送信号
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/tree/master/study_notes/ch11 进程和信号.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="11">第11章 进程和信号</h1>
+<hr />
+<h2 id="_1">什么是进程？</h2>
+<p>UNIX标准把进程定义为：“一个其中运行着一个或多个线程的地址空间和这些线程所需要的系统资源。”</p>
+<p>可以把进程看作是正在运行的程序实例。</p>
+<p>作为多用户系统，Linux允许许多用户同时访问系统。每个用户可以同时运行许多个程序，甚至运行同一个程序的许多实例。系统本身也运行着一些管理系统资源和控制用户访问的程序。</p>
+<p>进程由程序代码、数据、变量（占用着系统内存）、打开的文件（文件描述符）和环境组成。一般来说，Linux系统会在进程之间共享程序代码和系统函数库，所以任何时刻内存中都只有代码的一份副本。</p>
+<h2 id="_2">进程的结构</h2>
+<p>如果有两个用户neil和rich，他们同时运行grep程序在不同文件中查找字符串。他们使用的进程如图所示：</p>
+<p><img alt="进程的结构" src="../image/进程的结构.png" /></p>
+<p>使用如下命令可以查看进程信息：</p>
+<div class="codehilite"><pre><span></span>$ ps -ef
+</pre></div>
+
+
+<p>每个进程都会被分配一个唯一的数字编号，我们称之为进程标识符或PID。它通常是一个取值范围从2到32768的正整数。当进程被启动时，系统将按顺序选择下一个未被使用的数字作为它的PID。数字1一般是为特殊进程init保留的，init进程负责管理其他进程。</p>
+<p>grep命令执行的程序代码保存在一个磁盘文件中，它以只读的方式加载到内存中，可以被多个进程安全地共享。</p>
+<p>系统函数库也可以被共享。例如，不管有多少个正在运行的程序要调用printf函数，内存中只要有它的一份副本即可。</p>
+<p>进程也有不会被共享的东西：</p>
+<ul>
+<li>
+<p>文件描述符可能不会被共享。</p>
+</li>
+<li>
+<p>栈空间，用于保存函数中的局部变量和控制函数的调用与返回。</p>
+</li>
+<li>
+<p>自己的环境空间。</p>
+</li>
+<li>
+<p>进程必须维护自己的程序计数器，它用来记录它执行到的位置。</p>
+</li>
+</ul>
+<p>在许多Linux系统上的/proc目录上有一组特殊的文件，它们允许你“窥视”正在运行的进程的内部情况，就好像这些进程是目录中的文件一样。</p>
+<p>因为Linux有一个虚拟内存系统，能够把程序代码和数据以内存页面的形式放到硬盘的一个区域中，所以Linux可以管理的进程比物理内存所能容纳的要多得多。</p>
+<h2 id="_3">进程表</h2>
+<p>Linux进程表就像一个数据结构，它把当前所有进程的有关信息保存在一个表中，包括进程的PID、进程的状态、命令字符串和其他一些ps命令输出的信息。</p>
+<p>操作系统通过进程的PID对它们进行管理，PID是进程表的索引。</p>
+<h3 id="_4">查看进程</h3>
+<p>ps命令可以显示我们正在运行的进程、其他用户正在运行的进程或者目前在系统上运行的所有进程。</p>
+<p>例如：</p>
+<div class="codehilite"><pre><span></span>$ ps -ef
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+liudiwen  4815  0.0  0.0 112644   952 pts/0    R+   11:16   0:00 grep --color=auto git
+</pre></div>
+
+
+<p>这个命令会显示许多进程的相关信息：</p>
+<ul>
+<li>
+<p>TTY一列显示了进程从哪一个终端启动</p>
+</li>
+<li>
+<p>TIME一列是进程目前为止所占用的CPU时间</p>
+</li>
+<li>
+<p>CMD一列显示启动进程所使用的命令</p>
+</li>
+</ul>
+<h3 id="_5">系统进程</h3>
+<p>使用这样的命令可以查看进程的状态：</p>
+<div class="codehilite"><pre><span></span>$ ps ax
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>PID TTY      STAT   TIME COMMAND
+1   ?        Ss     0:01 /usr/lib/systemd/systemd --switched-root --system --deserialize 20
+2   ?        S      0:00 [kthreadd]
+3   ?        S      0:00 [ksoftirqd/0]
+4   ?        S      0:01 [kworker/0:0]
+6   ?        S      0:00 [kworker/u2:0]
+</pre></div>
+
+
+<p>STAT一列用来表明进程的当前状态。常见的STAT代码有：</p>
+<table>
+<thead>
+<tr>
+<th align="center">STAT代码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">S</td>
+<td>睡眠。通常是在等待某个事件的发生，如一个信号或有输入可用</td>
+</tr>
+<tr>
+<td align="center">R</td>
+<td>运行。严格来说，应是“可运行”，即在运行队列中，处于正在执行或即将运行状态</td>
+</tr>
+<tr>
+<td align="center">D</td>
+<td>不可中断的睡眠。通常是在等待输入或输出完成</td>
+</tr>
+<tr>
+<td align="center">T</td>
+<td>停止。通常是被shell作业控制所停止</td>
+</tr>
+<tr>
+<td align="center">Z</td>
+<td>死(Defunct)进程或僵尸(zombie)进程</td>
+</tr>
+<tr>
+<td align="center">N</td>
+<td>低优先级任务, nice</td>
+</tr>
+<tr>
+<td align="center">&lt;</td>
+<td>高优先级任务</td>
+</tr>
+</tbody>
+</table>
+<p>更多代码见书本p391。</p>
+<p>这里，有一个非常重要的进程：PID 1号进程。（书上案例是init进程，在我的CentOS7上面，显示的是systemd进程）</p>
+<p>一般而言，每个进程都是由另一个被称之为父进程的进程启动的，被父进程启动的进程叫做子进程。Linux系统启动时，它将启动一个名为init的进程，它是第一个进程，可以把它看成是操作系统的进程管理器，它是其他所有进程的祖先进程。</p>
+<h3 id="_6">进程调度</h3>
+<p>ps命令的输出结果中还会包含其本身的记录：</p>
+<div class="codehilite"><pre><span></span>$ ps ax <span class="p">|</span> grep <span class="s1">&#39;ps ax&#39;</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>5437 pts/1    R+     0:00 ps ax
+</pre></div>
+
+
+<p>这表明进程5437是处于运行状态的前台进程（R+），正在执行的命令是ps ax。这个状态指示符只表示程序已准备好运行，并不意味着它正在运行。</p>
+<p>在一台单处理器计算机上，同一时间只能有一个进程可以运行，其他进程处于等待运行的状态。每个进程轮到的运行时间（称之为时间片）是相当短暂的，这就给人一种多个程序在同时运行的假象。</p>
+<p>Linux内核用进程调度器决定下一个时间片应该分配给哪一个进程。它的判断依据是进程优先级。优先级高的进程运行得更频繁。</p>
+<p>在Linux这样的多任务系统中，多个进程可能会竞争同一个资源。在这种情况下，执行短期的突发性工作并暂停运行来等待的程序，要比持续占用处理器来进行计算或不断轮询系统来查看是否有新的输入到达的程序要更好。</p>
+<p>我们称表现良好的程序为nice程序。操作系统通过进程的nice值来决定它的优先级。一个进程的nice值默认为0并将根据这个程序的表现不断变化。长期不间断运行的程序的优先级一般会比较低。而（例如）暂停等待输入的程序会得到奖励。这可以帮助与用户进行交互的程序保持及时的响应性。</p>
+<p>我们可以用nice命令来让一个程序以一个nice值启动，使用renice调整一个运行中的程序的nice值。nice命令是将进程的nice值增加10（默认），从而降低该进程的优先级。可以使用ps命令的-l选项查看进程的nice值（NI一栏）：</p>
+<div class="codehilite"><pre><span></span>$ ./alarm <span class="p">&amp;</span>
+$ ps -l
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+1 S  1000  9872  9871  0  80   0 -  1041 hrtime pts/1    00:00:00 alarm
+</pre></div>
+
+
+<p>使用nice命令让程序一个nice值启动：</p>
+<div class="codehilite"><pre><span></span>$ nice ./alarm <span class="p">&amp;</span> <span class="c1"># 重启启动，再看看它的nice值</span>
+$ ps -l
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+1 S  1000  9951  9950  0  90  10 -  1041 hrtime pts/1    00:00:00 alarm
+</pre></div>
+
+
+<p>使用renice命令调整运行中的程序的nice值：</p>
+<div class="codehilite"><pre><span></span>$ renice <span class="m">10</span> <span class="nv">$PID</span>
+</pre></div>
+
+
+<p>状态栏STAT中包含字符N表明这个进程的nice值已被修改过，已经不是默认值了：</p>
+<div class="codehilite"><pre><span></span>$ ps ax
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>PID    TTY      STAT   TIME COMMAND
+10725  pts/1      SN   0:00 ./alarm
+</pre></div>
+
+
+<h2 id="_7">启动新进程</h2>
+<h3 id="system">使用system函数</h3>
+<p>我们可以在一个程序的内部启动另一个程序，从而创建一个新进程。这个工作可以通过库函数system来完成。</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">system</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">string</span><span class="p">);</span>
+</pre></div>
+
+
+<p>system函数的作用是：运行以字符串参数的形式传递给它的命令并等待该命令的完成。命令的执行情况就如同在shell中执行如下命令：</p>
+<div class="codehilite"><pre><span></span>$ sh -c string
+</pre></div>
+
+
+<blockquote>
+<p>my note: -c允许sh执行一个二进制文件，如：sh -c "echo hi"</p>
+</blockquote>
+<p>如果无法启动shell来运行这个命令，system函数将返回错误代码127；如果是其他错误，则返回-1。否则，system返回该命令的退出码。</p>
+<p>案例代码：</p>
+<ul>
+<li>
+<p><a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/system1.c">阻塞版本</a></p>
+</li>
+<li>
+<p><a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/system2.c">非阻塞版本</a></p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>一般来说，使用system函数远非启动其他进程的理想手段，因为它必须用一个shell来启动需要的程序。因此对shell的安装情况及其环境的依赖也很大，所以使用system函数的效率不高。</p>
+</div>
+<h3 id="_8">替换进程映像</h3>
+<p>exec系列函数由一组相关的函数组成，它们在进程的启动方式和参数的表达方式上各有不同。</p>
+<p>exec函数可以把当前进程替换为一个新进程。你可以使用exec函数将程序的执行从一个程序切换到另一个程序。</p>
+<p>exec函数比system函数更有效，因为在新的程序启动后，原来的程序就不再运行了。</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+
+<span class="k">extern</span> <span class="kt">char</span> <span class="o">**</span><span class="n">environ</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">execl</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="p">...);</span>
+<span class="kt">int</span> <span class="nf">execlp</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="p">...);</span>
+<span class="kt">int</span> <span class="nf">execle</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="p">...,</span> <span class="kt">char</span> <span class="o">*</span> <span class="k">const</span> <span class="n">envp</span><span class="p">[]);</span>
+
+<span class="kt">int</span> <span class="nf">execv</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">argv</span><span class="p">[]);</span>
+<span class="kt">int</span> <span class="nf">execvp</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">argv</span><span class="p">[]);</span>
+<span class="kt">int</span> <span class="nf">execvpe</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">argv</span><span class="p">[],</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">envp</span><span class="p">[]);</span>
+</pre></div>
+
+
+<p>带字母l版本的参数是可变的，参数以一个空指针结束。</p>
+<p>带字母v版本的参数用一个字符串数组来表达。</p>
+<p>新程序在启动时把这些参数传递给main函数。</p>
+<p>带字母p的版本的函数会搜索PATH环境变量来查找新程序的可执行文件的路径。如果它不在PATH中，我们就需要使用程序文件的绝对路径。</p>
+<p>全局变量environ可以用来把一个值传递到新的程序环境中。此外，带字母e版本的函数可以通过参数envp传递字符串数组作为新程序的环境变量。</p>
+<p>如果想通过exec函数来启动ps程序，可以从其中选择一个，如：</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+
+<span class="cm">/* Example of argument list */</span>
+<span class="cm">/* Note we need a program name for argv[0] */</span>
+<span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">ps_argv</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&quot;ps&quot;</span><span class="p">,</span> <span class="s">&quot;ax&quot;</span><span class="p">,</span> <span class="nb">NULL</span> <span class="p">};</span>
+
+<span class="cm">/* Example environment, not terribly useful */</span>
+<span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">ps_envp</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&quot;PATH=/bin:/user/bin&quot;</span><span class="p">,</span> <span class="s">&quot;TERM=console&quot;</span><span class="p">,</span> <span class="mi">0</span> <span class="p">};</span>
+
+<span class="cm">/* Possible calls for exec functions */</span>
+<span class="n">execl</span><span class="p">(</span><span class="s">&quot;/bin/ps&quot;</span><span class="p">,</span> <span class="s">&quot;ps&quot;</span><span class="p">,</span> <span class="s">&quot;ax&quot;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>             <span class="cm">/* assumes ps is in /bin */</span>
+<span class="n">execlp</span><span class="p">(</span><span class="s">&quot;ps&quot;</span><span class="p">,</span> <span class="s">&quot;ps&quot;</span><span class="p">,</span> <span class="s">&quot;ax&quot;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>                 <span class="cm">/* assumes /bin is in PATH */</span>
+<span class="n">execle</span><span class="p">(</span><span class="s">&quot;/bin/ps&quot;</span><span class="p">,</span> <span class="s">&quot;ps&quot;</span><span class="p">,</span> <span class="s">&quot;ax&quot;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">ps_envp</span><span class="p">);</span>   <span class="cm">/* passes own environment */</span>
+
+<span class="n">execv</span><span class="p">(</span><span class="s">&quot;/bin/ps&quot;</span><span class="p">,</span> <span class="n">ps_argv</span><span class="p">);</span>
+<span class="n">execvp</span><span class="p">(</span><span class="s">&quot;ps&quot;</span><span class="p">,</span> <span class="n">ps_argv</span><span class="p">);</span>
+<span class="n">execve</span><span class="p">(</span><span class="s">&quot;/bin/ps&quot;</span><span class="p">,</span> <span class="n">ps_argv</span><span class="p">,</span> <span class="n">ps_envp</span><span class="p">);</span>
+</pre></div>
+
+
+<p>案例代码：</p>
+<ul>
+<li><a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/pexec.c">execlp函数</a></li>
+</ul>
+<p>新进程的PID、PPID和nice值与原先的完全一样。</p>
+<p>一般情况下，exec函数是不会返回的，除非发生了错误。出现错误时，exec函数将返回-1，并会设置errno。</p>
+<p>由exec启动的新进程继承了原进程的许多特性。特别地，在原进程中已打开的文件描述符在新进程中仍将保持打开。除非它们的“执行时关闭标志”被置位（参考fcntl系统调用，第三章）。任何在原进程中已打开的目录流都将在新进程中被关闭。</p>
+<h3 id="_9">复制进程映像</h3>
+<p>要想让进程同时执行多个函数，我们可以使用线程或从原程序中创建一个完全分离的进程，后者就像init的做法一样，而非exec那样调用新程序替换当前执行的线程。</p>
+<p>我们可以通过fork创建一个新进程。这个系统调用复制当前进程，在进程表中创建一个新的表项，新表项中的许多属性与当前进程是相同的。新进程几乎与原进程一模一样，执行的代码也完全相同，但新进程有自己的数据空间、环境和文件描述符。</p>
+<p>fork和exec函数结合在一起使用就是创建新进程所需要的一切了。</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+
+<span class="kt">pid_t</span> <span class="nf">fork</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+
+
+<p><img alt="fork" src="../image/fork.png" /></p>
+<p>如图，父进程中的fork调用返回的是子进程的PID，子进程中的fork返回的是0。通过这一点来判断究竟谁是父进程，谁是子进程。</p>
+<p>如果fork失败，它将返回-1。失败通常是因为父进程所拥有的子进程数目超过了规定的限制（CHILD_MAX），此时errno将被设置为EAGAIN。如果是因为进程表里没有足够的空间用于创建新的表单或虚拟内存不足，errno变量将被设置为ENOMEM。</p>
+<p>案例代码：</p>
+<ul>
+<li><a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/fork1.c">fork函数</a></li>
+</ul>
+<h3 id="_10">等待一个进程</h3>
+<p>当用fork启动一个子进程时，子进程就有了它自己的生命周期并将独立运行。有时我们希望知道一个子进程何时结束。通过在父进程中调用wait函数让父进程等待子进程的结束。</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp"></span>
+
+<span class="kt">pid_t</span> <span class="nf">wait</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">status</span><span class="p">);</span>
+</pre></div>
+
+
+<p>wait函数将暂停父进程直到它的子进程结束为止。这个调用返回子进程的PID。它通常是已经结束运行的子进程的PID。状态信息允许父进程了解子进程的退出状态，即子进程的main函数的返回值或exit函数的退出码。如果status不是空指针，退出状态将被写入。</p>
+<p>我们可以使用如下宏来解释状态信息：</p>
+<table>
+<thead>
+<tr>
+<th>宏</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WIFEXITED(status)</td>
+<td>如果子进程正常结束，它就取一个非零值</td>
+</tr>
+<tr>
+<td>WEXITSTATUS(status)</td>
+<td>如果WIFEXITED非零，它返回子进程的退出码</td>
+</tr>
+<tr>
+<td>WIFSIGNALED(status)</td>
+<td>如果子进程因为一个未捕获的信号而终止，它就取一个非零值</td>
+</tr>
+<tr>
+<td>WTERMSIG(status)</td>
+<td>如果WIFSIGNALED非零，它返回一个信号代码</td>
+</tr>
+<tr>
+<td>WIFSTOPPED(status)</td>
+<td>如果子进程意外终止，它就取一个非零值</td>
+</tr>
+<tr>
+<td>WSTOPSIG(status)</td>
+<td>如果WIFSTOPPED非零，它返回一个信号代码</td>
+</tr>
+</tbody>
+</table>
+<p>案例代码：</p>
+<p><a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/wait.c">wait函数</a></p>
+<h3 id="_11">僵尸进程</h3>
+<p>子进程结束时，它与父进程的关联还会保持，直到父进程也终止或父进程调用wait才告结束。因此，进程中代表子进程的表项不会立即释放。虽然子系统已经不再运行，但它仍存在于系统中。因为它的退出码还需要保存起来，以备父进程今后的wait调用使用。这时它将成为一个死(defunct)进程或僵尸(zombie)进程。</p>
+<p>如果父进程在子进程结束前异常终止，子进程将自动把PID为1的进程作为自己的父进程。子进程现在是一个不再运行的僵尸进程，但因为其父进程异常终止，所以它由init进程接管。僵尸进程将一直保留在进程表中直到被init进程发现并释放。进程表越大，这一过程就越慢。应该避免产生僵尸进程。</p>
+<p>还有另一个系统调用可用来等待子进程的结束，它是waitpid函数。可以用它来等待某个特定的进程的结束，并且可以设置非阻塞的模式。</p>
+<h3 id="_12">输入和输出重定向</h3>
+<p>已打开的文件描述符将在fork和exec调用之后保留下来。</p>
+<p>参见案例代码：</p>
+<p><a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/useupper.c">重定向</a></p>
+<h2 id="_13">信号</h2>
+<p>信号是Unix和Linux系统相应某些条件而产生的一个事件。接收到该信号的进程会相应地采取一些行动。我们用术语生成（raise）表示一个信号的产生，使用术语捕获（catch）表示接收到一个信号。</p>
+<p>信号的生成可能是：</p>
+<ul>
+<li>
+<p>出现了某些错误，如内存段冲突、浮点处理器错误或非法指令。它们由shell和终端处理器生成来引起中断。</p>
+</li>
+<li>
+<p>可以明确地由一个进程发送给另一个进程，作为在进程中传递消息或修改行为的一种方式。</p>
+</li>
+</ul>
+<p>信号的编程接口都是相同的。信号可以被生成、捕获、响应或忽略。</p>
+<p>信号的名称是在头文件signal.h中定义的，以SIG开头。部分信号：</p>
+<table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SIGALRM</td>
+<td>超时警告</td>
+</tr>
+<tr>
+<td>SIGHUP</td>
+<td>连接挂断</td>
+</tr>
+<tr>
+<td>SIGINT</td>
+<td>终端中断</td>
+</tr>
+<tr>
+<td>SIGKILL</td>
+<td>终止进程（此信号不能被捕获或忽略）</td>
+</tr>
+<tr>
+<td>SIGSEGV</td>
+<td>无效内存段访问</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>my note: 在我的CentOS 7上面，头文件signal.h中并没有定义这些信号，但可以通过<code>man 7 signal</code>查看更多信号内容。</p>
+</blockquote>
+<p>如接收到这些信号中的一个而没有捕获它，进程将会立即终止。通常，系统将生成核心转储文件core，并将其放在当前目录下。该文件是进程在内存中的映像，它对程序的调试很有用处。</p>
+<blockquote>
+<p>my note: 某些信号好像不能创建core文件，比如SIGINT。而且我的环境下，SIGSEGV也不能产生core文件，除非在.bashrc中添加了<code>ulimit -c unlimited</code></p>
+</blockquote>
+<p>在键盘上敲入中断字符（CTRL + C）就会向前台进程（当前正在运行的程序发送SIGINT信号），这将引起该程序的终止，除非它事先捕获了该信号。</p>
+<p>如果想发送一个信号给进程，而该进程并不是当前的前台进程，就需要使用kill命令。例如，如果要向运行在另一个终端上的PID为512的进程发送“挂断”信号，可以使用如下命令：</p>
+<div class="codehilite"><pre><span></span>$ <span class="nb">kill</span> -HUP <span class="m">512</span>
+</pre></div>
+
+
+<p>killall命令可以给运行着某一命令的所有进程发送信号。如果不知道某个进程的PID，或者想给执行相同命令的许多不同进程发送信号，这条命令就很有用了。</p>
+<p>程序可以使用signal库函数来处理信号。</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp"></span>
+
+<span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="kt">sighandler_t</span><span class="p">)(</span><span class="kt">int</span><span class="p">);</span>
+<span class="kt">sighandler_t</span> <span class="nf">signal</span><span class="p">(</span><span class="kt">int</span> <span class="n">signum</span><span class="p">,</span> <span class="kt">sighandler_t</span> <span class="n">handler</span><span class="p">);</span>
+</pre></div>
+
+
+<p>准备捕获或忽略的信号由参数signum给出，接收到信号后将要调用的函数由参数handler给出，handler有一个int类型的参数（即接收到的信号代码）。</p>
+<p>signal本身也返回一个同类型的函数，即handler。可以使用下面的特殊值来代替信号处理函数：</p>
+<table>
+<thead>
+<tr>
+<th>信号处理函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SIG_IGN</td>
+<td>忽略信号</td>
+</tr>
+<tr>
+<td>SIG_DFL</td>
+<td>恢复默认行为</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/ctrlc.c"><mark>signal案例代码</mark></a></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>在信号处理函数中，调用像printf这样的函数是不安全的。一个有用的技巧是，在信号处理函数中设置一个标志，然后在主程序中检查这个标志。</p>
+</div>
+<h3 id="_14">发送信号</h3>
+<p>进程可以通过调用kill函数向包括它本身在内的进程发送一个信号。如果程序没有权限发送该信号，kill函数将调用失败。这个函数和同名shell命令完成相同的功能。</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">kill</span><span class="p">(</span><span class="kt">pid_t</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">int</span> <span class="n">sig</span><span class="p">);</span>
+</pre></div>
+
+
+<p>函数成功时返回0。要想发送一个信号，发送进程必须拥有相应的权限，这通常意味着两个进程必须拥有相同的用户ID（即你只能发送信号给属于自己的进程，但超级用户可以发送给任何进程）。</p>
+<p>函数失败时返回-1，并设置errno。</p>
+<p>进程可以通过alarm函数在经过预定时间后发送一个SIGALRM信号。</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">alarm</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">);</span>
+</pre></div>
+
+
+<p>把参数seconds设置为0将取消所有已设置的闹钟请求。如果在接受到SIGALRM信号之前再次调用alarm函数，则闹钟重新开始计时。</p>
+<p>每个进程只能有一个闹钟时间。</p>
+<p>alarm函数的返回值是以前设置的闹钟时间的余留秒数，失败返回-1。</p>
+<p>pause函数的作用是把程序的执行挂起直到有一个信号出现为止。当程序收到一个信号时，预设好的信号处理函数开始运行，程序也将恢复正常的执行。</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">pause</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+
+
+<p>当它被一个信号中断时，将返回-1（如果程序没有终止的话），并把errno设置为EINTR。</p>
+<p><a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/alarm.c"><mark>alarm代码案例</mark></a></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>使用信号并挂起程序的执行是Linux程序设计中的一个重要部分。这意味这程序不需要总是在执行着。程序不必在一个循环中无休止地检查某个事件是否已发生，相反，它可以等待事件的发生。</p>
+<p>在编写程序中处理信号部分的代码时必须十分小心，因为在使用信号的程序中会出现各种各样的“竞态条件”。</p>
+</div>
+<p><strong>一个健壮的信号接口</strong></p>
+<p>X/Open和UNIX规范推荐了一个更新和更健壮的信号编程接口：sigaction。</p>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">sigaction</span><span class="p">(</span><span class="kt">int</span> <span class="n">signum</span><span class="p">,</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">sigaction</span> <span class="o">*</span><span class="n">act</span><span class="p">,</span>
+             <span class="k">struct</span> <span class="n">sigaction</span> <span class="o">*</span><span class="n">oldact</span><span class="p">);</span>
+</pre></div>
+
+
+<p>sigaction结构定义了在接收到参数signum指定的信号后应该采取的行动。它至少包含如下成员：</p>
+<div class="codehilite"><pre><span></span><span class="kt">void</span>     <span class="p">(</span><span class="o">*</span><span class="n">sa_handler</span><span class="p">)(</span><span class="kt">int</span><span class="p">);</span>        <span class="cm">/* function, SIG_DFL or SIG_IGN */</span>
+<span class="kt">sigset_t</span>   <span class="n">sa_mask</span><span class="p">;</span>                 <span class="cm">/* signals to block in sa_handler */</span>
+<span class="kt">int</span>        <span class="n">sa_flags</span><span class="p">;</span>                <span class="cm">/* signal action modifiers */</span>
+</pre></div>
+
+
+<p>见<a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/ctrlc2.c"><mark>sigaction案例代码</mark></a></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../ch08%20MySQL/" title="ch08 MySQL" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                ch08 MySQL
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../ch12%20POSIX%E7%BA%BF%E7%A8%8B/" title="ch12 POSIX线程" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                ch12 POSIX线程
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2018 Diwen Liu
+          </div>
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.b438e6c5.js"></script>
+      
+        
+        
+          
+          <script src="../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"0.17.3",url:{base:".."}})</script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-XXXXXXXX-X","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>
