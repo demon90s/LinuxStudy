@@ -32,6 +32,8 @@ main() {
 
 	if [ "$answer" == "y" ]; then
 		commit
+		
+		python -m mkdocs gh-deploy --force
 	fi
 }
 
