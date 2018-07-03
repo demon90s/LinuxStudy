@@ -21,6 +21,7 @@ pages:
   - CheatSheet:
     - MySQL操作: cheatsheet/MySQL操作.md
     - 用echo输出带颜色的文本: cheatsheet/用echo输出带颜色的文本.md
+    - 让进程在后台运行: cheatsheet/让进程在后台运行.md
 
 theme:
   name: 'material'
