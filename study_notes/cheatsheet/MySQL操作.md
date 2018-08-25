@@ -37,11 +37,22 @@ $ mysql -u ldw --password=123456 foo < sqlcmd.sql
 $ mysql -uroot -p123456 foo -e 'SELECT * FROM boo'
 
 # 转储数据库
-$ mysqldump -u ldw -p123456 > foo_bak.dump
+$ mysqldump -u ldw -p123456 table_name > table_name_bak.dump
 
 # 创建一个数据库
 mysql> CREATE DATABASE test;
 
 # 查看所有数据库
 mysql > SHOW DATABASES;
+
+# 删除一张表
+mysql > DROP TABLE table_name;
+
+# 创建一张表（脚本）
+CREATE TABLE `table_name` (
+  `table_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`table_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```

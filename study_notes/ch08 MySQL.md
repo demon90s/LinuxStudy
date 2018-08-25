@@ -220,7 +220,7 @@ mysqldump命令对于迁移数据或快速备份非常有用。
 一个转储数据库的例子：
 
 ```bash
-$ mysqldump -u ldw -p123456 > foo_bak.dump
+$ mysqldump -u ldw -p table_name > table_name_bak.dump
 ```
 
 **mysqlimport**
