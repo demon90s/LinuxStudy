@@ -1018,7 +1018,7 @@ mysql&gt; SELECT user, host, password FROM mysql.user<span class="p">;</sp
 <p>默认情况下，mysqldump将数据发送到标准输出，可以把它重定向到文件。</p>
 <p>mysqldump命令对于迁移数据或快速备份非常有用。</p>
 <p>一个转储数据库的例子：</p>
-<div class="codehilite"><pre><span></span>$ mysqldump -u ldw -p123456 &gt; foo_bak.dump
+<div class="codehilite"><pre><span></span>$ mysqldump -u ldw -p table_name &gt; table_name_bak.dump
 </pre></div>
 
 

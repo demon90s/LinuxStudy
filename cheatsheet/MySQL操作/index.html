@@ -545,13 +545,24 @@ $ mysql -u ldw --password<span class="o">=</span><span class="m">123456</span> f
 $ mysql -uroot -p123456 foo -e <span class="s1">&#39;SELECT * FROM boo&#39;</span>
 
 <span class="c1"># 转储数据库</span>
-$ mysqldump -u ldw -p123456 &gt; foo_bak.dump
+$ mysqldump -u ldw -p123456 table_name &gt; table_name_bak.dump
 
 <span class="c1"># 创建一个数据库</span>
 mysql&gt; CREATE DATABASE test<span class="p">;</span>
 
 <span class="c1"># 查看所有数据库</span>
 mysql &gt; SHOW DATABASES<span class="p">;</span>
+
+<span class="c1"># 删除一张表</span>
+mysql &gt; DROP TABLE table_name<span class="p">;</span>
+
+<span class="c1"># 创建一张表（脚本）</span>
+CREATE TABLE <span class="sb">`</span>table_name<span class="sb">`</span> <span class="o">(</span>
+  <span class="sb">`</span>table_id<span class="sb">`</span> bigint<span class="o">(</span><span class="m">20</span><span class="o">)</span> NOT NULL AUTO_INCREMENT,
+  <span class="sb">`</span>user_id<span class="sb">`</span> int<span class="o">(</span><span class="m">11</span><span class="o">)</span> NOT NULL DEFAULT <span class="s1">&#39;0&#39;</span>,
+  PRIMARY KEY <span class="o">(</span><span class="sb">`</span>table_id<span class="sb">`</span><span class="o">)</span>,
+  KEY <span class="sb">`</span>user_id<span class="sb">`</span> <span class="o">(</span><span class="sb">`</span>user_id<span class="sb">`</span><span class="o">)</span>
+<span class="o">)</span> <span class="nv">ENGINE</span><span class="o">=</span>InnoDB DEFAULT <span class="nv">CHARSET</span><span class="o">=</span>utf8<span class="p">;</span>
 </pre></div>
                 
                   
