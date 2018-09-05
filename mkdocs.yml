@@ -19,6 +19,7 @@ pages:
     - ch12 POSIX线程: ch12 POSIX线程.md
     - ch15 套接字: ch15 套接字.md
   - CheatSheet:
+    - shell_utility: cheatsheet/shell_utility.md
     - MySQL操作: cheatsheet/MySQL操作.md
     - 用echo输出带颜色的文本: cheatsheet/用echo输出带颜色的文本.md
     - 让进程在后台运行: cheatsheet/让进程在后台运行.md
