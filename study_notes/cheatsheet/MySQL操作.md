@@ -37,7 +37,10 @@ $ mysql -u ldw --password=123456 foo < sqlcmd.sql
 $ mysql -uroot -p123456 foo -e 'SELECT * FROM boo'
 
 # 转储数据库
-$ mysqldump -u ldw -p123456 table_name > table_name_bak.dump
+$ mysqldump -u ldw -p123456 db_name > db_name_bak.sql
+
+# 转储数据库中的某个表
+$ mysqldump -u ldw -p123456 db_name table > table_bak.sql
 
 # 创建一个数据库
 mysql> CREATE DATABASE test;
@@ -56,3 +59,9 @@ CREATE TABLE `table_name` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
+
+## MySql 函数
+
+FROM_UNIXTIME - 将时间戳转换成字符串表示的时间
+
+COUNT(\*) - 得到记录的总数目
