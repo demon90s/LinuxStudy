@@ -1,12 +1,12 @@
-site_name: 《Linux程序设计》学习笔记
-site_description: Beginning Linux Programming Note
+site_name: Linux学习笔记
+site_description: Linux学习笔记
 
 copyright: 'Copyright &copy; 2018 Diwen Liu'
 
 docs_dir: study_notes
 
-repo_url: https://github.com/demon90s/Beginning_Linux_Programming_CodeNote
-edit_uri: "tree/master/study_notes"
+#repo_url: https://github.com/demon90s/LinuxStudy
+#edit_uri: "tree/master/study_notes"
 
 pages:
   - Introduction: index.md

@@ -1,5 +1,8 @@
 /*
  * 程序参数（p115）
+ * 
+ * use:
+ * $ ./args -i -lr 'hi there' -f fred.c
  */
 
 #include <stdlib.h>
