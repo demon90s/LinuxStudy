@@ -1,6 +1,4 @@
-/*
-    实验 用户信息
-*/
+// 实验：用户信息
 
 #include <sys/types.h>
 #include <pwd.h>

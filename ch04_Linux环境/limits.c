@@ -1,6 +1,4 @@
-/*
- * 实验 资源限制
- */
+// 实验：资源限制
 
 #include <sys/types.h>
 #include <sys/resource.h>

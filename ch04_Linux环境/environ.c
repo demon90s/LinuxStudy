@@ -1,3 +1,5 @@
+// 实验：getenv 和 putenv
+
 /*
     实验 getenv 和 putenv
 

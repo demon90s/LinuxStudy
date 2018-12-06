@@ -1,6 +1,4 @@
-/*
- * 实验 主机信息
- */
+// 实验：主机信息
 
 #include <sys/utsname.h>
 #include <unistd.h>

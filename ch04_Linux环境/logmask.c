@@ -1,6 +1,4 @@
-/*
- * 实验 logmask
- */
+// 实验：logmask
 
 #include <syslog.h>
 #include <stdio.h>
