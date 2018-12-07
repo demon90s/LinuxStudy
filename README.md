@@ -26,7 +26,13 @@
 
 [程序参数](./ch04_Linux环境/args.c)
 
+[ctime函数](./ch04_Linux环境/ctime.c)
+
 [getenv 和 putenv](./ch04_Linux环境/environ.c)
+
+[time函数](./ch04_Linux环境/envtime.c)
+
+[gmtime函数](./ch04_Linux环境/gmtime.c)
 
 [主机信息](./ch04_Linux环境/hostget.c)
 
@@ -37,6 +43,10 @@
 [getopt_long](./ch04_Linux环境/longopt.c)
 
 [environ 变量](./ch04_Linux环境/showenv.c)
+
+[strftime和strptime](./ch04_Linux环境/strftime.c)
+
+[tmpnam和tmpfile](./ch04_Linux环境/tmpnam.c)
 
 [用户信息](./ch04_Linux环境/user.c)
 
