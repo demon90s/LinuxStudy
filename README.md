@@ -58,6 +58,10 @@
 
 [用C语言编写的菜单例程（使用/dev/tty）](./ch05_终端/menu3.c)
 
+[用C语言编写的菜单例程（读取每个字符）](./ch05_终端/menu4.c)
+
+[使用termios结构的密码程序](./ch05_终端/password.c)
+
 ### 第8章 MySQL
 
 [连接数据库](./ch08_MySQL/connect1.c)

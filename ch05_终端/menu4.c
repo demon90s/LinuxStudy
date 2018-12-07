@@ -1,12 +1,9 @@
-// 实验：用C语言编写的菜单例程（使用/dev/tty）
+// 实验：用C语言编写的菜单例程（读取每个字符）
 
-// 如果使用这样的命令启动程序，即使被重定向，仍然会把 menu 正常输出到终端：
-//
-// $ ./menu3 > log
-//
-// 其余的，重定向到 log
+// 修改 termios ，使得可以不需要输入回车而读取字符。
 
 #include <unistd.h>
+#include <termios.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -26,6 +23,7 @@ int main()
 
 	int choice = 0;
 	FILE *in, *out;
+	struct termios initial_settings, new_settings;
 
 	in = fopen("/dev/tty", "r");
 	out = fopen("/dev/tty", "w");
@@ -34,11 +32,24 @@ int main()
 		return 1;
 	}
 
+	// 获取原始终端属性，设置终端属性，控制输出行为
+	tcgetattr(fileno(in), &new_settings);
+	new_settings.c_lflag &= ~ICANON;
+	new_settings.c_lflag &= ~ECHO;
+	new_settings.c_cc[VMIN] = 1;
+	new_settings.c_cc[VTIME] = 0;
+	new_settings.c_lflag &= ~ISIG;
+	if (tcsetattr(fileno(in), TCSANOW, &new_settings) != 0) {
+		fprintf(stderr, "could not set attributes\n");
+	}
+
 	do {
 		choice = getchoice("Please select an action", menu, in, out);
 		printf("You have chosen: %c\n", choice);
 
 	} while (choice != 'q');
+
+	tcsetattr(fileno(in), TCSANOW, &initial_settings);
 
 	fclose(in);
 	fclose(out);
@@ -70,7 +81,6 @@ int getchoice(char *greet, char *choices[], FILE *in, FILE *out)
 		}
 
 		selected = fgetc(in);
-		while (fgetc(in) != '\n');
 
 		option = choices;
 		while (*option) {
