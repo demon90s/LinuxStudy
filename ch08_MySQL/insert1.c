@@ -1,3 +1,5 @@
+// 实验：使用mysql_query插入记录
+//
 // 简单的执行插入SQL语句的例程
 
 #include <stdlib.h>

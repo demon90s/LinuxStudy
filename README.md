@@ -42,6 +42,20 @@
 
 ### 第8章 MySQL
 
+[连接数据库](./ch08_MySQL/connect1.c)
+
+[连接数据库并处理错误](./ch08_MySQL/connect2.c)
+
+[使用mysql_query插入记录](./ch08_MySQL/insert1.c)
+
+[在C程序中使用自动分配的ID](./ch08_MySQL/insert2.c)
+
+[提取数据](./ch08_MySQL/select1.c)
+
+[提取数据并打印](./ch08_MySQL/select2.c)
+
+[提取数据并打印详细信息](./ch08_MySQL/select3.c)
+
 ### 第11章 进程和信号
 
 ### 第12章 POSIX线程
