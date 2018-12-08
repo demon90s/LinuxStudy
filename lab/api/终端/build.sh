@@ -3,7 +3,7 @@
 # 自动编译源文件的脚本，使用方法：sh build.sh [rebuild | clear]
 
 all_c_files=`ls *.c`
-exclude_files=""
+exclude_files="mkfifo.c"
 
 is_exclude_file() {
 	for file in $exclude_files; do
@@ -33,7 +33,7 @@ main() {
 		fi
 
 		echo "[BUILDING] $c_file -> $exe_file"
-		gcc -g -Wall $c_file -o $exe_file -lm -lncurses
+		gcc -g -Wall $c_file -o $exe_file -lncurses
 
 		if [ "$?" != "0" ]; then
 			return 1

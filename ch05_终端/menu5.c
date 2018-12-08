@@ -1,11 +1,15 @@
-// 实验：用C语言编写的菜单例程（读取每个字符）
+// 实验：用C语言编写的菜单例程（完整的终端控制）
 
-// 修改 termios ，使得可以不需要输入回车而读取字符。
+// 使用 terminfo
 
 #include <unistd.h>
 #include <termios.h>
+#include <term.h>
+#include <curses.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+static FILE *output_stream = (FILE*)0;
 
 char *menu[] = {
 	"a - add new record",
@@ -15,6 +19,7 @@ char *menu[] = {
 };
 
 int getchoice(char *greet, char *choices[], FILE *in, FILE *out);
+int char_to_terminal(int char_to_write);
 void checktty();
 
 int main()
@@ -48,6 +53,8 @@ int main()
 		choice = getchoice("Please select an action", menu, in, out);
 		printf("You have chosen: %c\n", choice);
 
+		sleep(1);
+
 	} while (choice != 'q');
 
 	if (0 != tcsetattr(fileno(in), TCSANOW, &initial_settings)) {
@@ -74,18 +81,35 @@ int getchoice(char *greet, char *choices[], FILE *in, FILE *out)
 {
 	int chosen = 0;
 	int selected;
+	int screenrow, screencol = 10;
 	char **option;
+	char *cursor, *clear;
+
+	output_stream = out;
+
+	setupterm(NULL, fileno(out), (int*)0);
+	cursor = tigetstr("cup");
+	clear = tigetstr("clear");
+
+	screenrow = 4;
+	tputs(clear, 1, char_to_terminal);
+	tputs(tparm(cursor, screenrow, screencol), 1, char_to_terminal);
+	
+	fprintf(out, "Choice: %s", greet);
+	screenrow += 2;
+	option = choices;
+
+	while (*option) {
+		tputs(tparm(cursor, screenrow, screencol), 1, char_to_terminal);
+		fprintf(out, "%s", *option);
+		screenrow++;
+		option++;
+	}
+	fprintf(out, "\n");
 
 	do {
-		fprintf(out, "Choice: %s\n", greet);
-		option = choices;
-		while (*option) {
-			fprintf(out, "%s\n", *option);
-			option++;
-		}
-
+		fflush(out);
 		selected = fgetc(in);
-
 		option = choices;
 		while (*option) {
 			if (selected == *option[0]) {
@@ -95,10 +119,17 @@ int getchoice(char *greet, char *choices[], FILE *in, FILE *out)
 			option++;
 		}
 		if (!chosen) {
-			fprintf(out, "Incorrect choice, select again!\n");
+			tputs(tparm(cursor, screenrow, screencol), 1, char_to_terminal);
+			fprintf(out, "Incorrect choice, select again\n");
 		}
-
 	} while (!chosen);
 
+	tputs(clear, 1, char_to_terminal);
 	return selected;
+}
+
+int char_to_terminal(int char_to_write)
+{
+	if (output_stream) fputc(char_to_write, output_stream);
+	return 0;
 }
