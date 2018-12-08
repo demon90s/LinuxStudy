@@ -15,6 +15,7 @@ pages:
     - ch02 shell程序设计: ch02 shell程序设计.md
     - ch03 文件操作: ch03 文件操作.md
     - ch04 Linux环境: ch04 Linux环境.md
+    - ch05 终端: ch05 终端.md
     - ch08 MySQL: ch08 MySQL.md
     - ch11 进程和信号: ch11 进程和信号.md
     - ch12 POSIX线程: ch12 POSIX线程.md
