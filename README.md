@@ -68,6 +68,16 @@
 
 [使用termios结构的密码程序](./ch05_终端/password.c)
 
+### 第6章 curses
+
+[键盘模式和输入](./ch06_curses/ipmode.c)
+
+[移动、插入和属性](./ch06_curses/moveadd.c)
+
+[管理多窗口](./ch06_curses/multiw1.c)
+
+[一个Hello World curses程序](./ch06_curses/screen1.c)
+
 ### 第8章 MySQL
 
 [连接数据库](./ch08_MySQL/connect1.c)
