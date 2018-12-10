@@ -13,7 +13,7 @@ int main()
 {
 	initscr();
 
-	box(stdscr, '+', '+');
+	box(stdscr, '|', '-');
 	refresh();
 
 	while (1) { sleep(1); }

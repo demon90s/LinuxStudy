@@ -16,19 +16,19 @@
 
 int main()
 {
-	WINDOW *sub_window;
+	WINDOW *new_window;
 
 	initscr();
 
-	sub_window = newwin(10, 10, 0, 0);
-	if (sub_window) {
-		box(sub_window, '|', '-');
+	new_window = newwin(10, 10, 0, 0);
+	if (new_window) {
+		box(new_window, '|', '-');
 	}
-	wrefresh(sub_window);
+	wrefresh(new_window);
 
 	sleep(3);
 
-	delwin(sub_window);
+	delwin(new_window);
 	refresh();
 
 	while (1) { sleep(1); }

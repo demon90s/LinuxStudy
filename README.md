@@ -70,13 +70,21 @@
 
 ### 第6章 curses
 
+[彩色](./ch06_curses/color.c)
+
 [键盘模式和输入](./ch06_curses/ipmode.c)
+
+[使用keypad模式](./ch06_curses/keypad.c)
 
 [移动、插入和属性](./ch06_curses/moveadd.c)
 
 [管理多窗口](./ch06_curses/multiw1.c)
 
+[使用pad](./ch06_curses/pad.c)
+
 [一个Hello World curses程序](./ch06_curses/screen1.c)
+
+[子窗口](./ch06_curses/subscr1.c)
 
 ### 第8章 MySQL
 
