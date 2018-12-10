@@ -86,6 +86,20 @@
 
 [子窗口](./ch06_curses/subscr1.c)
 
+### 第7章 数据管理
+
+[简单的内存分配](./ch07_数据管理/memory1.c)
+
+[请求全部的物理内存](./ch07_数据管理/memory2.c)
+
+[可用内存](./ch07_数据管理/memory3.c)
+
+[滥用内存](./ch07_数据管理/memory4.c)
+
+[访问空指针](./ch07_数据管理/memory5.c)
+
+[释放内存](./ch07_数据管理/memory6.c)
+
 ### 第8章 MySQL
 
 [连接数据库](./ch08_MySQL/connect1.c)
