@@ -290,6 +290,9 @@ test命令可以使用的条件类型可以归为3类：字符串比较、算术
 
 test命令是bash的内置命令，使用help test命令可以获得test命令的详细信息（或者man test）。
 
+!!!note "my note"
+    Linux 提供了两个内置命令 true 和 false ，分别可以返回真和假的结果。
+
 ### 控制结构
 
 **if语句**
