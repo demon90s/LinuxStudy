@@ -13,6 +13,7 @@ main()
 	echo -e "# Linux程序设计\n" >> $filename
 	echo -e "学习环境：CentOS 7\n" >> $filename
 	echo -e "对于第五章和第六章使用了头 curses.h 和 term.h 中的功能，需要安装 curses 开发包：yum install ncurses-devel.x86_64，并在构建程序时加入链接选项 -lncurses\n" >> $filename
+	echo -e "对于第七章的 dbm 库的使用，需要安装 gdbm 开发包：yum install gdbm-devel.x86_64，并在构建程序时加入链接选项 -lgdbm -lgdbm_compat\n" >> $filename
 	echo -e "---\n" >> $filename
 
 	# gen exercises

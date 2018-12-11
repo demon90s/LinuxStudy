@@ -4,6 +4,8 @@
 
 对于第五章和第六章使用了头 curses.h 和 term.h 中的功能，需要安装 curses 开发包：yum install ncurses-devel.x86_64，并在构建程序时加入链接选项 -lncurses
 
+对于第七章的 dbm 库的使用，需要安装 gdbm 开发包：yum install gdbm-devel.x86_64，并在构建程序时加入链接选项 -lgdbm -lgdbm_compat
+
 ---
 
 ## 实验例程
@@ -87,6 +89,8 @@
 [子窗口](./ch06_curses/subscr1.c)
 
 ### 第7章 数据管理
+
+[一个简单的dbm数据库](./ch07_数据管理/dbm1.c)
 
 [创建锁文件](./ch07_数据管理/lock1.c)
 
