@@ -17,6 +17,7 @@ pages:
     - ch04 Linux环境: ch04 Linux环境.md
     - ch05 终端: ch05 终端.md
     - ch06 curses: ch06 curses.md
+    - ch07 数据管理: ch07 数据管理.md
     - ch08 MySQL: ch08 MySQL.md
     - ch11 进程和信号: ch11 进程和信号.md
     - ch12 POSIX线程: ch12 POSIX线程.md
