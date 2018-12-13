@@ -54,6 +54,16 @@ main()
 			fi
 		done
 
+		local make_files=$(ls -f Makefile* 2>/dev/null)
+		for make_file in $make_files; do
+			local fname=$(head -1 $make_file)
+			local tmp=${fname%%：*}
+			if [ "" != "$fname" ] && [ "# 实验" = "$tmp" ]; then
+				fname=${fname#*实验：}
+				echo -e "[$fname](./$chapter_dir/$make_file)\n" >> ../$filename
+			fi
+		done
+
 		cd ..
 	done
 

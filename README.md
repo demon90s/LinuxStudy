@@ -132,6 +132,16 @@
 
 [提取数据并打印详细信息](./ch08_MySQL/select3.c)
 
+### 第9章 开发工具
+
+[一个简单的makefile文件](./ch09_开发工具/Makefile1)
+
+[带宏定义的makefile文件](./ch09_开发工具/Makefile2)
+
+[多个目标](./ch09_开发工具/Makefile3)
+
+[管理函数库](./ch09_开发工具/Makefile5)
+
 ### 第11章 进程和信号
 
 ### 第12章 POSIX线程
