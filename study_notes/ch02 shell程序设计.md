@@ -1,5 +1,7 @@
 # 第二章 shell程序设计
 
+更详细的说明：http://www.tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html
+
 ---
 
 ## 为什么使用shell编程
