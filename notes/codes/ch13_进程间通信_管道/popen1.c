@@ -1,3 +1,5 @@
+// 实验：读取外部程序的输出
+
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
