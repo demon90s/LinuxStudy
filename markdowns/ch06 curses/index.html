@@ -1,0 +1,1070 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Linux Study Note">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.1.0">
+    
+    
+      
+        <title>ch06 curses - Linux Study Note</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.11e41852.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#546e7a">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.20ef595d.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700|Open+Sans+Mono">
+        <style>body,input{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Open Sans Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="blue-grey" data-md-color-accent="light-blue">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#curses" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Linux Study Note" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">school</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Linux Study Note
+              </span>
+              <span class="md-header-nav__topic">
+                ch06 curses
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="Linux Study Note" class="md-nav__button md-logo">
+      
+        <i class="md-icon">school</i>
+      
+    </a>
+    Linux Study Note
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Chapters
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Chapters
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch01 入门/" title="ch01 入门" class="md-nav__link">
+      ch01 入门
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch02 shell程序设计/" title="ch02 shell程序设计" class="md-nav__link">
+      ch02 shell程序设计
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch03 文件操作/" title="ch03 文件操作" class="md-nav__link">
+      ch03 文件操作
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch04 Linux环境/" title="ch04 Linux环境" class="md-nav__link">
+      ch04 Linux环境
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch05 终端/" title="ch05 终端" class="md-nav__link">
+      ch05 终端
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        ch06 curses
+      </label>
+    
+    <a href="./" title="ch06 curses" class="md-nav__link md-nav__link--active">
+      ch06 curses
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#curses_1" title="用 curses 函数库进行编译" class="md-nav__link">
+    用 curses 函数库进行编译
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#curses_2" title="curses 术语和概念" class="md-nav__link">
+    curses 术语和概念
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="屏幕" class="md-nav__link">
+    屏幕
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="输出到屏幕" class="md-nav__link">
+    输出到屏幕
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="从屏幕读取" class="md-nav__link">
+    从屏幕读取
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="清除屏幕" class="md-nav__link">
+    清除屏幕
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="移动光标" class="md-nav__link">
+    移动光标
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="字符属性" class="md-nav__link">
+    字符属性
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" title="键盘" class="md-nav__link">
+    键盘
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="键盘模式" class="md-nav__link">
+    键盘模式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="键盘输入" class="md-nav__link">
+    键盘输入
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" title="窗口" class="md-nav__link">
+    窗口
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#window" title="WINDOW 结构" class="md-nav__link">
+    WINDOW 结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="通用函数" class="md-nav__link">
+    通用函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="移动和更新窗口" class="md-nav__link">
+    移动和更新窗口
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="优化屏幕刷新" class="md-nav__link">
+    优化屏幕刷新
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" title="子窗口" class="md-nav__link">
+    子窗口
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keypad" title="keypad 模式" class="md-nav__link">
+    keypad 模式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" title="彩色显示" class="md-nav__link">
+    彩色显示
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pad" title="pad" class="md-nav__link">
+    pad
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch07 数据管理/" title="ch07 数据管理" class="md-nav__link">
+      ch07 数据管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch08 MySQL/" title="ch08 MySQL" class="md-nav__link">
+      ch08 MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch09 开发工具/" title="ch09 开发工具" class="md-nav__link">
+      ch09 开发工具
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch10 调试/" title="ch10 调试" class="md-nav__link">
+      ch10 调试
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch11 进程和信号/" title="ch11 进程和信号" class="md-nav__link">
+      ch11 进程和信号
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch12 POSIX线程/" title="ch12 POSIX线程" class="md-nav__link">
+      ch12 POSIX线程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch15 套接字/" title="ch15 套接字" class="md-nav__link">
+      ch15 套接字
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      CheatSheet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        CheatSheet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/shell_utility/" title="shell_utility" class="md-nav__link">
+      shell_utility
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/MySQL操作/" title="MySQL操作" class="md-nav__link">
+      MySQL操作
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/用echo输出带颜色的文本/" title="用echo输出带颜色的文本" class="md-nav__link">
+      用echo输出带颜色的文本
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/让进程在后台运行/" title="让进程在后台运行" class="md-nav__link">
+      让进程在后台运行
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#curses_1" title="用 curses 函数库进行编译" class="md-nav__link">
+    用 curses 函数库进行编译
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#curses_2" title="curses 术语和概念" class="md-nav__link">
+    curses 术语和概念
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="屏幕" class="md-nav__link">
+    屏幕
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" title="输出到屏幕" class="md-nav__link">
+    输出到屏幕
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="从屏幕读取" class="md-nav__link">
+    从屏幕读取
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="清除屏幕" class="md-nav__link">
+    清除屏幕
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="移动光标" class="md-nav__link">
+    移动光标
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="字符属性" class="md-nav__link">
+    字符属性
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" title="键盘" class="md-nav__link">
+    键盘
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="键盘模式" class="md-nav__link">
+    键盘模式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="键盘输入" class="md-nav__link">
+    键盘输入
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" title="窗口" class="md-nav__link">
+    窗口
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#window" title="WINDOW 结构" class="md-nav__link">
+    WINDOW 结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" title="通用函数" class="md-nav__link">
+    通用函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" title="移动和更新窗口" class="md-nav__link">
+    移动和更新窗口
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" title="优化屏幕刷新" class="md-nav__link">
+    优化屏幕刷新
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" title="子窗口" class="md-nav__link">
+    子窗口
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keypad" title="keypad 模式" class="md-nav__link">
+    keypad 模式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" title="彩色显示" class="md-nav__link">
+    彩色显示
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pad" title="pad" class="md-nav__link">
+    pad
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="curses">curses</h1>
+<p>第五章介绍的内容许多使用大量的底层代码，但大多数的应用程序需要更高层的接口，我们希望能够简单地绘制屏幕，并能用一组函数自动处理与终端相关的问题。</p>
+<p>使用 curses 函数库可以达到这个目的。</p>
+<p>延伸阅读：http://www.tldp.org/HOWTO/NCURSES-Programming-HOWTO/index.html</p>
+<hr />
+<h2 id="curses_1">用 curses 函数库进行编译</h2>
+<p>在我的 CentOS7 机器上，需要安装 curses 函数库，编程时，需引入头文件 curses.h ，并链接库 -lncurses 。</p>
+<p>安装的命令是：</p>
+<div class="codehilite"><pre><span></span>$ sudo yum install ncurses-devel.x86_64
+</pre></div>
+
+
+<p>书中对此进行了详细的讨论。</p>
+<h2 id="curses_2">curses 术语和概念</h2>
+<p>curses 例程工作在屏幕、窗口和子窗口之上。屏幕通常是指终端屏幕，它是设备上全部的可用显示面积。例程总是有一个标准窗口，即 stdscr ，它与物理屏幕尺寸完全一样。</p>
+<p>可以创建其他窗口、子窗口，这些窗口相互重叠。</p>
+<p>在 curses 程序中输出字符的过程是：</p>
+<ol>
+<li>
+<p>使用 curses 函数刷新逻辑屏幕</p>
+</li>
+<li>
+<p>要求 curse 用 refresh 函数来刷新物理屏幕</p>
+</li>
+</ol>
+<p>逻辑屏幕以左上角为起点，坐标为(0,0)，坐标格式是(y,x)，y是行，x是列。 LINES 代表屏幕的行数， COLS 代表屏幕的列数。</p>
+<p>curses 函数库在使用时需要创建和删除一些临时的数据结构，也就是在程序的开始调用 initscr 函数，在程序结束的时候调用 endwin 函数。 </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>curses 没有定义层级关系，哪个窗口后绘制，它就会覆盖掉前面的内容。</li>
+<li>curses 程序在结束后，原先显示的内容就被关掉，所以测试例程往往会 sleep 若干秒，以查看结果。</li>
+<li>如果在程序结束的时候，未调用 enwin 函数，在我的机器上就会出现终端的显示异常，这时候可以输入 stty sane 解决。</li>
+</ul>
+</div>
+<h2 id="_1">屏幕</h2>
+<p>所有的 curses 程序必须以 initscr 函数开始，以 endwin 函数结束。</p>
+<p>initscr 返回指向 stdscr 结构的指针，如果失败就输出一条诊断错误信息并使程序退出。</p>
+<h3 id="_2">输出到屏幕</h3>
+<p>curses 提供了一些用户刷新屏幕的基本函数：</p>
+<ul>
+<li>addch 输出字符</li>
+<li>addchstr 输出字符串</li>
+<li>printw 格式化输出字符串</li>
+<li>refresh 刷新 stdscr</li>
+<li>box 输出一个 box</li>
+<li>insch 插入字符</li>
+<li>insertln 插入行</li>
+<li>delch 删除字符</li>
+<li>deleteln 删除行</li>
+<li>beep 蜂鸣</li>
+<li>flash 闪烁</li>
+</ul>
+<h3 id="_3">从屏幕读取</h3>
+<p>这些功能并不常用（不是从输入流读取）：</p>
+<ul>
+<li>inch 返回光标位置的字符及其属性</li>
+<li>instr innstr 将返回内容写入字符数组</li>
+</ul>
+<h3 id="_4">清除屏幕</h3>
+<ul>
+<li>erase 在每个屏幕的位置写上空白字符</li>
+<li>clear 清屏</li>
+<li>clrtobot 清除当前光标位置到屏幕结尾的所有内容</li>
+<li>clrtoeol 清除当前光标位置直到光标所处行行尾的所有内容。</li>
+</ul>
+<h3 id="_5">移动光标</h3>
+<ul>
+<li>move 可以移动光标（逻辑屏幕）</li>
+</ul>
+<h3 id="_6">字符属性</h3>
+<p>每个字符都可以有一些属性控制在屏幕上的显示方式。预定义的属性有 A_BLINK A_BOLD A_DIM A_REVERSE A_STANDOUT 等。</p>
+<p>使用下面的方法可以设置属性：</p>
+<ul>
+<li>attron 打开某个属性</li>
+<li>attroff 关闭某个属性</li>
+<li>attrset 设置属性</li>
+</ul>
+<h2 id="_7">键盘</h2>
+<h3 id="_8">键盘模式</h3>
+<p>设置键盘模式的函数有：</p>
+<ul>
+<li>echo 设置回显</li>
+<li>noecho 设置不回显</li>
+<li>cbreak 表示输入字符后立即传送给程序</li>
+<li>nocbreak 表示输入字符后要等待回车键才传送数据给程序</li>
+</ul>
+<h3 id="_9">键盘输入</h3>
+<ul>
+<li>getch 读取一个字符</li>
+<li>getstr getnstr 读取一个字符串</li>
+<li>scanw 读取格式化的字符串</li>
+</ul>
+<h2 id="_10">窗口</h2>
+<p>可以在物理屏幕上同时显示多个不同尺寸的窗口。并且输入输出的函数有着更通用的接口，来应对不同的窗口。</p>
+<h3 id="window">WINDOW 结构</h3>
+<p>标准屏幕 stdscr 只是 WINDOW 结构的一个特例。可以使用 newwin 和 delwin 来创建和销毁一个窗口。但不要删除标准窗口。</p>
+<h3 id="_11">通用函数</h3>
+<p>对诸如 addch printw 加上一些前缀即变成了通用的函数，前缀 w 用于窗口， mv 用于光标移动， mvw 用于在窗口中移动光标。</p>
+<p>如果加了 w 前缀，那么函数就需要第一个参数 WINDOW 指针。如果是 mv 前缀，那么就需要一个 y,x 坐标表示光标移动到的位置。如果是 wmv 那么就需要 (WINDOW*, Y, X) 这样的额外参数。</p>
+<h3 id="_12">移动和更新窗口</h3>
+<p>下面的函数可以移动和重新绘制窗口：</p>
+<ul>
+<li>mvwin 移动窗口</li>
+<li>wrefresh 刷新窗口</li>
+<li>wclear 清窗口内容</li>
+<li>werase erase 窗口内容</li>
+<li>touchwin 告知窗口发生了改变，从而可以重新 refresh ，即使没有改变</li>
+<li>scrollok 设置可否卷屏</li>
+<li>scroll 向上卷屏一行</li>
+</ul>
+<h3 id="_13">优化屏幕刷新</h3>
+<p>在慢速链路上，屏幕绘制的速度可能会慢得让人难以忍受。 curses 为此提供了一种特殊手段，用到这样的函数：</p>
+<ul>
+<li>wnoutrefresh</li>
+<li>doupdate</li>
+</ul>
+<p>wnoutrefresh 用于决定把哪些字符发送到屏幕上，但它不真正发送这些字符，真正将更新发送到终端的工作由 doupdate 来完成。</p>
+<p>如果只是调用 wnoutrefresh ，然后立即调用 doupdate ，则它的效果与直接调用 wrefresh 完全一样。但如果想重新绘制多个窗口，你可以为每个窗口分别只调用 wnoutrefresh ,然后只需要在调用最后一个 wnoutrefresh 之后调用一次 doupdate 函数即可。</p>
+<p>这允许 curses 依次为每个窗口执行屏幕更新计算工作，最后仅把最终的更新结果输出到屏幕上。这种做法可以最大限度地减少 curses 需要发送的字符数目。</p>
+<h2 id="_14">子窗口</h2>
+<p>使用 subwin 函数创建子窗口， delwin 函数删除子窗口。</p>
+<p>子窗口的用法几乎与普通窗口一样。只不过子窗口与父窗口共享着字符存储。</p>
+<h2 id="keypad">keypad 模式</h2>
+<p>一般键盘至少都会包含方向键和功能键。</p>
+<p>对于大多数终端来说，解码这些按键是一件困难的事情，因为它们往往会发送以 escape 字符开头的字符串序列。</p>
+<p>curses 通过一组以 <code>KEY_</code> 为前缀的定义来管理功能逻辑键。</p>
+<p>curses 在启动时会关闭转义序列与逻辑键之间的转换功能，该功能需要通过调用 keypad 函数来启用。</p>
+<p>在 keypad 模式中，读键盘操作不仅能够返回用户按下的键，还将返回与逻辑按键对应的 <code>KEY_</code> 定义。</p>
+<h2 id="_15">彩色显示</h2>
+<p>curses 为每个字符定义一个前景色和背景色，称之为颜色组合（ color pair ）。</p>
+<p>在使用 curses 函数库的颜色功能之前，必须使用 has_colors 函数检查终端是否支持彩色显示功能，然后使用 start_color 函数对程序进行初始化。</p>
+<p>一旦 start_color 函数被成功调用，变量 COLOR_PAIRS 将被设置为终端所能支持的颜色组合数目的最大值，变量 COLORS 定义可用颜色数目的最大值。</p>
+<p>每种颜色以一个从0到63的数字作为其唯一的 ID 号。</p>
+<p>把颜色作为属性使用之前，必须先调用 init_pair 函数对准备使用的颜色组合进行初始化，然后使用 COLOR_PAIR 函数生成一个属性，最后用 attrset 函数设置这个属性。</p>
+<p>curses 定义了一些基本颜色，名字以 <code>COLOR_</code> 为前缀。</p>
+<h2 id="pad">pad</h2>
+<p>在编写更高级的程序时，有时候需要先建立一个逻辑屏幕，然后再把它的全部内容或部分内容输出到物理屏幕上。</p>
+<p>pad 就是用于此目的。它通常被创建到屏幕的外面。在合适的时机再把其部分内容刷新到屏幕上。</p>
+<p>使用 newpad 函数创建一个 pad ，它也是一个 WINDOW 指针。</p>
+<p>使用 prefresh 函数刷新 pad 。</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../ch05 终端/" title="ch05 终端" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                ch05 终端
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../ch07 数据管理/" title="ch07 数据管理" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                ch07 数据管理
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2018 Diwen Liu
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.9e1f3b71.js"></script>
+      
+        
+        
+          
+          <script src="../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-XXXXXXXX-X","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

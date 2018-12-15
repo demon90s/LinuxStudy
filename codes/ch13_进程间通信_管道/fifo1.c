@@ -1,0 +1,22 @@
+/*
+ * mkfifo（p457）
+ * 创建一个命名管道文件。
+ */
+
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+
+int main()
+{
+	int res = mkfifo("/tmp/my_fifo", 0777);
+	if (res == 0) printf("FIFO created\n");
+	else {
+		perror("mkfifo");
+		exit(EXIT_FAILURE);
+	}
+
+	exit(EXIT_SUCCESS);
+}

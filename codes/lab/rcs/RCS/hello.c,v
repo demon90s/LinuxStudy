@@ -1,0 +1,81 @@
+head	2.2;
+access;
+symbols;
+locks
+	liudiwen:2.2; strict;
+comment	@ * @;
+
+
+2.2
+date	2018.12.13.11.56.21;	author liudiwen;	state Exp;
+branches;
+next	2.1;
+
+2.1
+date	2018.12.13.11.51.37;	author liudiwen;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	2018.12.13.11.44.38;	author liudiwen;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2018.12.13.11.41.12;	author liudiwen;	state Exp;
+branches;
+next	;
+
+
+desc
+@Init
+@
+
+
+2.2
+log
+@add version macro
+@
+text
+@/*
+ * filename: $RCSfile$
+ * version: $Id$
+ */
+
+#include <stdio.h>
+
+int main()
+{
+	printf("Hello\n");
+	printf("How are you?\n");
+	printf("Fine~\n");
+	return 0;
+}
+@
+
+
+2.1
+log
+@change some code ~~~~~~
+@
+text
+@d1 5
+@
+
+
+1.2
+log
+@change some code
+@
+text
+@d7 1
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d6 1
+@

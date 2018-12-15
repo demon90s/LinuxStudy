@@ -1,0 +1,12 @@
+#! /bin/bash
+
+# 查询并输出（C语言）常量的定义
+# 如：findconst FOPEN_MAX
+
+if [ "$1" = "" ]; then
+	exit 1
+fi
+
+grep -r --color=auto "define $1 " /usr/include/*
+
+exit 0
