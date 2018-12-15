@@ -1,3 +1,5 @@
+// 实验：将输出送往popen
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
