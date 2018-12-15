@@ -38,9 +38,9 @@ main() {
 
 		echo "[BUILDING] $c_file -> $exe_file"
 		if [ -n "$Debug_flag" ]; then
-			gcc -g -Wall $c_file -o $exe_file -D$Debug_flag
+			gcc -g -Wall $c_file -o $exe_file -D$Debug_flag -lm
 		else
-			gcc -g -Wall $c_file -o $exe_file
+			gcc -g -Wall $c_file -o $exe_file -lm
 		fi
 
 		if [ "$?" != "0" ]; then
