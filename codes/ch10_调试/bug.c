@@ -41,7 +41,7 @@ int main()
 	int i;
 	sort(array, 5);
 	for (i = 0; i < 5; i++)
-		printf("array]%d[ = {%s, %d}\n",
+		printf("array[%d] = {%s, %d}\n",
 			i, array[i].data, array[i].key);
 	return 0;
 }
