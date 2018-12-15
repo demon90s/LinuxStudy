@@ -9,7 +9,7 @@ docs_dir: notes
 #edit_uri: "tree/master/study_notes"
 
 nav:
-  - Introduction: index.md
+  - Introduction: codes/README.md
   - Chapters:
     - ch01 入门: markdowns/ch01 入门.md
     - ch02 shell程序设计: markdowns/ch02 shell程序设计.md
