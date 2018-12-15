@@ -3,7 +3,7 @@ site_description: Linux Study Note
 
 copyright: 'Copyright &copy; 2018 Diwen Liu'
 
-docs_dir: study_notes
+docs_dir: notes
 
 #repo_url: https://github.com/demon90s/LinuxStudy
 #edit_uri: "tree/master/study_notes"
@@ -11,24 +11,24 @@ docs_dir: study_notes
 pages:
   - Introduction: index.md
   - Chapters:
-    - ch01 入门: ch01 入门.md
-    - ch02 shell程序设计: ch02 shell程序设计.md
-    - ch03 文件操作: ch03 文件操作.md
-    - ch04 Linux环境: ch04 Linux环境.md
-    - ch05 终端: ch05 终端.md
-    - ch06 curses: ch06 curses.md
-    - ch07 数据管理: ch07 数据管理.md
-    - ch08 MySQL: ch08 MySQL.md
-    - ch09 开发工具: ch09 开发工具.md
-    - ch10 调试: ch10 调试.md
-    - ch11 进程和信号: ch11 进程和信号.md
-    - ch12 POSIX线程: ch12 POSIX线程.md
-    - ch15 套接字: ch15 套接字.md
+    - ch01 入门: markdowns/ch01 入门.md
+    - ch02 shell程序设计: markdowns/ch02 shell程序设计.md
+    - ch03 文件操作: markdowns/ch03 文件操作.md
+    - ch04 Linux环境: markdowns/ch04 Linux环境.md
+    - ch05 终端: markdowns/ch05 终端.md
+    - ch06 curses: markdowns/ch06 curses.md
+    - ch07 数据管理: markdowns/ch07 数据管理.md
+    - ch08 MySQL: markdowns/ch08 MySQL.md
+    - ch09 开发工具: markdowns/ch09 开发工具.md
+    - ch10 调试: markdowns/ch10 调试.md
+    - ch11 进程和信号: markdowns/ch11 进程和信号.md
+    - ch12 POSIX线程: markdowns/ch12 POSIX线程.md
+    - ch15 套接字: markdowns/ch15 套接字.md
   - CheatSheet:
-    - shell_utility: cheatsheet/shell_utility.md
-    - MySQL操作: cheatsheet/MySQL操作.md
-    - 用echo输出带颜色的文本: cheatsheet/用echo输出带颜色的文本.md
-    - 让进程在后台运行: cheatsheet/让进程在后台运行.md
+    - shell_utility: markdowns/cheatsheet/shell_utility.md
+    - MySQL操作: markdowns/cheatsheet/MySQL操作.md
+    - 用echo输出带颜色的文本: markdowns/cheatsheet/用echo输出带颜色的文本.md
+    - 让进程在后台运行: markdowns/cheatsheet/让进程在后台运行.md
 
 theme:
   name: 'material'
