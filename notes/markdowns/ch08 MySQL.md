@@ -65,7 +65,7 @@ $ mysqladmin variables -u root
 default_storage_engine=InnoDB
 ```
 
-更多信息可访问：[MySQL官网](www.mysql.com)
+更多信息可访问：[MySQL官网](https://www.mysql.com)
 
 **用户密码设置**
 

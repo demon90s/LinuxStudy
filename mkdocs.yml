@@ -8,7 +8,7 @@ docs_dir: notes
 #repo_url: https://github.com/demon90s/LinuxStudy
 #edit_uri: "tree/master/study_notes"
 
-pages:
+nav:
   - Introduction: index.md
   - Chapters:
     - ch01 入门: markdowns/ch01 入门.md
