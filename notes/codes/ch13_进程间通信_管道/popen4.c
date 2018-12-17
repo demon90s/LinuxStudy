@@ -1,6 +1,4 @@
-/*
- * popen 启动 shell（p448）
- */
+// 实验：popen 启动 shell
 
 #include <unistd.h>
 #include <stdlib.h>

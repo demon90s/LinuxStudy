@@ -1,7 +1,5 @@
-/*
- * mkfifo（p457）
- * 创建一个命名管道文件。
- */
+// 实验：mkfifo
+//创建一个命名管道文件
 
 #include <unistd.h>
 #include <stdlib.h>

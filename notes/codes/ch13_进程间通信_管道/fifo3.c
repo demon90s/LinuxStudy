@@ -1,7 +1,5 @@
-/*
- * 使用 FIFO 实现进程间通信（p462）
- * 生产者进程
- */
+// 实验：使用 FIFO 实现进程间通信
+// 生产者进程
 
 #include <unistd.h>
 #include <stdlib.h>

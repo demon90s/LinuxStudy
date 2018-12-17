@@ -1,6 +1,4 @@
-/*
- * 通过管道读取大量数据 p446
- */
+// 实验：通过管道读取大量数据
 
 #include <unistd.h>
 #include <stdlib.h>

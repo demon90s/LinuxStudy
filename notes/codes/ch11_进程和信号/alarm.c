@@ -1,6 +1,4 @@
-/*
- * 发送信号（p408）
- */
+// 实验：发送信号
 
 #include <sys/types.h>
 #include <signal.h>

@@ -1,6 +1,4 @@
-/*
- * fork函数（p398）
- */
+// 实验：fork函数
 
 #include <sys/types.h>
 #include <unistd.h>

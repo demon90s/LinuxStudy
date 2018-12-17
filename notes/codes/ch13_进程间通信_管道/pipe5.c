@@ -1,6 +1,4 @@
-/*
- * 管道和dup函数（p454）
- */
+// 实验：管道和dup函数
 
 #include <unistd.h>
 #include <stdlib.h>

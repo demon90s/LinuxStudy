@@ -1,4 +1,4 @@
-/* 管道和 exec 函数，消费者程序 */
+// 实验：管道和 exec 函数，消费者程序
 
 #include <unistd.h>
 #include <stdlib.h>
