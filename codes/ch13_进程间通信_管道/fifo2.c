@@ -1,6 +1,5 @@
-/*
- * 打开 FIFO 文件（p459）
- */
+// 实验：打开 FIFO 文件
+
 
 #include <unistd.h>
 #include <stdlib.h>

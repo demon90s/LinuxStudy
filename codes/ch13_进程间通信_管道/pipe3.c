@@ -1,4 +1,4 @@
-/* 管道和 exec 函数，生产者程序 */
+// 实验：管道和 exec 函数，生产者程序
 
 #include <unistd.h>
 #include <stdlib.h>

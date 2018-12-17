@@ -1,6 +1,4 @@
-/*
- * pipe 函数（p449）
- */
+// 实验：pipe 函数
 
 #include <unistd.h>
 #include <stdlib.h>

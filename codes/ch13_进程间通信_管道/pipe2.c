@@ -1,6 +1,4 @@
-/*
- * 跨越 fork 调用的管道（p450）
- */
+// 实验：跨越 fork 调用的管道
 
 #include <unistd.h>
 #include <stdlib.h>

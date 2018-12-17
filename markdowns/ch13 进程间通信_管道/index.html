@@ -394,6 +394,66 @@
     进程管道
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#popen" title="如何实现 popen" class="md-nav__link">
+    如何实现 popen
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipe" title="pipe 调用" class="md-nav__link">
+    pipe 调用
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="管道关闭后的读操作" class="md-nav__link">
+    管道关闭后的读操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="把管道用作标准输入和标准输出" class="md-nav__link">
+    把管道用作标准输入和标准输出
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fifo" title="命名管道 FIFO" class="md-nav__link">
+    命名管道 FIFO
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fifo_1" title="访问 FIFO 文件" class="md-nav__link">
+    访问 FIFO 文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
       
@@ -528,6 +588,66 @@
     进程管道
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#popen" title="如何实现 popen" class="md-nav__link">
+    如何实现 popen
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipe" title="pipe 调用" class="md-nav__link">
+    pipe 调用
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="管道关闭后的读操作" class="md-nav__link">
+    管道关闭后的读操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="把管道用作标准输入和标准输出" class="md-nav__link">
+    把管道用作标准输入和标准输出
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fifo" title="命名管道 FIFO" class="md-nav__link">
+    命名管道 FIFO
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fifo_1" title="访问 FIFO 文件" class="md-nav__link">
+    访问 FIFO 文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
       
@@ -572,6 +692,68 @@
 <p>最简单的在两个程序之间传递数据的方法是使用 popen 和 pclose 函数。</p>
 <p>popen 打开一个子进程，返回一个文件流，通过文件流从子进程的标准输入读取数据，或向子进程的标准输出写数据。</p>
 <p><a href="../../codes/lab/api/管道/popen_pclose.c">测试程序</a></p>
+<h3 id="popen">如何实现 popen</h3>
+<p>请求 popen 调用运行一个程序时，它首先启动一个 shell ，然后将命令字符串作为参数传递给它。这么做有一个好处和一个缺点。</p>
+<p>好处是， Linux 可以用 shell 做参数扩展，从而可以让 popen 执行非常复杂的 shell 命令。</p>
+<p>缺点是，不仅要启动被请求的程序，还需要启动一个 shell ，从节省资源的角度看， popen 函数的调用成本略高。</p>
+<h2 id="pipe">pipe 调用</h2>
+<p>pipe 函数相对更底层。通过这个函数两个程序传递数据不需要启动一个 shell 。</p>
+<p>我们可以用 pipe, fork, exec 来模拟一个生产者、消费者程序。</p>
+<h3 id="_4">管道关闭后的读操作</h3>
+<p>通常读取输入的程序不知道有多少数据需要读取，所以往往采用循环的方法，读取数据 - 处理数据 - 读取更多数据，直到没有数据可读为止。</p>
+<p>当没有数据可读时， read 调用通常会阻塞，直到有数据到达为止。如果管道的另一端已被关闭，对一个已关闭写数据的管道做 read 调用将返回0而不是阻塞。</p>
+<p>如果跨越 fork 调用使用管道，就会有两个不同的文件描述符可以用于管道写数据，一个在父进程中，一个在子进程中。只有把父子进程对管道的写文件描述符都关闭，管道才会被认为是关闭了，对 read 调用才会失败。</p>
+<h3 id="_5">把管道用作标准输入和标准输出</h3>
+<p>为了完成这个工作，可以使用 dup 函数。</p>
+<p>dup 函数打开一个新的文件描述符，与其参数共同指向同一个文件，并且它是可用的最小文件描述符。因此，只要关闭了标准输入0或标准输出1，那么获得的新描述符就是其中之一，接下来就可以使用标准输入输出函数进行操作。</p>
+<p>如果参数是管道文件描述符，那么标准输入输出函数操作的实际上就是管道。</p>
+<p>详见书本。</p>
+<p>参考代码：</p>
+<ul>
+<li>
+<p><a href="../../codes/ch13_进程间通信_管道/pipe5.c">实验</a></p>
+</li>
+<li>
+<p><a href="../../codes/lab/api/dup.c">dup 函数</a></p>
+</li>
+</ul>
+<h2 id="fifo">命名管道 FIFO</h2>
+<p>之前的讨论只能在相关的程序之间传递数据，即这些程序是由一个共同的祖先进程启动的。</p>
+<p>FIFO 可以让我们在不相关的进程之间传递数据，它通常被称为命名管道（ named pipe ）。它以一种特殊的文件的形式存在。</p>
+<p>我们可以在命令行上创建命名管道：</p>
+<div class="codehilite"><pre><span></span>$ mkfifo &lt;filename&gt;
+</pre></div>
+
+
+<p>使用 <a href="../../codes/lab/api/管道/mkfifo.c">mkfifo</a> 函数在程序中创建一个命名管道。</p>
+<h3 id="fifo_1">访问 FIFO 文件</h3>
+<p>命名管道出现在文件系统中，所以可以像平常文件名一样在命令中使用。</p>
+<p>比如，可以这样开始读一个管道：</p>
+<div class="codehilite"><pre><span></span>$ cat &lt; /tmp/my_fifo
+</pre></div>
+
+
+<p>在另一个终端，对这个管道进行写操作：</p>
+<div class="codehilite"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;Hello World&quot;</span> &gt; /tmp/my_fifo
+</pre></div>
+
+
+<p><strong><a href="../../codes/lab/api/管道/open_fifo.c">使用 open 打开 FIFO 文件</a></strong></p>
+<p>程序不能以 O_RDWR 模式打开 FIFO 文件进行读写操作，这样做的后果并未明确定义。 FIFO 只是为了单向传递数据，所以没有必要使用 O_RDWR 。</p>
+<p>可以使用 O_NONBLOCK 的组合模式打开文件。</p>
+<p><strong><a href="../../codes/lab/api/管道/read_write_fifo.c">对 FIFO 进行读写操作</a></strong></p>
+<p>使用了 O_NONBLOCK 模式会影响到 FIFO 的 read 和 write 调用。</p>
+<p>对一个空的、阻塞的 FIFO 的 read 调用将等待，直到有数据可以读时才继续。</p>
+<p>对一个空的、非阻塞的 FIFO 的 read 调用将立刻返回0字节。</p>
+<p>对一个满的、阻塞的 FIFO 的 write 调用将等待，直到有数据可以被写入时才会继续执行。</p>
+<p>如果 FIFO 不能接收所有写入的数据，那么：</p>
+<div class="codehilite"><pre><span></span>- 如果请求写入的数据长度小于等于 PIPE_BUF 字节，调用失败，数据不能写入。
+- 如果请求写入的数据长度大于 PIPE_BUF 字节，将写入部分数据，返回实际写入的字节数，也可能是0 。
+</pre></div>
+
+
+<p>任一时刻，在一个 FIFO 中可以存在的数据长度是有限制的，它由 #define PIPE_BUF 定义。</p>
+<p>系统规定：在一个以 O_WRONLY （非阻塞）打开的 FIFO 中，如果写入的数据长度小于等于 PIPE_BUF ,那么或者写入全部字节，或者一个字节都不写入。</p>
                 
                   
                 

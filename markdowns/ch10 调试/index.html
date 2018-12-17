@@ -928,6 +928,17 @@ Type commands for ....
 
 <h2 id="_13">其他调试工具</h2>
 <p>介绍了一个检查代码的工具 lint ，函数调用工具 ctags cxref cflow ，产生执行存档的工具 prof/gprof 。</p>
+<p><strong>gprof</strong></p>
+<p>编译程序时，给编译器加上 -pg 标志（针对 gprof 程序）就可以创建出 profile 程序。 gprof 可以根据 profile 程序运行时所产生的执行跟踪文件打印出一个报告：</p>
+<div class="codehilite"><pre><span></span>$ gcc -pg -o program program.c
+</pre></div>
+
+
+<p>程序用特殊版本的C语言函数链接起来并且将包括监控代码。程序执行结束后，监控数据被写入 gmon.out （ 针对 gprof ）。</p>
+<div class="admonition my note">
+<p class="admonition-title">My</p>
+<p>然后通过 gprof program 就可以查询报告结果。</p>
+</div>
 <h2 id="_14">断言</h2>
 <p>assert 的作用是测试某个假设是否成立，如果不成立就停止程序的运行。</p>
 <p>assert(expr) 对 expr 求值，如果结果为0，它就往标准错误写一些诊断信息，然后调用 abort 函数结束程序的运行。</p>

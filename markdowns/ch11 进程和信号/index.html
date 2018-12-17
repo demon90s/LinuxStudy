@@ -1033,7 +1033,7 @@ $ ps -l
 <p>如果fork失败，它将返回-1。失败通常是因为父进程所拥有的子进程数目超过了规定的限制（CHILD_MAX），此时errno将被设置为EAGAIN。如果是因为进程表里没有足够的空间用于创建新的表单或虚拟内存不足，errno变量将被设置为ENOMEM。</p>
 <p>案例代码：</p>
 <ul>
-<li><a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/fork1.c">fork函数</a></li>
+<li><a href="../../codes/lab/api/进程/fork.c">fork函数</a></li>
 </ul>
 <h3 id="_10">等待一个进程</h3>
 <p>当用fork启动一个子进程时，子进程就有了它自己的生命周期并将独立运行。有时我们希望知道一个子进程何时结束。通过在父进程中调用wait函数让父进程等待子进程的结束。</p>
