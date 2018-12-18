@@ -24,6 +24,7 @@ nav:
     - ch11 进程和信号: markdowns/ch11 进程和信号.md
     - ch12 POSIX线程: markdowns/ch12 POSIX线程.md
     - ch13 进程间通信_管道: markdowns/ch13 进程间通信_管道.md
+    - ch14 信号量_共享内存和消息队列: markdowns/ch14 信号量_共享内存和消息队列.md
     - ch15 套接字: markdowns/ch15 套接字.md
   - CheatSheet:
     - shell_utility: markdowns/cheatsheet/shell_utility.md
