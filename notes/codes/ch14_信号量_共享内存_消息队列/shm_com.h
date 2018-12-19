@@ -1,4 +1,4 @@
-// 实验：共享内存
+// 实验：共享内存（公共头文件）
 
 // 此文件是共享内存实验所用的公共文件
 
@@ -8,7 +8,7 @@
 #define TEXT_SZ 2048
 
 struct shared_use_st {
-	int wrtten_by_you;
+	int written_by_you;
 	char some_text[TEXT_SZ];
 };
 
