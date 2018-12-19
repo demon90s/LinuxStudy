@@ -21,30 +21,56 @@
  * RLIMIT_STACK				栈大小限制（以字节为单位）
  * RLIMIT_AS				地址空间（栈和数据）限制（以字节为单位）
  *
- * 函数成功返回0 ，失败返回-1 。
+ * 函数成功返回0 ，失败返回-1 并设置 errno 。
  */
 
 #include <sys/resource.h>
 #include <stdio.h>
 
-int main()
+void test_stack()
 {
 	struct rlimit stack_limit;
 	
 	getrlimit(RLIMIT_STACK, &stack_limit);
 	printf("Stack Limit: %ld(cur), %ld(max)\n", stack_limit.rlim_cur, stack_limit.rlim_max);
-
 	
 	stack_limit.rlim_cur = 20 * 1024 * 1024;
 	if (setrlimit(RLIMIT_STACK, &stack_limit) != 0) {
 		perror("setrlimit");
-		return 1;
+		return;
 	}
-	
 
 	getrlimit(RLIMIT_STACK, &stack_limit);
 	printf("Stack Limit: %ld(cur), %ld(max)\n", stack_limit.rlim_cur, stack_limit.rlim_max);
+}
 
+void test_nofile()
+{
+	struct rlimit nofile_limit;
+	int res;
+
+	res = getrlimit(RLIMIT_NOFILE, &nofile_limit);
+	if (res == -1) {
+		perror("getrlimit for NOFILE");
+		return;
+	}
+	printf("NOFILE Limit: %ld(cur), %ld(max)\n", nofile_limit.rlim_cur, nofile_limit.rlim_max);
+
+	// 测试表明，普通用户无法设置超过原有数量的文件硬限制（软限制可以超）
+	nofile_limit.rlim_cur += 1;
+	//nofile_limit.rlim_max += 1;
+	res = setrlimit(RLIMIT_NOFILE, &nofile_limit);
+	if (res == -1) {
+		perror("setrlimit for NOFILE");
+		return;
+	}
+	printf("NOFILE Limit: %ld(cur), %ld(max)\n", nofile_limit.rlim_cur, nofile_limit.rlim_max);
+}
+
+int main()
+{
+	//test_stack();
+	test_nofile();
 	
 	return 0;
 }
