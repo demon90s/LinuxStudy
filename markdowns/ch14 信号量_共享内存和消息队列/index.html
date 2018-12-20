@@ -428,6 +428,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_5" title="共享内存" class="md-nav__link">
+    共享内存
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" title="消息队列" class="md-nav__link">
+    消息队列
+  </a>
+  
+</li>
+      
       
       
       
@@ -582,6 +596,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_5" title="共享内存" class="md-nav__link">
+    共享内存
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" title="消息队列" class="md-nav__link">
+    消息队列
+  </a>
+  
+</li>
+      
       
       
       
@@ -668,6 +696,22 @@ loop forever {
 <p><a href="../../codes/lab/api/IPC/semop.c" title="semop.c">semop 函数</a> 用于改变信号量的值，即采取 PV 操作。 </p>
 <p><a href="../../codes/lab/api/IPC/semctl.c" title="semctl.c">semctl 函数</a> 用于直接控制信号量信息。它可以初始化信号量，或者删除信号量。</p>
 <p>信号量如果不删除，它将继续在系统中存在。</p>
+<h2 id="_5">共享内存</h2>
+<p>共享内存允许两个不相关的进程访问同一个逻辑内存。共享内存是在两个正在运行的进程之间传递数据的一种非常有效的方式。</p>
+<p>共享内存是由 IPC 为进程创建的一个特殊的地址范围，它将出现在进程的地址空间中。其他进程可以将同一段共享内存连接到它们自己的地址空间中。</p>
+<p>共享内存并未提供同步机制。在第一个进程结束对共享内存的写操作之前，并无自动的机制可以组织第二个进程开始对它进行读取。对共享内存访问的同步控制必须由程序员负责。</p>
+<p><a href="../../codes/lab/api/IPC/shmget.c" title="shmget.c">shmget</a> 函数用来创建共享内存，或者获取一个已经创建好的共享内存。返回其标识符。</p>
+<p>创建好共享内存后，它还不能被任何进程访问，必须将其连接到一个进程的地址空间中，这项工作由 <a href="../../codes/lab/api/IPC/shmat.c" title="shmat.c">shmat</a> 函数完成。</p>
+<p><a href="../../codes/lab/api/IPC/shmdt_shmctl.c" title="shmdt_shmctl.c">shmdt</a> 函数将共享内存从当前进程分离，但不会删除共享内存，而只是不能再被该进程访问。</p>
+<p><a href="../../codes/lab/api/IPC/shmdt_shmctl.c" title="shmdt_shmctl.c">shmctl</a> 函数用于控制共享内存，它可以删除共享内存段。</p>
+<h2 id="_6">消息队列</h2>
+<p>消息队列与命名管道有相似之处。</p>
+<p>消息队列提供了一种从一个进程到另一个进程发送一个数据块的方法。每个数据块都被认为含有一个类型，接收进程可以独立地接收含有不同类型的数据块。</p>
+<p>好处是：我们可以通过发送消息来几乎完全避免命名管道的同步和阻塞问题。我们可以用一些方法来提前查看紧急消息。</p>
+<p>不过，每个数据块都有一个最大长度限制，系统中所有队列所包含的全部数据块的总长度也有一个上限。</p>
+<p><a href="../../codes/lab/api/IPC/msgget.c">msgget</a> 函数可以创建或访问一个消息队列。</p>
+<p><a href="../../codes/lab/api/IPC/msgsnd_msgrcv.c">msgsnd 和 msgrcv</a> 用来发送、接收消息队列。</p>
+<p><a href="../../codes/lab/api/IPC/msgctl.c">msgctl</a> 用于控制消息队列，比如删除消息队列。</p>
                 
                   
                 
