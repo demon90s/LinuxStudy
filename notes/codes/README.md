@@ -202,3 +202,9 @@
 
 ### 第15章 套接字
 
+### 第16章 用GTK+进行GNOME编程
+
+[一个空白的Gtkindow](./ch16_用GTK+进行GNOME编程/gtk1.c)
+
+[回调函数](./ch16_用GTK+进行GNOME编程/gtk2.c)
+
