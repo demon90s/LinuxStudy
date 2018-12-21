@@ -13,6 +13,14 @@
 
 static GtkWidget *window;
 
+// "destroy" 事件：窗口被关闭
+void window_closed(GtkWidget *window, gpointer data)
+{
+	printf("%s\n", (char*)data);
+	gtk_main_quit();
+}
+
+// "clocked" 事件：按钮被点击
 void button_clicked(GtkWidget *button, gpointer data)
 {
 	printf("%s\n", (char*)data);
@@ -20,15 +28,22 @@ void button_clicked(GtkWidget *button, gpointer data)
 
 void test_g_signal_connect()
 {
-	GtkWidget *button;
+	// for window
+	{
+		g_signal_connect(GTK_OBJECT(window), "destroy",
+						 GTK_SIGNAL_FUNC(window_closed), "bye~");
+	}
 
-	button = gtk_button_new_with_label("First Button");
-	gtk_container_add(GTK_CONTAINER(window), button);
+	// for button
+	{
+		GtkWidget *button;
+		button = gtk_button_new_with_label("First Button");
+		gtk_container_add(GTK_CONTAINER(window), button);
 	
-	g_signal_connect(GTK_OBJECT(button), "clicked",
-			GTK_SIGNAL_FUNC(button_clicked), "Clicked Button");
-
-	gtk_widget_show(button);
+		g_signal_connect(GTK_OBJECT(button), "clicked",
+				GTK_SIGNAL_FUNC(button_clicked), "Clicked Button");
+		gtk_widget_show(button);
+	}
 }
 
 int main(int argc, char *argv[])

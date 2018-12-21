@@ -206,7 +206,11 @@
 
 [构建容器布局](./ch16_用GTK+进行GNOME编程/container.c)
 
+[用户名和密码输入框](./ch16_用GTK+进行GNOME编程/entry.c)
+
 [一个空白的Gtkindow](./ch16_用GTK+进行GNOME编程/gtk1.c)
 
 [回调函数](./ch16_用GTK+进行GNOME编程/gtk2.c)
+
+[GtkSpinButton](./ch16_用GTK+进行GNOME编程/spin.c)
 
