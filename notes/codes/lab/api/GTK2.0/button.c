@@ -1,5 +1,6 @@
 /*
-
+	GtkButton
+	按钮的基类，也是一个普通的按钮。
 */
 
 #include <gtk/gtk.h>
