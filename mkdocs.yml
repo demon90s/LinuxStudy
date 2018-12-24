@@ -31,6 +31,7 @@ nav:
     - MySQL操作: markdowns/cheatsheet/MySQL操作.md
     - 用echo输出带颜色的文本: markdowns/cheatsheet/用echo输出带颜色的文本.md
     - 让进程在后台运行: markdowns/cheatsheet/让进程在后台运行.md
+    - 软件安装: markdowns/cheatsheet/软件安装.md
 
 theme:
   name: 'material'
