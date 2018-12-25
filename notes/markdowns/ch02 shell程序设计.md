@@ -128,6 +128,9 @@ $ for file in *
 
 grep -l找到当前路径下包含POSIX字符串的文件，more命令将文件的内容显示在屏幕上。
 
+!!!note
+    shell 编程里，\*可以做到自动扩展的功能，这里扩展成当前工作目录下的所有的文件名字（以空格分隔）。又比如，`echo *`将输出当前工作目录下所有的文件的名字。
+
 扩展的花括号{}允许将任意字符串放在一个集合中，以供shell进行扩展，比如：
 
 ```bash
@@ -174,6 +177,23 @@ $ sh fist.sh
 ```bash
 $ chmod +x first.sh
 $ ./fist.sh
+```
+
+在确信你的脚本程序能够正确执行后，你可以把它从当前目录移动到一个更合适的地方去，比如，家目录的 bin 目录。如果想给其他人使用，可以移动到 /usr/local/bin 目录。
+
+如果要移动到 /usr/local/bin 目录，就需要有 root 权限。比如使用 root 执行这样的命令：
+
+```
+# cp first /usr/local/bin
+# chwon root /usr/local/bin/first
+# chgrp root /usr/local/bin/first
+# chmod 755 /usr/local/bin/first
+```
+
+或者这样执行 chmod 命令赋予权限：
+
+```
+# chmod u=rwx,go=rx /usr/local/bin/first
 ```
 
 ## shell的语法
