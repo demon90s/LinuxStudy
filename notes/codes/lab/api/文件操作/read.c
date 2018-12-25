@@ -1,6 +1,12 @@
 /*
  * read （p83）
+ * 
+ * #include <unistd.h>
+ * ssize_t read(int fd, void *buf, size_t count);
+ * 
  * 从与文件描述符 fildes 相关联的文件里读入 nbytes 个字节的数据，并把它们放到数据区 buf 中。
+ * 失败返回-1并设置 errno 。
+ * 返回0表示遇到了文件尾。
  */
 
 #include <unistd.h>
