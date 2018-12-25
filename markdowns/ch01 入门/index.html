@@ -578,6 +578,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/软件安装/" title="软件安装" class="md-nav__link">
+      软件安装
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -742,25 +754,32 @@
 <h3 id="linux_1">Linux发行版</h3>
 <p>Linux实际上只是一个内核。你可以获得内核源代码，编译并安装它，然后获得并安装许多其他自由发布的软件，从而完成一个完整的Linux系统的安装。</p>
 <p>但这样的安装并非易事，幸运的是，许多人制作了Linux发行版，它不仅包含内核，还包含许多其他编程工具和应用程序。它通常都会包含一个X视窗系统的实现，即一个图形化环境。Linux发行版通常还带有安装程序和附加文档（一般在CD上），帮助你安装自己的Linux系统。</p>
-<blockquote>
-<p>my note: 学习中，我使用的Linux发行版是centos 7，官网是：https://www.centos.org/</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>学习中，我使用的Linux发行版是CentOS7，官网是：https://www.centos.org/</p>
+</div>
 <h2 id="linux_2">Linux程序设计</h2>
 <p>UNIX最初是用C语言编写的，并且UNIX的大多数应用程序也是用C语言编写的，但C语言并不是Linux程序员或UNIX程序员的唯一选择。</p>
-<blockquote>
-<p>my note: 还有许多其他的语言可以选择，不过书中主要讲解的是shell和C语言。</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>还有许多其他的语言可以选择，不过书中主要讲解的是shell和C语言，略带一些C++ 。</p>
+</div>
 <h3 id="linux_3">Linux程序</h3>
 <p>Linux应用程序表现为两种特殊类型的文件，可执行文件和脚本文件。可执行文件是计算机可以直接运行的程序，它们相当于Windows中的.exe文件。脚本文件是一组指令的集合，这些指令将由另一个程序（解释器）来执行，相当于Windows的bat文件。</p>
 <p>当登陆进Linux系统时，你与一个shell程序进行交互，它像Windows中的命令提示窗口一样运行程序。它在一组指定的目录路径下按照你给出的程序名搜索与之同名的文件。搜索目录路径存储在shell变量PATH里。</p>
-<blockquote>
-<p>my note: PATH变量定义在文件<code>~/.bash_profile</code>中。</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>PATH变量定义在文件<code>~/.bash_profile</code>文件中。</p>
+</div>
 <h3 id="_2">文本编辑器</h3>
 <p>本书的两位作者都喜欢Emacs，并建议读者花一点时间来学习这个功能强大的编辑器。</p>
-<blockquote>
-<p>my note: 不过我使用vim，目前感觉足够了。</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>我目前使用的是 vim 和 vscode ，目前感觉足够了。如果编辑文档和整理项目，我喜欢使用 vscode ，如果是编写一个简单的脚本或程序，我倾向于使用 vim 。</li>
+<li>我在<a href="../cheatsheet/软件安装/">这里</a>整理了我使用的软件的安装方法。</li>
+</ul>
+</div>
 <h3 id="c">C语言编译器</h3>
 <p>在本书中，我们将使用gcc，这是因为它随Linux的发行版一起提供，并且它支持C语言的ANSI标准语法。</p>
 <p>当用gcc命令生成一个可执行程序后（比如gcc -o hello hello.c），可用下面的命令执行此程序：</p>
@@ -775,9 +794,10 @@
 <p><strong>应用程序</strong></p>
 <p>系统为正常使用提供的程序，包括用于程序开发的工具，都可在目录/usr/bin中找到；系统管理员为某个特定的主机或本地网络添加的程序通常可在目录/usr/local/bin或/opt中找到。</p>
 <p>我们建议对于系统级的应用程序，你可以将它放在/usr/local目录中来运行和访问所需的文件。对于开发用和个人的应用程序，最好在你的家目录中使用一个文件夹来存放它。</p>
-<blockquote>
-<p>my note: 我写了一个脚本，放在utility目录下，叫<a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/utility/findcmd">findcmd</a>，可以查看这些程序所在的目录。</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>使用 whereis 命令可以查看系统命令所在的位置。比如 <code>whereis -b cat</code> 。</p>
+</div>
 <p><strong>头文件</strong></p>
 <p>用C语言进行程序设计时，你需要用头文件来提供对常量的定义和对系统函数及库函数调用的声明。对C语言来说，这些头文件几乎总是位于/usr/include目录及其子目录中。</p>
 <p>在调用C语言编译器时，你可以使用-I标志来包含保存在子目录或非标准位置中的头文件。例如：</p>

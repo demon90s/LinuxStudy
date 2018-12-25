@@ -351,6 +351,41 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#io" title="标准I/O库" class="md-nav__link">
+    标准I/O库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" title="格式化输入和输出" class="md-nav__link">
+    格式化输入和输出
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" title="文件和目录的维护" class="md-nav__link">
+    文件和目录的维护
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" title="扫描目录" class="md-nav__link">
+    扫描目录
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" title="错误处理" class="md-nav__link">
+    错误处理
+  </a>
+  
+</li>
+      
       
       
       
@@ -578,6 +613,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/软件安装/" title="软件安装" class="md-nav__link">
+      软件安装
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -692,6 +739,41 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#io" title="标准I/O库" class="md-nav__link">
+    标准I/O库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" title="格式化输入和输出" class="md-nav__link">
+    格式化输入和输出
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" title="文件和目录的维护" class="md-nav__link">
+    文件和目录的维护
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" title="扫描目录" class="md-nav__link">
+    扫描目录
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" title="错误处理" class="md-nav__link">
+    错误处理
+  </a>
+  
+</li>
+      
       
       
       
@@ -733,8 +815,8 @@ $ ls -il foo*
 <p><img alt="目录结构" src="../image/目录结构.png" /></p>
 <h3 id="_3">文件和设备</h3>
 <p>硬件设备在Linux中通常也被表示（映射）为文件。例如，作为超级用户，你可以使用如下命令将IDE CD-ROM驱动器挂载为一个文件：</p>
-<div class="codehilite"><pre><span></span>## mount -t iso9660 /dev/hdc /mnt/cdrom
-## cd /mnt/cdrom
+<div class="codehilite"><pre><span></span># mount -t iso9660 /dev/hdc /mnt/cdrom
+# cd /mnt/cdrom
 </pre></div>
 
 
@@ -742,21 +824,22 @@ $ ls -il foo*
 <hr />
 <p><strong>【my note】</strong></p>
 <p>我使用的是安装在虚拟机里的CentOS 7，挂载的方法是：先打开虚拟机设置-&gt;存储，把iso镜像添加成IDE，然后输入命令：</p>
-<div class="codehilite"><pre><span></span>## mkdir -p /mnt/cdrom
-## mount -t iso9660 /dev/cdrom /mnt/cdrom
+<div class="codehilite"><pre><span></span># mkdir -p /mnt/cdrom
+# mount -t iso9660 /dev/cdrom /mnt/cdrom
 </pre></div>
 
 
 <p>卸载的命令是：</p>
-<div class="codehilite"><pre><span></span>## umount /mnt/cdrom
+<div class="codehilite"><pre><span></span># umount /mnt/cdrom
 </pre></div>
 
 
 <hr />
 <p>UNIX和Linux众比较重要的设备文件有3个：/dev/console、/dev/tty和/dev/null</p>
-<blockquote>
-<p>my note: 书上讲的概念性比较强，读到此处时还没能完全理解（除了/dev/null比较好理解），所以还是看书吧。</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>书上讲的概念性比较强，读到此处时还没能完全理解（除了/dev/null比较好理解），所以还是看书吧。</p>
+</div>
 <p>设备被分为字符设备和块设备，两者的区别在于访问设备时是否需要一次读写一整块。比如硬盘就是一个块设备。</p>
 <h2 id="_4">系统调用和设备驱动程序</h2>
 <p>系统调用函数，由Linux直接提供，它们是通向操作系统本身的接口。</p>
@@ -809,11 +892,8 @@ $ ls -il foo*
 </li>
 </ul>
 <p>你可以通过系统调用open把其他文件描述符与文件和设备相关联。</p>
-<blockquote>
-<p>my note: 以下系统调用的函数原型用的是我使用的CentOS 7的手册页中的声明，和书中的声明略有不同。</p>
-</blockquote>
 <h3 id="write">write系统调用</h3>
-<p>系统调用write的作用是把缓冲区buf的前nbytes个字节写入与文件描述符fildes关联的文件中。它返回实际写入的字节数。如果文件描述符有错或者底层设备驱动程序对数据块长度比较敏感，该返回值可能会小于nbytes。如果这个函数返回0，就表示未写入任何数据；如果返回-1，就表示出现了错误，错误代码保存到全局变量errno里。</p>
+<p>系统调用 <a href="../../codes/lab/api/文件操作/write.c">write</a> 的作用是把缓冲区buf的前nbytes个字节写入与文件描述符fildes关联的文件中。它返回实际写入的字节数。如果文件描述符有错或者底层设备驱动程序对数据块长度比较敏感，该返回值可能会小于nbytes。如果这个函数返回0，就表示未写入任何数据；如果返回-1，就表示出现了错误，错误代码保存到全局变量errno里。</p>
 <div class="codehilite"><pre><span></span>#include &lt;unistd.h&gt;
 
 ssize_t write(int fd, const void *buf, size_t count);
@@ -822,7 +902,7 @@ ssize_t write(int fd, const void *buf, size_t count);
 
 <p>当程序退出运行时，所有已经打开的文件描述符都会自动关闭，所以你不需要明确地关闭它们。但处理被缓冲的输出时，情况就不一样了。</p>
 <h3 id="read">read系统调用</h3>
-<p>系统调用read的作用是：从与文件描述符fildes相关联的文件里读入nbytes个字节的数据，并把它们放到数据区buf中。它返回实际读入的字节数，这可能会小于请求的字节数。如果read调用返回0，就表示未读入任何数据，已达到文件尾。如果返回-1，就表示出现了错误。</p>
+<p>系统调用 <a href="../../codes/lab/api/文件操作/read.c">read</a> 的作用是：从与文件描述符fildes相关联的文件里读入nbytes个字节的数据，并把它们放到数据区buf中。它返回实际读入的字节数，这可能会小于请求的字节数。如果read调用返回0，就表示未读入任何数据，已达到文件尾。如果返回-1，就表示出现了错误。</p>
 <div class="codehilite"><pre><span></span>#include &lt;unistd.h&gt;
 
 ssize_t read(int fd, void *buf, size_t count);
@@ -830,7 +910,7 @@ ssize_t read(int fd, void *buf, size_t count);
 
 
 <h3 id="open">open系统调用</h3>
-<p>为了创建一个新的文件描述符，你需要使用系统调用open。</p>
+<p>为了创建一个新的文件描述符，你需要使用系统调用 <a href="../../codes/lab/api/文件操作/open.c">open</a> 。</p>
 <div class="codehilite"><pre><span></span>#include &lt;sys/types.h&gt;
 #include &lt;sys/stat.h&gt;
 #include &lt;fcntl.h&gt;
@@ -876,9 +956,10 @@ int creat(const char *pathname, mode_t mode);
 <p>open调用失败返回-1并设置errno。新的文件描述符总是使用未用描述符的最小值。</p>
 <p>POSIX规范还标准化了一个creat调用，它不仅会像预期那样创建文件，还会打开文件。相当于以oflags标志<code>O_CREAT|O_WRONLY|O_TRUNC</code>来调用open。</p>
 <p>任何一个运行中的程序能够打开的文件数是有限制的，这个限制通常是由limits.h头文件中的常量OPEN_MAX定义的，POSIX要求它至少为16。在Linux系统中，这个限制可以在系统运行时调整。</p>
-<blockquote>
-<p>my note: 在我的CentOS 7中，这个变量叫做FOPEN_MAX，其值为16。<code>/usr/include/bits/stdio_lim.h:## define FOPEN_MAX 16</code>，真实可以打开的文件描述符数量远高于这个值，见<a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/lab/test_OPEN_MAX.c"><mark>测试代码</mark></a></p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>在我的CentOS 7中，这个变量叫做FOPEN_MAX，其值为16。<code>/usr/include/bits/stdio_lim.h:## define FOPEN_MAX 16</code>，真实可以打开的文件描述符数量远高于这个值，见<a href="../../codes/lab/test_OPEN_MAX.c">测试代码</a></p>
+</div>
 <h3 id="_7">访问权限的初始值</h3>
 <p>当使用带有O_CREAT标志的open调用来创建文件时，必须使用有3个参数格式的open调用。第三个参数mode是几个标志按位或后得到的，这些标志有：</p>
 <ul>
@@ -893,9 +974,17 @@ int creat(const char *pathname, mode_t mode);
 <li>S_IXOTH：执行权限，其他用户</li>
 </ul>
 <p>用户掩码（由umask命令指定）会影响到被创建文件的访问权限。open调用里给出的mode值将与当时的用户掩码的反值做AND操作。</p>
-<blockquote>
-<p>my note: 用户掩码中指定了不允许向某类用户提供的权限。关于umask的细节参看书本p86。</p>
-</blockquote>
+<div class="codehilite"><pre><span></span>用户掩码中指定了不允许向某类用户提供的权限：
+4 - 写
+2 - 读
+1 - 执行
+因此，若 umask 的执行结果为 
+0002
+-ugo
+则代表对于其他用户(o)，将没有读权限。
+</pre></div>
+
+
 <p><strong>close系统调用</strong></p>
 <p>可以使用close调用终止文件描述符与其对应文件之间的关联。文件描述符被释放并能够重新使用。close调用成功时返回0，出错时返回-1。</p>
 <div class="codehilite"><pre><span></span>#include &lt;unistd.h&gt;
@@ -905,7 +994,7 @@ int close(int fd);
 
 
 <p><strong>ioctl系统调用</strong></p>
-<p>ioctl提供了一个用于控制设备及其描述符行为和配置底层服务的接口。</p>
+<p><a href="../../codes/lab/api/文件操作/ioctl.c">ioctl</a> 提供了一个用于控制设备及其描述符行为和配置底层服务的接口。</p>
 <div class="codehilite"><pre><span></span>#include &lt;sys/ioctl.h&gt;
 
 int ioctl(int fd, int cmd, ...);
@@ -943,6 +1032,31 @@ int lstat(const char *path, struct stat *buf);
 
 
 <p>相关函数stat和lstat返回的是通过文件名查询的状态信息。它们产生相同的结果，但当文件是一个符号链接时，lstat返回的是该符号链接本身的信息，而stat返回的是该链接指向的文件的信息。</p>
+<p>参考 <a href="../../codes/lab/api/文件操作/fstat_stat_lstat.c">测试代码</a></p>
+<p><strong>dup和dup2系统调用</strong></p>
+<p>dup 系统调用提供了一种复制文件描述符的方法，使我们能够通过两个或者更多不同的描述符来访问同一个文件。</p>
+<p>参考 <a href="../../codes/lab/api/dup.c">测试代码</a></p>
+<h2 id="io">标准I/O库</h2>
+<p>略。</p>
+<h2 id="_9">格式化输入和输出</h2>
+<p>略。</p>
+<h2 id="_10">文件和目录的维护</h2>
+<p><strong>chmod</strong> 可以修改文件或目录的访问权限。</p>
+<p><strong>chown</strong> 改变一个文件的属主。</p>
+<p><strong>unlink</strong> 用来删除一个文件的目录项，并减少它的链接数。你必须拥有其所属目录的写和执行权限。如果一个文件的链接数减少到零，并且没有进程打开它，这个文件就会被删除。 rm 程序就是使用这个调用。</p>
+<p><strong>link</strong> 在程序中创建一个文件的新链接。</p>
+<p><strong>symlink</strong> 系统调用创建一个文件的符号链接。符号链接不会增加文件的链接数。</p>
+<p><strong>mkdir 和 rmdir</strong> 用来建立和删除目录。</p>
+<p><strong>chdir</strong> 可以像 cd 一样切换目录。</p>
+<p><strong>getcwd</strong> 获取当前的目录。</p>
+<h2 id="_11">扫描目录</h2>
+<p>Linux 系统上的一个常见问题就是扫描目录，在 shell 程序设计中，这很容易，使用通配符扩展即可做到。</p>
+<p>使用相关的函数也可以处理。</p>
+<p><a href="../../codes/lab/api/文件操作/opendir_closedir.c">opendir 和 closedir</a> 用来打开、关闭一个目录流，目录流类似文件流，可以用来读取目录项目。一个目录项就是一个目录或者一个文件。</p>
+<p><a href="../../codes/lab/api/文件操作/readdir.c">readdir</a> 用来读取当前目录流中的一个目录项。</p>
+<p>telldir 和 seekdir 用来获取、设置当前目录流的读曲位置。</p>
+<h2 id="_12">错误处理</h2>
+<p>略。</p>
                 
                   
                 

@@ -1,6 +1,11 @@
 /*
  * write （p82）
+ * 
+ * #include <unistd.h>
+ * ssize_t write(int fd, const void *buf, size_t count);
+ * 
  * write的作用是把缓冲区 buf 的前 nbytes 个字节写入与文件描述符 fildes 关联的文件中。
+ * 失败返回-1并设置 errno 。
  */
 
 #include <unistd.h>
