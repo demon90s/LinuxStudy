@@ -24,6 +24,8 @@
 
 [一个文件复制程序](./ch03_文件操作/copy_system.c)
 
+[一个目录扫描程序](./ch03_文件操作/printdir.c)
+
 ### 第4章 Linux环境
 
 [getopt函数](./ch04_Linux环境/argopt.c)
@@ -204,13 +206,19 @@
 
 ### 第16章 用GTK+进行GNOME编程
 
+[GtkCheckButton, GtkToggleButton和GtkRadioButton](./ch16_用GTK+进行GNOME编程/buttons.c)
+
 [构建容器布局](./ch16_用GTK+进行GNOME编程/container.c)
 
 [用户名和密码输入框](./ch16_用GTK+进行GNOME编程/entry.c)
+
+[一个 GNOME 窗口](./ch16_用GTK+进行GNOME编程/gnome1.c)
 
 [一个空白的Gtkindow](./ch16_用GTK+进行GNOME编程/gtk1.c)
 
 [回调函数](./ch16_用GTK+进行GNOME编程/gtk2.c)
 
 [GtkSpinButton](./ch16_用GTK+进行GNOME编程/spin.c)
+
+[GtkTreeView](./ch16_用GTK+进行GNOME编程/tree.c)
 
