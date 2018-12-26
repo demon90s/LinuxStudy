@@ -24,6 +24,8 @@
 
 [一个文件复制程序](./ch03_文件操作/copy_system.c)
 
+[使用 mmap 函数](./ch03_文件操作/mmap.c)
+
 [一个目录扫描程序](./ch03_文件操作/printdir.c)
 
 ### 第4章 Linux环境
