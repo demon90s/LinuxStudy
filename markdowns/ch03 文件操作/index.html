@@ -386,6 +386,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#proc" title="/proc 文件系统" class="md-nav__link">
+    /proc 文件系统
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fcntlmap" title="高级主题：fcntl和map" class="md-nav__link">
+    高级主题：fcntl和map
+  </a>
+  
+</li>
+      
       
       
       
@@ -541,6 +555,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch16 用GTK+进行GNOME编程/" title="ch16 用GTK+进行GNOME编程" class="md-nav__link">
+      ch16 用GTK+进行GNOME编程
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -619,8 +645,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../cheatsheet/软件安装/" title="软件安装" class="md-nav__link">
-      软件安装
+    <a href="../cheatsheet/CentOS7软件安装/" title="CentOS7软件安装" class="md-nav__link">
+      CentOS7软件安装
     </a>
   </li>
 
@@ -770,6 +796,20 @@
         <li class="md-nav__item">
   <a href="#_12" title="错误处理" class="md-nav__link">
     错误处理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proc" title="/proc 文件系统" class="md-nav__link">
+    /proc 文件系统
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fcntlmap" title="高级主题：fcntl和map" class="md-nav__link">
+    高级主题：fcntl和map
   </a>
   
 </li>
@@ -1057,6 +1097,29 @@ int lstat(const char *path, struct stat *buf);
 <p>telldir 和 seekdir 用来获取、设置当前目录流的读曲位置。</p>
 <h2 id="_12">错误处理</h2>
 <p>略。</p>
+<h2 id="proc">/proc 文件系统</h2>
+<p>Linux 将一切事物都看作文件，硬件设备在文件系统中也有相应的条目。我们使用底层系统调用，通过 /dev 目录中的文件来访问硬件。</p>
+<p>Linux 提供了一个特殊的文件系统 procfs ，它通常以 /proc 目录的形式呈现。该目录中包含了许多特殊文件用来对驱动程序和内核信息进行更高层的访问。</p>
+<p>在多数情况下，只需要直接读取这些文件就可以获得状态信息。例如，可以这一给出 cpu 的详细信息：</p>
+<div class="codehilite"><pre><span></span>$ cat /proc/cpuinfo
+</pre></div>
+
+
+<p>给出内存使用情况：</p>
+<div class="codehilite"><pre><span></span>$ cat /proc/meminfo
+</pre></div>
+
+
+<p>给出内核版本信息：</p>
+<div class="codehilite"><pre><span></span>$ cat /proc/version
+</pre></div>
+
+
+<p>还有一些条目不仅可以被读取，还可以被修改，但要特别小心。</p>
+<p>/proc 目录中以数字命名的子目录用于提供正在运行的程序信息。</p>
+<h2 id="fcntlmap">高级主题：fcntl和map</h2>
+<p>fcntl 用于对底层文件描述符提供更多的操纵方法。</p>
+<p><a href="../../codes/ch03_文件操作/mmap.c">mmap</a> 建立一段可以被两个或更多程序读写的内存。这一功能还可以用在文件处理上。</p>
                 
                   
                 
