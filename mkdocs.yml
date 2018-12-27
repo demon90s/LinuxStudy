@@ -26,12 +26,13 @@ nav:
     - ch13 进程间通信_管道: markdowns/ch13 进程间通信_管道.md
     - ch14 信号量_共享内存和消息队列: markdowns/ch14 信号量_共享内存和消息队列.md
     - ch15 套接字: markdowns/ch15 套接字.md
+    - ch16 用GTK+进行GNOME编程: markdowns/ch16 用GTK+进行GNOME编程.md
   - CheatSheet:
     - shell_utility: markdowns/cheatsheet/shell_utility.md
     - MySQL操作: markdowns/cheatsheet/MySQL操作.md
     - 用echo输出带颜色的文本: markdowns/cheatsheet/用echo输出带颜色的文本.md
     - 让进程在后台运行: markdowns/cheatsheet/让进程在后台运行.md
-    - 软件安装: markdowns/cheatsheet/软件安装.md
+    - CentOS7软件安装: markdowns/cheatsheet/CentOS7软件安装.md
 
 theme:
   name: 'material'

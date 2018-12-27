@@ -1,4 +1,4 @@
-# 软件安装
+# CentOS7 软件安装
 
 一些 windows 下常用的软件，或许可以使用 AppImage 来使用，比如钉钉。
 
@@ -192,3 +192,22 @@ chmod +x KDevelop.AppImage
 1. 安装 mysql 源， rpm 下载地址：https://dev.mysql.com/downloads/repo/yum/
 
 2. 安装：yum install mysql-workbench-community.x86_64
+
+## TeamViewer - 远程桌面
+
+先引入 key ：
+
+```
+$ wget https://dl.tvcdn.de/download/linux/signature/TeamViewer2017.asc
+$ sudo rpm --import TeamViewer2017.asc
+```
+
+使用 yum 安装：
+
+```
+$ wget https://download.teamviewer.com/download/linux/teamviewer.x86_64.rpm
+# yum install epel-release
+# yum install ./teamviewer*.rpm
+```
+
+参考：https://community.teamviewer.com/t5/Knowledge-Base/How-to-install-TeamViewer-on-Red-Hat-and-CentOS/ta-p/30708

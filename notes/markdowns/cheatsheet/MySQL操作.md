@@ -132,13 +132,13 @@ Create Table: CREATE TABLE `birds` (
 ```bash
 # 通过非交互模式运行mysql
 $ mysql -u ldw --password=123456 foo < sqlcmd.sql
-$ mysql -uroot -p123456 foo -e 'SELECT * FROM boo'
+$ mysql -uroot -p foo -e 'SELECT * FROM boo'
 
 # 转储数据库
-$ mysqldump -u ldw -p123456 db_name > db_name_bak.sql
+$ mysqldump -u ldw -p db_name > db_name_bak.sql
 
 # 转储数据库中的某个表
-$ mysqldump -u ldw -p123456 db_name table > table_bak.sql
+$ mysqldump -u ldw -p db_name table > table_bak.sql
 ```
 
 ## MySql 函数
