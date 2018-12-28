@@ -528,6 +528,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" title="组装盒构件" class="md-nav__link">
+    组装盒构件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gtk_2" title="Gtk+构件" class="md-nav__link">
+    Gtk+构件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gnome_1" title="GNOME 构件" class="md-nav__link">
+    GNOME 构件
+  </a>
+  
+</li>
+      
       
       
       
@@ -758,6 +779,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" title="组装盒构件" class="md-nav__link">
+    组装盒构件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gtk_2" title="Gtk+构件" class="md-nav__link">
+    Gtk+构件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gnome_1" title="GNOME 构件" class="md-nav__link">
+    GNOME 构件
+  </a>
+  
+</li>
+      
       
       
       
@@ -889,6 +931,19 @@ $ sudo yum -y install libgnomeui-devel.x86_64
 
 
 <p>连接回调函数的方法是 <a href="../../codes/lab/api/GTK2.0/g_signal_connect.c">g_signal_connect</a> 。</p>
+<h2 id="_3">组装盒构件</h2>
+<p>GUI 的布局对其可以用性来说至关重要。排列构件的真正困难在于，你不能指望所有用户都有相同的屏幕分辨率，或者有相同的窗口大小、主题、字体、颜色方案。</p>
+<p>为了保持一致，要避免使用绝对坐标来放置构件，而是采用一种更灵活的布局系统。 GTK+ 通过容器构件来实现这一目标。盒构件是一个非常有用的容器构件类型。</p>
+<p>盒是一个不可见的构件，其工作就是包含其他的构件，并控制它们的布局。</p>
+<p>使用 gtk_hbox_new 和 gtk_vbox_new 来创建一个横向和纵向的盒构件。</p>
+<p>使用 gtk_box_pack_start 或 gtk_box_pack_end 来向盒构件添加构件。</p>
+<p><a href="../../codes/lab/api/GTK2.0/box.c">参考代码</a></p>
+<h2 id="gtk_2">Gtk+构件</h2>
+<p>本节介绍了 <a href="../../codes/lab/api/GTK2.0/window2.c">GtkWindow</a>, <a href="../../codes/lab/api/GTK2.0/entry.c">GtkEntry</a>, <a href="../../codes/lab/api/GTK2.0/spinbutton.c">GtkSpinButton</a>, <a href="../../codes/lab/api/GTK2.0/button.c">GtkButton</a>, <a href="../../codes/lab/api/GTK2.0/check_button.c">GtkCheckButton</a>, <a href="../../codes/lab/api/GTK2.0/toggle_button.c">GtkToggleButton</a>, <a href="../../codes/lab/api/GTK2.0/radio_button.c">GtkRadioButton</a>, <a href="../../codes/lab/api/GTK2.0/tree_view.c">GtkTreeView</a> 的相关 API 。</p>
+<h2 id="gnome_1">GNOME 构件</h2>
+<p>GTK+ 被设计成独立于桌面的。它不假定运行在 GNOME 中，甚至不假定它运行在 Linux 上。这样， GTK+ 可以被相对容易地移植到 Windows 或者任何其他视窗系统中。但其导致的结果是： GTK+ 缺乏将程序与桌面紧密结合的方法。</p>
+<p>GNOME 库包含 GNOME 构件，它们扩展了 GTK+ ，用一些更容易使用的构件替换了 GTK+ 中的部分构件。</p>
+<p>略去后续繁杂的内容。</p>
                 
                   
                 

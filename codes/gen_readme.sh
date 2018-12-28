@@ -34,7 +34,7 @@ main()
 		local chapter_name="第${chapter_num}章 ${chapter_dir#*_}"
 		echo -e "### $chapter_name\n" >> ../$filename
 
-		local c_files=$(ls -f *.c 2>/dev/null)
+		local c_files=$(ls -f *.c* 2>/dev/null)
 		for c_file in $c_files; do
 			local fname=$(head -1 $c_file)
 			local tmp=${fname%%：*}
