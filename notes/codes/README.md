@@ -220,7 +220,17 @@
 
 [回调函数](./ch16_用GTK+进行GNOME编程/gtk2.c)
 
+[GNOME菜单](./ch16_用GTK+进行GNOME编程/menu1.c)
+
+[使用 GNOME宏来定义菜单](./ch16_用GTK+进行GNOME编程/menu2.c)
+
 [GtkSpinButton](./ch16_用GTK+进行GNOME编程/spin.c)
 
 [GtkTreeView](./ch16_用GTK+进行GNOME编程/tree.c)
+
+### 第17章 用QT进行KDE编程
+
+[信号和槽](./ch17_用QT进行KDE编程/LayoutWindow.cpp)
+
+[QMainWindow](./ch17_用QT进行KDE编程/qt1.cpp)
 

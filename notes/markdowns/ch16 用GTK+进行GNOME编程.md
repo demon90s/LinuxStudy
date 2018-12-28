@@ -157,3 +157,29 @@ void a_callback(GtkWidget *widget, gpointer user_data);
 ```
 
 连接回调函数的方法是 [g_signal_connect](../codes/lab/api/GTK2.0/g_signal_connect.c) 。
+
+## 组装盒构件
+
+GUI 的布局对其可以用性来说至关重要。排列构件的真正困难在于，你不能指望所有用户都有相同的屏幕分辨率，或者有相同的窗口大小、主题、字体、颜色方案。
+
+为了保持一致，要避免使用绝对坐标来放置构件，而是采用一种更灵活的布局系统。 GTK+ 通过容器构件来实现这一目标。盒构件是一个非常有用的容器构件类型。
+
+盒是一个不可见的构件，其工作就是包含其他的构件，并控制它们的布局。
+
+使用 gtk_hbox_new 和 gtk_vbox_new 来创建一个横向和纵向的盒构件。
+
+使用 gtk_box_pack_start 或 gtk_box_pack_end 来向盒构件添加构件。
+
+[参考代码](../codes/lab/api/GTK2.0/box.c)
+
+## Gtk+构件
+
+本节介绍了 [GtkWindow](../codes/lab/api/GTK2.0/window2.c), [GtkEntry](../codes/lab/api/GTK2.0/entry.c), [GtkSpinButton](../codes/lab/api/GTK2.0/spinbutton.c), [GtkButton](../codes/lab/api/GTK2.0/button.c), [GtkCheckButton](../codes/lab/api/GTK2.0/check_button.c), [GtkToggleButton](../codes/lab/api/GTK2.0/toggle_button.c), [GtkRadioButton](../codes/lab/api/GTK2.0/radio_button.c), [GtkTreeView](../codes/lab/api/GTK2.0/tree_view.c) 的相关 API 。
+
+## GNOME 构件
+
+GTK+ 被设计成独立于桌面的。它不假定运行在 GNOME 中，甚至不假定它运行在 Linux 上。这样， GTK+ 可以被相对容易地移植到 Windows 或者任何其他视窗系统中。但其导致的结果是： GTK+ 缺乏将程序与桌面紧密结合的方法。
+
+GNOME 库包含 GNOME 构件，它们扩展了 GTK+ ，用一些更容易使用的构件替换了 GTK+ 中的部分构件。
+
+略去后续繁杂的内容。

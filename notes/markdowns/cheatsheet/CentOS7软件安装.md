@@ -138,7 +138,7 @@ yum -y install filezilla
 
 ```bash
 $ cd /etc/yum.repos.d
-$ wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
+$ sudo wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
 $ sudo yum install VirtualBox-5.2.x86_64
 ```
 
