@@ -1,6 +1,6 @@
-function main
+main()
 {
-	python36 -m mkdocs gh-deploy --force
+	python -m mkdocs gh-deploy --force
 }
 
 main $@
