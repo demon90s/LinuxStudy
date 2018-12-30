@@ -2,7 +2,9 @@
 
 # 自动编译源文件的脚本，使用方法：sh build.sh [rebuild | clear]
 
-QTDIR=/usr/lib64/qt-3.3
+# CentOS7
+#QTDIR=/usr/lib64/qt-3.3
+QTDIR=/usr/local/qt-3.3
 
 all_c_files=`ls *.cpp`
 exclude_files=""
@@ -21,7 +23,7 @@ main() {
 	for c_file in $all_c_files; do
 		exe_file=${c_file%%.c*}
 
-		if [ "$1" == "clear" ]; then
+		if [ "$1" = "clear" ]; then
 			rm -f $exe_file
 			rm -f ${exe_file}.moc
 			continue
@@ -41,7 +43,9 @@ main() {
 		fi
 
 		echo "[BUILDING] $c_file -> $exe_file"
-		g++ $c_file -o $exe_file -I$QTDIR/include -L$QTDIR/lib -lqt-mt
+		# CentOS7
+		#g++ $c_file -o $exe_file -I$QTDIR/include -L$QTDIR/lib -lqt-mt
+		g++ $c_file -o $exe_file -I$QTDIR/include -L$QTDIR/lib -lqt
 
 		if [ "$?" != "0" ]; then
 			return 1
