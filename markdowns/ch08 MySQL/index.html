@@ -2,7 +2,7 @@
 
 
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh" class="no-js">
   <head>
     
@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.1.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.2.0">
     
     
       
@@ -42,7 +42,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.11e41852.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.572ca0f0.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
       
@@ -53,7 +53,7 @@
       
     
     
-      <script src="../../assets/javascripts/modernizr.20ef595d.js"></script>
+      <script src="../../assets/javascripts/modernizr.8c900955.js"></script>
     
     
       
@@ -559,6 +559,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch17 用Qt进行KDE编程/" title="ch17 用Qt进行KDE编程" class="md-nav__link">
+      ch17 用Qt进行KDE编程
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -879,12 +891,12 @@ $ mysql
 
 <p>或者：</p>
 <div class="codehilite"><pre><span></span>$ mysql -u root
-mysql&gt; SET <span class="nv">password</span><span class="o">=</span>PASSWORD<span class="o">(</span><span class="s1">&#39;newpassword&#39;</span><span class="o">)</span><span class="p">;</span>
+mysql&gt; SET password<span class="o">=</span>PASSWORD<span class="o">(</span><span class="s1">&#39;newpassword&#39;</span><span class="o">)</span><span class="p">;</span>
 </pre></div>
 
 
 <p>如果想删除密码，则可以：</p>
-<div class="codehilite"><pre><span></span>mysql&gt; SET <span class="nv">password</span><span class="o">=</span>PASSWORD<span class="o">(</span><span class="s1">&#39;&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span>mysql&gt; SET password<span class="o">=</span>PASSWORD<span class="o">(</span><span class="s1">&#39;&#39;</span><span class="o">)</span><span class="p">;</span>
 </pre></div>
 
 
@@ -1143,7 +1155,7 @@ mysql&gt; SELECT user, host, password FROM mysql.user<span class="p">;</sp
 
 <p>revoke命令不能删除用户，如果要完全删除一个用户，不要只是修改他们的权限，而应用revoke来删除他们的权限。然后，切换到mysql数据库，通过从user表中删除相应的行来完全删除一个用户：</p>
 <div class="codehilite"><pre><span></span>mysql&gt; use mysql
-mysql&gt; DELETE FROM USER WHERE <span class="nv">user</span> <span class="o">=</span> <span class="s2">&quot;ldw&quot;</span><span class="p">;</span>
+mysql&gt; DELETE FROM USER WHERE user <span class="o">=</span> <span class="s2">&quot;ldw&quot;</span><span class="p">;</span>
 mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
 </pre></div>
 
@@ -1152,7 +1164,7 @@ mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
 <h3 id="_6">密码</h3>
 <p>如果想为尚未拥有密码的用户指定密码，或者希望改变自己或别人的密码，你就需要以root用户身份连接到MySQL服务器，然后直接更新用户信息。例如：</p>
 <div class="codehilite"><pre><span></span>mysql&gt; use mysql
-mysql&gt; UPDATE user SET <span class="nv">password</span> <span class="o">=</span> password<span class="o">(</span><span class="s1">&#39;bar&#39;</span><span class="o">)</span> WHERE <span class="nv">user</span> <span class="o">=</span> <span class="s1">&#39;ldw&#39;</span><span class="p">;</span>
+mysql&gt; UPDATE user SET password <span class="o">=</span> password<span class="o">(</span><span class="s1">&#39;bar&#39;</span><span class="o">)</span> WHERE user <span class="o">=</span> <span class="s1">&#39;ldw&#39;</span><span class="p">;</span>
 mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
 </pre></div>
 
@@ -1188,21 +1200,21 @@ mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
 </li>
 </ul>
 <p>使用mysql_init来初始化连接句柄：</p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;mysql.h&gt;</span><span class="cp"></span>
-<span class="n">MYSQL</span> <span class="o">*</span><span class="nf">mysql_init</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span><span class="cpf"> &lt;mysql.h&gt;</span><span class="cp"></span>
+<span class="n">MYSQL</span><span class="err"> </span><span class="o">*</span><span class="n">mysql_init</span><span class="p">(</span><span class="n">MYSQL</span><span class="err"> </span><span class="o">*</span><span class="p">);</span>
 </pre></div>
 
 
 <p>如果传递给NULL给此接口，它会返回一个指向新分配的连接句柄结构的指针。如果传递一个已有结构，它将被重新初始化。出错时返回NULL。</p>
 <p>使用mysql_real_connect来向一个连接提供参数：</p>
-<div class="codehilite"><pre><span></span><span class="n">MYSQL</span> <span class="o">*</span><span class="nf">mysql_real_connect</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">,</span>
-    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">server_host</span><span class="p">,</span>
-    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">sql_user_name</span><span class="p">,</span>
-    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">sql_password</span><span class="p">,</span>
-    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">db_name</span><span class="p">,</span>
-    <span class="n">usigned</span> <span class="kt">int</span> <span class="n">port_number</span><span class="p">,</span>
-    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">unix_sock_name</span><span class="p">,</span>
-    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="n">MYSQL</span><span class="err"> </span><span class="o">*</span><span class="n">mysql_real_connect</span><span class="p">(</span><span class="n">MYSQL</span><span class="err"> </span><span class="o">*</span><span class="n">connection</span><span class="p">,</span>
+<span class="err">    </span><span class="k">const</span><span class="err"> </span><span class="kt">char</span><span class="err"> </span><span class="o">*</span><span class="n">server_host</span><span class="p">,</span>
+<span class="err">    </span><span class="k">const</span><span class="err"> </span><span class="kt">char</span><span class="err"> </span><span class="o">*</span><span class="n">sql_user_name</span><span class="p">,</span>
+<span class="err">    </span><span class="k">const</span><span class="err"> </span><span class="kt">char</span><span class="err"> </span><span class="o">*</span><span class="n">sql_password</span><span class="p">,</span>
+<span class="err">    </span><span class="k">const</span><span class="err"> </span><span class="kt">char</span><span class="err"> </span><span class="o">*</span><span class="n">db_name</span><span class="p">,</span>
+<span class="err">    </span><span class="n">usigned</span><span class="err"> </span><span class="kt">int</span><span class="err"> </span><span class="n">port_number</span><span class="p">,</span>
+<span class="err">    </span><span class="k">const</span><span class="err"> </span><span class="kt">char</span><span class="err"> </span><span class="o">*</span><span class="n">unix_sock_name</span><span class="p">,</span>
+<span class="err">    </span><span class="kt">unsigned</span><span class="err"> </span><span class="kt">int</span><span class="err"> </span><span class="n">flags</span><span class="p">);</span>
 </pre></div>
 
 
@@ -1210,7 +1222,7 @@ mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
 <p>port_number和unix_socket_name默认为0和NULL，表示采用MySQL的默认设置。</p>
 <p>flag参数默认填0即可，对于介绍性的章节来说，没什么用。</p>
 <p>使用完连接之后，通常在程序退出时，调用mysql_close关闭连接：</p>
-<div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="nf">mysql_close</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="kt">void</span><span class="err"> </span><span class="n">mysql_close</span><span class="p">(</span><span class="n">MYSQL</span><span class="err"> </span><span class="o">*</span><span class="n">connection</span><span class="p">);</span>
 </pre></div>
 
 
@@ -1219,8 +1231,8 @@ mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
 <h3 id="_12">错误处理</h3>
 <p>见connect2.c。</p>
 <p>MySQL使用一系列由连接句柄结构报告的返回码。两个必备的例程是：</p>
-<div class="codehilite"><pre><span></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">mysql_errno</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">);</span>
-<span class="kt">char</span> <span class="o">*</span><span class="nf">mysql_error</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="kt">unsigned</span><span class="err"> </span><span class="kt">int</span><span class="err"> </span><span class="n">mysql_errno</span><span class="p">(</span><span class="n">MYSQL</span><span class="err"> </span><span class="o">*</span><span class="n">connection</span><span class="p">);</span>
+<span class="kt">char</span><span class="err"> </span><span class="o">*</span><span class="n">mysql_error</span><span class="p">(</span><span class="n">MYSQL</span><span class="err"> </span><span class="o">*</span><span class="n">connection</span><span class="p">);</span>
 </pre></div>
 
 
@@ -1229,13 +1241,13 @@ mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
 <h3 id="sql">执行SQL语句</h3>
 <p>见insert1.c。</p>
 <p>执行SQL语句的主要API函数为：</p>
-<div class="codehilite"><pre><span></span><span class="kt">int</span> <span class="nf">mysql_query</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">query</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="kt">int</span><span class="err"> </span><span class="n">mysql_query</span><span class="p">(</span><span class="n">MYSQL</span><span class="err"> </span><span class="o">*</span><span class="n">connection</span><span class="p">,</span><span class="err"> </span><span class="k">const</span><span class="err"> </span><span class="kt">char</span><span class="err"> </span><span class="o">*</span><span class="n">query</span><span class="p">);</span>
 </pre></div>
 
 
 <p>query是字符串形式的有效SQL语句（没有结束的分号）。如果成功，返回0。对于包含二进制数据的查询，可以使用mysql_real_query。</p>
 <p>用于检测受影响的行数的函数：</p>
-<div class="codehilite"><pre><span></span><span class="n">my_ulonglong</span> <span class="nf">mysql_affected_rows</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="n">my_ulonglong</span><span class="err"> </span><span class="n">mysql_affected_rows</span><span class="p">(</span><span class="n">MYSQL</span><span class="err"> </span><span class="o">*</span><span class="n">connection</span><span class="p">);</span>
 </pre></div>
 
 
@@ -1245,7 +1257,7 @@ mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
 <p>见insert2.c。</p>
 <p>如果一个列的类型是AUTO_INCREMENT，那么它会由MySQL自动分配ID。如何知道刚刚插入的记录的这个ID呢？</p>
 <p>MySQL提供了LAST_INSERT_ID()函数，无论何时MySQL向AUTO_INCREMENT列中插入数据，MySQL都会基于每个用户对最后分配的值进行跟踪。用户可以这样发现该值：</p>
-<div class="codehilite"><pre><span></span><span class="n">mysql</span><span class="o">&gt;</span> <span class="n">SELECT</span> <span class="n">LAST_INSERT_ID</span><span class="p">();</span>
+<div class="codehilite"><pre><span></span><span class="n">mysql</span><span class="o">&gt;</span><span class="err"> </span><span class="n">SELECT</span><span class="err"> </span><span class="n">LAST_INSERT_ID</span><span class="p">();</span>
 </pre></div>
 
 
@@ -1271,30 +1283,30 @@ mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
 <p>使用完mysql_qurey发送SQL语句后，使用mysql_store_result或mysql_use_result来提取数据。接着使用一系列mysql_fetch_row调用来处理数据。最后使用mysql_free_result释放查询占用的内存资源。</p>
 <p><strong>一次提取所有数据的函数</strong></p>
 <p>可以使用mysql_store_result在一次调用中从SELECT中提取所有数据：</p>
-<div class="codehilite"><pre><span></span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="nf">mysql_store_result</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="n">MYSQL_RES</span><span class="err"> </span><span class="o">*</span><span class="n">mysql_store_result</span><span class="p">(</span><span class="n">MYSQL</span><span class="err"> </span><span class="o">*</span><span class="n">connection</span><span class="p">);</span>
 </pre></div>
 
 
 <p>需要在成功调用mysql_query之后使用此函数。这个函数将立刻保存在客户端中返回的所有数据。它返回一个指向结果集结构的指针，如果失败则返回NULL。</p>
 <p>mysql_num_rows返回记录的数据，如果没有返回行，这个值将是0。</p>
-<div class="codehilite"><pre><span></span><span class="n">my_ulonglong</span> <span class="nf">mysql_num_rows</span><span class="p">(</span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="n">result</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="n">my_ulonglong</span><span class="err"> </span><span class="n">mysql_num_rows</span><span class="p">(</span><span class="n">MYSQL_RES</span><span class="err"> </span><span class="o">*</span><span class="n">result</span><span class="p">);</span>
 </pre></div>
 
 
 <p>接下来，可以使用mysql_fetch_row来处理结果集，也可以使用mysql_data_seek, mysql_row_seek, mysql_row_tell在数据集中来回移动。</p>
 <p>mysql_fetch_row: 这个函数从结果集中提取一行数据，并把它放到一个行结构中。当数据用完或发生错误时返回NULL。</p>
-<div class="codehilite"><pre><span></span><span class="n">MYSQL_ROW</span> <span class="nf">mysql_fetch_row</span><span class="p">(</span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="n">result</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="n">MYSQL_ROW</span><span class="err"> </span><span class="n">mysql_fetch_row</span><span class="p">(</span><span class="n">MYSQL_RES</span><span class="err"> </span><span class="o">*</span><span class="n">result</span><span class="p">);</span>
 </pre></div>
 
 
 <p>在完成了对结果集的操作后，必须总是调用mysql_free_result函数来让MySQL库清理它分配的对象：</p>
-<div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="nf">mysql_free_result</span><span class="p">(</span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="n">result</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="kt">void</span><span class="err"> </span><span class="n">mysql_free_result</span><span class="p">(</span><span class="n">MYSQL_RES</span><span class="err"> </span><span class="o">*</span><span class="n">result</span><span class="p">);</span>
 </pre></div>
 
 
 <p><strong>一次提取一行数据</strong></p>
 <p>依靠mysql_use_result可以逐行提取数据：</p>
-<div class="codehilite"><pre><span></span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="nf">mysql_use_result</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="n">MYSQL_RES</span><span class="err"> </span><span class="o">*</span><span class="n">mysql_use_result</span><span class="p">(</span><span class="n">MYSQL</span><span class="err"> </span><span class="o">*</span><span class="n">connection</span><span class="p">);</span>
 </pre></div>
 
 
@@ -1311,12 +1323,12 @@ mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
 </li>
 </ul>
 <p>mysql_field_count函数返回结果集中的字段（列）数目：</p>
-<div class="codehilite"><pre><span></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">mysql_field_count</span><span class="p">(</span><span class="n">MYSQL</span> <span class="o">*</span><span class="n">connection</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="kt">unsigned</span><span class="err"> </span><span class="kt">int</span><span class="err"> </span><span class="n">mysql_field_count</span><span class="p">(</span><span class="n">MYSQL</span><span class="err"> </span><span class="o">*</span><span class="n">connection</span><span class="p">);</span>
 </pre></div>
 
 
 <p>使用mysql_fetch_field函数可以将元数据和数据提取到一个新的结构中：</p>
-<div class="codehilite"><pre><span></span><span class="n">MYSQL_FIELD</span> <span class="o">*</span><span class="nf">mysql_fetch_field</span><span class="p">(</span><span class="n">MYSQL_RES</span> <span class="o">*</span><span class="n">result</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><span class="n">MYSQL_FIELD</span><span class="err"> </span><span class="o">*</span><span class="n">mysql_fetch_field</span><span class="p">(</span><span class="n">MYSQL_RES</span><span class="err"> </span><span class="o">*</span><span class="n">result</span><span class="p">);</span>
 </pre></div>
 
 
@@ -1398,7 +1410,7 @@ mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
       
     </div>
     
-      <script src="../../assets/javascripts/application.9e1f3b71.js"></script>
+      <script src="../../assets/javascripts/application.b41f3d20.js"></script>
       
         
         
@@ -1422,7 +1434,8 @@ mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
     
     
       
-        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-XXXXXXXX-X","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+        <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-XXXXXXXX-X","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
   </body>

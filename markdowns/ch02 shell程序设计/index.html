@@ -2,7 +2,7 @@
 
 
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh" class="no-js">
   <head>
     
@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.1.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.2.0">
     
     
       
@@ -42,7 +42,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.11e41852.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.572ca0f0.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
       
@@ -53,7 +53,7 @@
       
     
     
-      <script src="../../assets/javascripts/modernizr.20ef595d.js"></script>
+      <script src="../../assets/javascripts/modernizr.8c900955.js"></script>
     
     
       
@@ -607,6 +607,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch17 用Qt进行KDE编程/" title="ch17 用Qt进行KDE编程" class="md-nav__link">
+      ch17 用Qt进行KDE编程
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -949,18 +961,18 @@
 
 <p>使用<code>2&gt;</code>操作符可以重定向标准错误输出。</p>
 <p>下面的命令将把标准输出和标准错误输出分别重定向到不同的文件中：</p>
-<div class="codehilite"><pre><span></span>$ <span class="nb">kill</span> -HUP <span class="m">1234</span> &gt;killout.txt <span class="m">2</span>&gt;killerr.txt
+<div class="codehilite"><pre><span></span>$ kill -HUP 1234 &gt;killout.txt 2&gt;killerr.txt
 </pre></div>
 
 
 <p>如果想把两组输出都重定向到一个文件中，可以使用<code>&gt;&amp;</code>操作符来结合两个输出，如：</p>
-<div class="codehilite"><pre><span></span>$ <span class="nb">kill</span> -HUP <span class="m">1234</span> &gt;killout.txt <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+<div class="codehilite"><pre><span></span>$ kill -HUP 1234 &gt;killout.txt 2&gt;<span class="p">&amp;</span><span class="m">1</span>
 </pre></div>
 
 
 <p>这条命令的含义是：将标准输出重定向到文件killout.txt，然后将标准错误输出重定向到与标准输出相同的地方。</p>
 <p>这样可以丢弃所有的输出信息：</p>
-<div class="codehilite"><pre><span></span>$ <span class="nb">kill</span> -HUP <span class="m">1234</span> &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+<div class="codehilite"><pre><span></span>$ kill -HUP 1234 &gt;/dev/null 2&gt;<span class="p">&amp;</span><span class="m">1</span>
 </pre></div>
 
 
@@ -1020,7 +1032,7 @@
 
 shell语句
 
-<span class="nb">exit</span> <span class="m">0</span>
+exit 0
 </pre></div>
 
 
@@ -1061,16 +1073,16 @@ $ ./fist.sh
 <p>默认情况下，所有的变量都被看作字符串并以字符串来存储。shell和一些工具程序会在需要时把数值型字符串转换为对应的数值。</p>
 <p>变量区分大小写。</p>
 <p>在变量名前加一个$符号来访问它的内容。比如：</p>
-<div class="codehilite"><pre><span></span>$ <span class="nv">salutation</span><span class="o">=</span>Hello
-$ <span class="nb">echo</span> <span class="nv">$salutation</span>
+<div class="codehilite"><pre><span></span>$ salutation<span class="o">=</span>Hello
+$ echo <span class="nv">$salutation</span>
 </pre></div>
 
 
 <p>如果字符串里包含空格，就必须用引号把它们括起来；等号两边不能有空格。</p>
 <p>使用read命令将用户的输入赋值给一个变量，通常情况下，在用户按下回车键时，read命令结束。如：</p>
-<div class="codehilite"><pre><span></span>$ <span class="nb">read</span> a
+<div class="codehilite"><pre><span></span>$ read a
 hello world
-$ <span class="nb">echo</span> <span class="nv">$a</span>
+$ echo <span class="nv">$a</span>
 hello world
 </pre></div>
 
@@ -1149,7 +1161,7 @@ hello world
 <p>在实际工作中，大多数脚本程序都会广泛使用shell的布尔判断命令test或[。test命令的退出码（表明条件是否满足）决定是否需要执行后面的条件代码。</p>
 <p>为了可读性，当使用[命令时，还可以使用符号]来结尾。</p>
 <p>一个用户检查文件是否存在的例子：</p>
-<div class="codehilite"><pre><span></span><span class="k">if</span> <span class="nb">test</span> -f fred.c
+<div class="codehilite"><pre><span></span><span class="k">if</span> test -f fred.c
 <span class="k">then</span>
 ...
 <span class="k">fi</span>
@@ -1349,9 +1361,9 @@ hello world
 <p>当程序遇到函数定义时，它会记住此函数名，然后从}字符之后的位置继续执行。当执行到function_name时，shell就知道应该去执行刚才定义的函数了。这个函数执行完毕以后，执行过程会返回到调用函数那条语句的后面继续执行。</p>
 <p>当一个函数被调用时，脚本程序的位置参数（$*, $@, $#, $1, $2）等会被替换为函数的参数，这也是读取传递给函数的参数的办法。当函数执行完毕后，这些参数会恢复为它们先前的值。</p>
 <p>可以通过return命令让函数返回数字值。如果想让函数返回字符串，可以让函数将字符串保存在一个变量中，该变量然后可以在函数结束之后使用。或者可以echo一个字符串并捕获其结果。如：</p>
-<div class="codehilite"><pre><span></span>foo<span class="o">()</span> <span class="o">{</span> <span class="nb">echo</span> JAY<span class="p">;</span> <span class="o">}</span>
+<div class="codehilite"><pre><span></span>foo<span class="o">()</span> <span class="o">{</span> echo JAY<span class="p">;</span> <span class="o">}</span>
 ...
-<span class="nv">result</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="k">$(</span>foo<span class="k">)</span><span class="s2">&quot;</span>
+result <span class="o">=</span> <span class="s2">&quot;</span><span class="k">$(</span>foo<span class="k">)</span><span class="s2">&quot;</span>
 </pre></div>
 
 
@@ -1386,12 +1398,12 @@ hello world
 <p>点命令允许执行的脚本程序改变当前环境。</p>
 <p><strong>echo命令</strong></p>
 <p>一个常见的问题是如何去掉换行符，Linux常用的解决方法是：</p>
-<div class="codehilite"><pre><span></span><span class="nb">echo</span> -n <span class="s2">&quot;string to output&quot;</span>
+<div class="codehilite"><pre><span></span>echo -n <span class="s2">&quot;string to output&quot;</span>
 </pre></div>
 
 
 <p>还可以：</p>
-<div class="codehilite"><pre><span></span><span class="nb">echo</span> -e <span class="s2">&quot;string to output\c&quot;</span>
+<div class="codehilite"><pre><span></span>echo -e <span class="s2">&quot;string to output\c&quot;</span>
 </pre></div>
 
 
@@ -1400,7 +1412,7 @@ hello world
 <p>eval命令允许你对参数进行求职。见书本。</p>
 <p><strong>exec命令</strong></p>
 <p>典型用法是将当前shell替换为一个不同的程序。如：</p>
-<div class="codehilite"><pre><span></span><span class="nb">exec</span> wall <span class="s2">&quot;Thanks for all the fish&quot;</span>
+<div class="codehilite"><pre><span></span>exec wall <span class="s2">&quot;Thanks for all the fish&quot;</span>
 </pre></div>
 
 
@@ -1437,7 +1449,7 @@ hello world
 <p>可以使用trap -l来查看信号编号及其关联的名称。</p>
 <p>信号是指那些被异步发送到一个程序的事件。在默认情况下，它们通常会终止一个程序的运行、</p>
 <p>trap命令有两个参数，第一个参数是接收到指定信号时将要采取的行动，第二个参数是要处理的信号名：</p>
-<div class="codehilite"><pre><span></span><span class="nb">trap</span> <span class="nb">command</span> signal
+<div class="codehilite"><pre><span></span>trap command signal
 </pre></div>
 
 
@@ -1446,7 +1458,7 @@ hello world
 <p>unset命令的作用是从环境中删除变量或函数。</p>
 <p><strong>find命令</strong></p>
 <p>find命令是一个用于搜索文件的命令。如：</p>
-<div class="codehilite"><pre><span></span>$ find / -name <span class="nb">test</span> -print
+<div class="codehilite"><pre><span></span>$ find / -name test -print
 </pre></div>
 
 
@@ -1644,7 +1656,7 @@ hello world
       
     </div>
     
-      <script src="../../assets/javascripts/application.9e1f3b71.js"></script>
+      <script src="../../assets/javascripts/application.b41f3d20.js"></script>
       
         
         
@@ -1668,7 +1680,8 @@ hello world
     
     
       
-        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-XXXXXXXX-X","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+        <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-XXXXXXXX-X","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
   </body>
