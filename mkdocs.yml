@@ -1,12 +1,12 @@
 site_name: Linux Study Note
 site_description: Linux Study Note
 
-copyright: 'Copyright &copy; 2018 Diwen Liu'
+copyright: 'Copyright &copy; since 2018 Diwen Liu'
 
 docs_dir: notes
 
-#repo_url: https://github.com/demon90s/LinuxStudy
-#edit_uri: "tree/master/study_notes"
+repo_url: https://github.com/demon90s/LinuxStudy
+edit_uri: "tree/master/study_notes"
 
 nav:
   - Introduction: index.md
