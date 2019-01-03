@@ -1,4 +1,8 @@
-# CentOS7 软件安装
+# CentOS7-HowTo
+
+---
+
+## 软件安装
 
 一些 windows 下常用的软件，或许可以使用 AppImage 来使用，比如钉钉。
 
@@ -6,9 +10,7 @@
 
 使用 Settings -> Detailes 来修改默认使用的程序。
 
----
-
-## lantern - VPN
+### lantern - VPN
 
 安装：
 
@@ -71,7 +73,7 @@ sudo rpm -i ???.rpm
 
 运行 lantern 即可。
 
-## vscode - 代码、文档编辑器
+### vscode - 代码、文档编辑器
 
 ```bash
 $ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -80,7 +82,7 @@ $ yum check-update
 $ sudo yum install code
 ```
 
-## Chrome - 谷歌浏览器
+### Chrome - 谷歌浏览器
 
 安装:
 
@@ -97,7 +99,7 @@ gpgkey=https://dl.google.com/linux/linux_signing_key.pub
 
 - yum install google-chrome-stable
 
-## flash-player - 浏览器视频播放插件
+### flash-player - 浏览器视频播放插件
 
 进入 Adobe Flash Player 官网 https://get.adobe.com/cn/flashplayer/
 
@@ -111,7 +113,7 @@ sudo rpm -ivh flash-player-npapi-31.0.0.153-release.x86_64.rpm
 
 重启浏览器。
 
-## Filezilla - FTP 工具
+### Filezilla - FTP 工具
 
 安装
 
@@ -132,7 +134,7 @@ yum -y install filezilla
 6. Choose Protocol "SFTP" and select Logon Type "Normal". Don't worry about a password if you key file doesn't have a password
 7. Click Connect and you'll see your files
 
-## VirtualBox - 虚拟机
+### VirtualBox - 虚拟机
 
 安装
 
@@ -146,7 +148,7 @@ $ sudo yum install VirtualBox-5.2.x86_64
 
 参考：https://wiki.centos.org/zh/HowTos/Virtualization/VirtualBox
 
-## VLC - 视频播放器
+### VLC - 视频播放器
 
 安装
 
@@ -159,7 +161,7 @@ yum install vlc
 
 参考：https://www.videolan.org/vlc/download-redhat.html
 
-## steam - 游戏平台
+### steam - 游戏平台
 
 安装
 
@@ -173,7 +175,7 @@ sudo yum install steam.i686
 $ LD_PRELOAD='/usr/$LIB/libstdc++.so.6' LIBGL_DRI3_DISABLE=1 steam
 ```
 
-## KDevelop - C++ IDE
+### KDevelop - C++ IDE
 
 安装并启动：
 
@@ -185,7 +187,7 @@ chmod +x KDevelop.AppImage
 
 参考：https://www.kdevelop.org/download
 
-## Mysql Workbench - Mysql 图形化工具
+### Mysql Workbench - Mysql 图形化工具
 
 安装：
 
@@ -193,7 +195,7 @@ chmod +x KDevelop.AppImage
 
 2. 安装：yum install mysql-workbench-community.x86_64
 
-## TeamViewer - 远程桌面
+### TeamViewer - 远程桌面
 
 先引入 key ：
 

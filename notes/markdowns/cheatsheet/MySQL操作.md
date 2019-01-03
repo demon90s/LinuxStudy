@@ -135,6 +135,7 @@ $ mysql -u ldw --password=123456 foo < sqlcmd.sql
 $ mysql -uroot -p foo -e 'SELECT * FROM boo'
 
 # 转储数据库
+# 加 -d 表示只转储结构
 $ mysqldump -u ldw -p db_name > db_name_bak.sql
 
 # 转储数据库中的某个表
