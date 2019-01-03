@@ -76,6 +76,25 @@
       <defs>
         
         
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
       </defs>
     </svg>
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -145,6 +164,30 @@
         
       </div>
       
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/demon90s/LinuxStudy/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
     </div>
   </nav>
 </header>
@@ -170,6 +213,28 @@
     </a>
     Linux Study Note
   </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/demon90s/LinuxStudy/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -697,8 +762,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../cheatsheet/CentOS7软件安装/" title="CentOS7软件安装" class="md-nav__link">
-      CentOS7软件安装
+    <a href="../cheatsheet/CentOS7-HowTo/" title="CentOS7 HowTo" class="md-nav__link">
+      CentOS7 HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/Ubuntu-HowTo/" title="Ubuntu HowTo" class="md-nav__link">
+      Ubuntu HowTo
     </a>
   </li>
 
@@ -922,6 +999,8 @@
             <article class="md-content__inner md-typeset">
               
                 
+                  <a href="https://github.com/demon90s/LinuxStudy/tree/master/study_notes/markdowns/ch02 shell程序设计.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
                 
                 <h1 id="shell">第二章 shell程序设计</h1>
 <p>更详细的说明：http://www.tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html</p>
@@ -1041,6 +1120,10 @@ exit 0
 <p>因为脚本程序本质上被看作是shell的标准输入，所以它可以包含任何能够通过你的PATH环境变量引用到的Linux命令。</p>
 <p>exit命令的作用是确保脚本程序能够返回一个有意义的退出码，表示此脚本是否执行成功。在shell程序设计里，0表示成功。</p>
 <p>Linux很少利用文件扩展名来决定文件的类型，可以为脚本使用.sh或其他扩展名，但shell并不关心这一点。大多数预安装的脚本程序并没有使用任何文件扩展名。检查文件是否是脚本程序的最好方法是使用file命令，如：<code>file first.sh</code>。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>一个有趣的写法是：<code>#! /bin/bash -x</code> ，这将在执行脚本的同时，输出命令和其参数内容。</p>
+</div>
 <h3 id="_8">把脚本设置为可执行</h3>
 <p>运行脚本程序的方法是：</p>
 <div class="codehilite"><pre><span></span>$ sh fist.sh
@@ -1538,6 +1621,8 @@ result <span class="o">=</span> <span class="s2">&quot;</span><span class="k">
 
 <p>在<code>...</code>中的可以是某些算术运算。如果引用了变量，那么不需要在前面加$来引用。</p>
 <p>这样做更加灵活，因为可以算术运算内容可以是一个字符串，运算符两边不需要加空格，还可以进行多项式的运算。</p>
+<p>但，这个方法只适合做整数运算，不能得到小数的结果，如：echo $((3 / 4)) 得到的是0 。</p>
+<p>可以使用 bc 命令突破这种限制：echo 3 / 4 | bc -l</p>
 <h3 id="parameter-expansion">参数扩展（Parameter Expansion）</h3>
 <p>你可以在shell中采用多种参数替换方法。对于多参数处理问题来说，这些方法通常会提供一种精巧的解决方案。</p>
 <table>
@@ -1638,7 +1723,7 @@ result <span class="o">=</span> <span class="s2">&quot;</span><span class="k">
       <div class="md-footer-copyright">
         
           <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2018 Diwen Liu
+            Copyright &copy; since 2018 Diwen Liu
           </div>
         
         powered by
