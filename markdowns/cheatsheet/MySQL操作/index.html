@@ -592,7 +592,14 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" title="其他操作" class="md-nav__link">
+  <a href="#_7" title="修改表" class="md-nav__link">
+    修改表
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" title="其他操作" class="md-nav__link">
     其他操作
   </a>
   
@@ -622,20 +629,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../用echo输出带颜色的文本/" title="用echo输出带颜色的文本" class="md-nav__link">
-      用echo输出带颜色的文本
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../让进程在后台运行/" title="让进程在后台运行" class="md-nav__link">
-      让进程在后台运行
+    <a href="../Bash-HowTo/" title="Bash HowTo" class="md-nav__link">
+      Bash HowTo
     </a>
   </li>
 
@@ -738,7 +733,14 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_7" title="其他操作" class="md-nav__link">
+  <a href="#_7" title="修改表" class="md-nav__link">
+    修改表
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" title="其他操作" class="md-nav__link">
     其他操作
   </a>
   
@@ -771,11 +773,11 @@
                 
                 
                 <h1 id="mysql">MySQL操作</h1>
-<p>操作环境：CentOS 7</p>
+<p>操作环境：CentOS7/Ubuntu18.04</p>
 <p>如果是虚拟机，除了做端口转发外，可能还需要添加一个远程连接的权限，并执行 iptables -F ，方可使用远程连接。</p>
 <hr />
 <h2 id="_1">基本配置</h2>
-<div class="codehilite"><pre><span></span><span class="c1"># 安装mysql</span>
+<div class="codehilite"><pre><span></span><span class="c1"># CentOS7 安装mysql</span>
 $ yum install mariadb-server mariadb
 
 <span class="c1"># 启动mysql服务</span>
@@ -889,7 +891,46 @@ Create Table: CREATE TABLE <span class="sb">`</span>birds<span class="sb">`</spa
 </pre></div>
 
 
-<h2 id="_7">其他操作</h2>
+<h2 id="_7">修改表</h2>
+<p>在修改表之前，可以先复制一个新表，在这个新表上做修改：</p>
+<div class="codehilite"><pre><span></span><span class="c1"># 备份表结构为 test.birds_new</span>
+CREATE TABLE test.birds_new LIKE birds<span class="p">;</span>
+</pre></div>
+
+
+<p>通过 ALTER TABLE 实现修改表结构：</p>
+<p>ALTER TABLE tablename changes;</p>
+<p>changes 是更改命令，比如是对列的各种修改。</p>
+<div class="codehilite"><pre><span></span><span class="c1"># 为表 bird_families 增加一列 order_id ，此列将自动添加为最后一列</span>
+ALTER TABLE bird_families ADD COLUMN order_id INT<span class="p">;</span>
+
+<span class="c1"># 在表的 birds_new 的 family_id 列后面增加一列 wing_id</span>
+ALTER TABLE birds_new ADD COLOUMN wing_id CHAR<span class="o">(</span><span class="m">2</span><span class="o">)</span> AFTER family_id<span class="p">;</span>
+
+<span class="c1"># 删除表 bird_new 中的 wing_id 列，也同时删除了该列所有的数据</span>
+ALTER TABLE birds_new DROP COLUMN wing_id<span class="p">;</span>
+
+<span class="c1"># 修改 birds_new 中的 common_name 列的属性</span>
+ALTER TABLE birds_new CHANGE COLUMN common_name common_name VARHAR<span class="o">(</span><span class="m">255</span><span class="o">)</span><span class="p">;</span>
+</pre></div>
+
+
+<p>使用 UPDATE 来修改表数据：</p>
+<div class="codehilite"><pre><span></span><span class="c1"># 将 birds_new 表中所有满足条件的记录中的 endangered 列的数值修改成0</span>
+UPDATE birds_new SET <span class="nv">endangered</span> <span class="o">=</span> <span class="m">0</span> WHERE bird_id IN<span class="o">(</span><span class="m">1</span>,2,4,5<span class="o">)</span><span class="p">;</span>
+
+<span class="c1"># 将 birds_new 表中所有的记录中的 endangerder 列的数值修改成7</span>
+UPDATE birds_new SET <span class="nv">endangered</span> <span class="o">=</span> <span class="m">7</span><span class="p">;</span>
+</pre></div>
+
+
+<p>使用 SHOW COLUMN 和 LIKE 子句来查看某一列的设定：</p>
+<div class="codehilite"><pre><span></span><span class="c1"># 查看 birds_new 表的 endangered 列的设定</span>
+SHOW COLUMNS FROM birds_new LIKE <span class="s1">&#39;endangered&#39;</span> <span class="se">\G</span>
+</pre></div>
+
+
+<h2 id="_8">其他操作</h2>
 <div class="codehilite"><pre><span></span><span class="c1"># 通过非交互模式运行mysql</span>
 $ mysql -u ldw --password<span class="o">=</span><span class="m">123456</span> foo &lt; sqlcmd.sql
 $ mysql -uroot -p foo -e <span class="s1">&#39;SELECT * FROM boo&#39;</span>
@@ -941,13 +982,13 @@ $ mysqldump -u ldw -p db_name table &gt; table_bak.sql
           </a>
         
         
-          <a href="../用echo输出带颜色的文本/" title="用echo输出带颜色的文本" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../Bash-HowTo/" title="Bash HowTo" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   前进
                 </span>
-                用echo输出带颜色的文本
+                Bash HowTo
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

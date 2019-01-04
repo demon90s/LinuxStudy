@@ -38,7 +38,7 @@
     
     
       
-        <title>用echo输出带颜色的文本 - Linux Study Note</title>
+        <title>Bash HowTo - Linux Study Note</title>
       
     
     
@@ -101,7 +101,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#echo" tabindex="1" class="md-skip">
+      <a href="#bash-howto" tabindex="1" class="md-skip">
         跳转至
       </a>
     
@@ -127,7 +127,7 @@
                 Linux Study Note
               </span>
               <span class="md-header-nav__topic">
-                用echo输出带颜色的文本
+                Bash HowTo
               </span>
             
           
@@ -537,22 +537,53 @@
       
     
     
-    <a href="./" title="用echo输出带颜色的文本" class="md-nav__link md-nav__link--active">
-      用echo输出带颜色的文本
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Bash HowTo
+      </label>
+    
+    <a href="./" title="Bash HowTo" class="md-nav__link md-nav__link--active">
+      Bash HowTo
     </a>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../让进程在后台运行/" title="让进程在后台运行" class="md-nav__link">
-      让进程在后台运行
-    </a>
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="输出带颜色的文本" class="md-nav__link">
+    输出带颜色的文本
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="让进程在后台运行" class="md-nav__link">
+    让进程在后台运行
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bash-prompt" title="修改命令提示符（ Bash Prompt ）" class="md-nav__link">
+    修改命令提示符（ Bash Prompt ）
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -602,6 +633,36 @@
     
   
   
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="输出带颜色的文本" class="md-nav__link">
+    输出带颜色的文本
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="让进程在后台运行" class="md-nav__link">
+    让进程在后台运行
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bash-prompt" title="修改命令提示符（ Bash Prompt ）" class="md-nav__link">
+    修改命令提示符（ Bash Prompt ）
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -612,63 +673,122 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/demon90s/LinuxStudy/tree/master/study_notes/markdowns/cheatsheet/用echo输出带颜色的文本.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/demon90s/LinuxStudy/tree/master/study_notes/markdowns/cheatsheet/Bash-HowTo.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="echo">用echo输出带颜色的文本</h1>
+                <h1 id="bash-howto">Bash HowTo</h1>
 <hr />
-<p>案例代码：</p>
-<div class="codehilite"><pre><span></span><span class="ch">#! /bin/bash</span>
-
-<span class="c1"># 用法: echo -e &quot;\033[字背景颜色；文字颜色m字符串\033[0m&quot;</span>
-<span class="c1"># 字颜色：</span>
-<span class="c1"># 30 黑色</span>
-<span class="c1"># 31 红色</span>
-<span class="c1"># 32 绿色</span>
-<span class="c1"># 33 黄色</span>
-<span class="c1"># 34 蓝色</span>
-<span class="c1"># 35 紫色</span>
-<span class="c1"># 36 天蓝色</span>
-<span class="c1"># 37 白色</span>
-
-<span class="c1"># 字背景颜色：</span>
-<span class="c1"># 40 黑色</span>
-<span class="c1"># 41 红色</span>
-<span class="c1"># 42 绿色</span>
-<span class="c1"># 43 黄色</span>
-<span class="c1"># 44 蓝色</span>
-<span class="c1"># 45 紫色</span>
-<span class="c1"># 46 天蓝色</span>
-<span class="c1"># 47 白色</span>
-
-<span class="c1"># 控制格式：</span>
-<span class="c1"># 0m 关闭所有属性</span>
-<span class="c1"># 1m 文字高亮</span>
-<span class="c1"># 4m 下划线</span>
-<span class="c1"># 5m 闪烁</span>
-
-<span class="k">function</span> color_test
-<span class="o">{</span>
-    <span class="c1"># 颜色</span>
-    <span class="nb">echo</span> <span class="s2">&quot;default text&quot;</span>
-    <span class="nb">echo</span> -e <span class="s2">&quot;\033[47;30mBlack text\033[0m&quot;</span>
-    <span class="nb">echo</span> -e <span class="s2">&quot;\033[31mRed text\033[0m&quot;</span>
-    <span class="nb">echo</span> -e <span class="s2">&quot;\033[32mGreen text\033[0m&quot;</span>
-    <span class="nb">echo</span> -e <span class="s2">&quot;\033[33mYellow text\033[0m&quot;</span>
-    <span class="nb">echo</span> -e <span class="s2">&quot;\033[34mBlue text\033[0m&quot;</span>
-    <span class="nb">echo</span> -e <span class="s2">&quot;\033[35mPurple text\033[0m&quot;</span>
-    <span class="nb">echo</span> -e <span class="s2">&quot;\033[36mSky Blue text\033[0m&quot;</span>
-    <span class="nb">echo</span> -e <span class="s2">&quot;\033[37mWhite text\033[0m&quot;</span>
-
-    <span class="c1"># 控制格式</span>
-    <span class="nb">echo</span> -e <span class="s2">&quot;\033[1m\033[37mHigh light White text\033[0m&quot;</span>
-    <span class="nb">echo</span> -e <span class="s2">&quot;\033[1m\033[31mHigh light Red text\033[0m&quot;</span>
-    <span class="nb">echo</span> -e <span class="s2">&quot;\033[1m\033[32mHigh light Green text\033[0m&quot;</span>
-    <span class="nb">echo</span> -e <span class="s2">&quot;\033[4mUnderline text\033[0m&quot;</span>
-    <span class="nb">echo</span> -e <span class="s2">&quot;\033[5m\033[31mBlink Red text\033[0m&quot;</span>
-<span class="o">}</span>
-color_test <span class="nv">$@</span>
+<h2 id="_1">输出带颜色的文本</h2>
+<p>format: \033[n1;n2;n3mYourText</p>
+<p>explain:</p>
+<ul>
+<li>
+<p>\033[ - start escape</p>
+</li>
+<li>
+<p>n1, n2, n3 - color or background or attribute</p>
+</li>
+<li>
+<p>m - end escape</p>
+</li>
+<li>
+<p>YourText - your text to display</p>
+</li>
+</ul>
+<p><a href="../../../codes/lab/bash/colors.sh">参考代码</a></p>
+<h2 id="_2">让进程在后台运行</h2>
+<p><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-nohup/">参考资料</a></p>
+<p>当用户注销（logout）或者网络断开时，终端会收到HUP信号从而关闭其所有子进程。因此，我们可以通过让进程忽略HUP信号阻止这个关闭行为。</p>
+<p>nohup的用途就是让提交的命令忽略HUP信号。其用法如：</p>
+<div class="codehilite"><pre><span></span>$ nohup ping www.ibm.com <span class="p">&amp;</span>
 </pre></div>
+
+
+<p>&amp;表示让进程在后台运行，nohup让进程忽略HUP信号。nohup默认会将标准输出和标准错误重定向到nohup.out文件中，可以使用"&gt;filename 2&gt;&amp;1"来更改这个默认设定。如：</p>
+<div class="codehilite"><pre><span></span>$ nohup ping www.ibm.com &gt;test_ping.txt <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">&amp;</span>
+</pre></div>
+
+
+<h2 id="bash-prompt">修改命令提示符（ Bash Prompt ）</h2>
+<p><a href="http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x157.html">参考资料</a></p>
+<p>命令提示符由环境变量 PS1 给出。它默认在 .bashrc 文件中修改，如果需要自定义，那么也应该在这个文件修改。</p>
+<p>如果想测试，就直接在终端下输入： PS1=blablabla... 测试。</p>
+<p>命令提示符可以有许多的转义序列，表示不同的内容，比如时间、颜色。</p>
+<p>修改命令提示符的意义可能是为了分辨当前操作的终端，获取一些操作环境信息。比如，对于 root 用户，最后的提示符通常是 # ，而对于普通用户，通常是 $ 。</p>
+<p>常用的转义序列有：</p>
+<table>
+<thead>
+<tr>
+<th align="center">符号</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">\u</td>
+<td align="center">当前用户的名字</td>
+</tr>
+<tr>
+<td align="center">\h</td>
+<td align="center">主机名</td>
+</tr>
+<tr>
+<td align="center">\W</td>
+<td align="center">当前工作目录</td>
+</tr>
+<tr>
+<td align="center">\w</td>
+<td align="center">当前工作目录的全名</td>
+</tr>
+<tr>
+<td align="center">\$</td>
+<td align="center">如果是root，则为#，否则是$</td>
+</tr>
+<tr>
+<td align="center">\t</td>
+<td align="center">当前的时间，24小时制， HH:MM:SS 格式</td>
+</tr>
+<tr>
+<td align="center">\e</td>
+<td align="center">转义序列033 ，它用于设定后续文本颜色</td>
+</tr>
+<tr>
+<td align="center"><code>\[</code></td>
+<td align="center">开始一个非打印字符序列，通常跟随是颜色设定</td>
+</tr>
+<tr>
+<td align="center"><code>\]</code></td>
+<td align="center">结束一个非打印字符序列</td>
+</tr>
+</tbody>
+</table>
+<p>案例：</p>
+<table>
+<thead>
+<tr>
+<th align="center">设定</th>
+<th align="center">含义</th>
+<th align="center">e.g.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">PS1="\u@\h \W&gt; "</td>
+<td align="center">用户@主机 工作目录&gt;</td>
+<td align="center">diwen@ubuntu ~&gt;</td>
+</tr>
+<tr>
+<td align="center">PS1="[\u@\h \t\w]\$ "</td>
+<td align="center">[用户@主机 时间 工作目录全名]$</td>
+<td align="center">[diwen@ubuntu 12:44:02~/workspace/LinuxStudy]$</td>
+</tr>
+<tr>
+<td align="center">PS1='[[\e[36;1m]\u@[\e[32;1m]fbterm[\e[31;1m] \t[\e[36;1m]\w[\e[0m]]\$ '</td>
+<td align="center">[用户(蓝色)@主机(绿色) 时间(红色) 工作目录全名(蓝色)]$</td>
+<td align="center">[diwen@ubuntu 12:44:02~/workspace/LinuxStudy]$</td>
+</tr>
+</tbody>
+</table>
                 
                   
                 
@@ -704,13 +824,13 @@ color_test <span class="nv">$@</span>
           </a>
         
         
-          <a href="../让进程在后台运行/" title="让进程在后台运行" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../CentOS7-HowTo/" title="CentOS7 HowTo" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   前进
                 </span>
-                让进程在后台运行
+                CentOS7 HowTo
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

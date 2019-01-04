@@ -529,20 +529,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../用echo输出带颜色的文本/" title="用echo输出带颜色的文本" class="md-nav__link">
-      用echo输出带颜色的文本
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../让进程在后台运行/" title="让进程在后台运行" class="md-nav__link">
-      让进程在后台运行
+    <a href="../Bash-HowTo/" title="Bash HowTo" class="md-nav__link">
+      Bash HowTo
     </a>
   </li>
 
@@ -613,8 +601,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fbterm-tty" title="使用 fbterm 解决 tty 中文无法显示问题" class="md-nav__link">
-    使用 fbterm 解决 tty 中文无法显示问题
+  <a href="#fbterm-tty" title="使用 fbterm 解决 tty 中文无法显示/输入问题" class="md-nav__link">
+    使用 fbterm 解决 tty 中文无法显示/输入问题
   </a>
   
 </li>
@@ -672,6 +660,13 @@
           <li class="md-nav__item">
   <a href="#rapidsvn" title="rapidsvn" class="md-nav__link">
     rapidsvn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unity3d" title="Unity3D" class="md-nav__link">
+    Unity3D
   </a>
   
 </li>
@@ -739,8 +734,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fbterm-tty" title="使用 fbterm 解决 tty 中文无法显示问题" class="md-nav__link">
-    使用 fbterm 解决 tty 中文无法显示问题
+  <a href="#fbterm-tty" title="使用 fbterm 解决 tty 中文无法显示/输入问题" class="md-nav__link">
+    使用 fbterm 解决 tty 中文无法显示/输入问题
   </a>
   
 </li>
@@ -802,6 +797,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#unity3d" title="Unity3D" class="md-nav__link">
+    Unity3D
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -835,7 +837,7 @@
 <p>打开 Language Support ，按照提示更新好，重启。然后打开 Settings -&gt; Region &amp; Language , 在 Input Source 下加一个 Chinese(Intelligent Pinyin)。</p>
 <h2 id="sh">sh 命令执行问题</h2>
 <p>默认 sh 链接到了 dash ，而工作和学习中通常使用 bash ，所以就先把此链接删掉，重新构造软链接。</p>
-<h2 id="fbterm-tty">使用 fbterm 解决 tty 中文无法显示问题</h2>
+<h2 id="fbterm-tty">使用 fbterm 解决 tty 中文无法显示/输入问题</h2>
 <p>默认情况下，tty 下面的中文都是无法显示的格子，这时候需要用 fbterm 来解决。</p>
 <p>安装：</p>
 <p>sudo apt install fbterm</p>
@@ -848,6 +850,26 @@ sudo chmod u+s /usr/bin/fbterm
 <p>进入 tty 后，输入 fbterm 即可。</p>
 <p>修改 ~/.fbtermrc 文件可以修改配置。</p>
 <p>在 fbterm 环境下，使用 alt + fN 来切换终端，而不是 ctrl + alt + fN</p>
+<p>还可以在 .profile 下面追加脚本，使得登入终端后自动进入 fbterm</p>
+<div class="codehilite"><pre><span></span><span class="c1"># auto turn to fbterm</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$TERM</span><span class="s2">&quot;</span> <span class="o">=</span> linux <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="k">for</span> t in <span class="m">3</span> <span class="m">2</span> <span class="m">1</span>
+        <span class="k">do</span>
+                tput reset
+                <span class="nb">echo</span> <span class="s2">&quot;Turning to fbterm in </span><span class="nv">$t</span><span class="s2"> seconds...&quot;</span>
+                sleep <span class="m">1</span>
+        <span class="k">done</span>
+
+        fbterm
+<span class="k">fi</span>
+</pre></div>
+
+
+<p>若要使用中文拼音输入，则：</p>
+<p>sudo apt-get install fcitx-frontend-fbterm</p>
+<p>然后在 Settings -&gt; Region &amp; Language -&gt; Manage Installed Languages 里面将 keyboard Input method system 修改成 fcitx 。</p>
+<p>之后，修改 .fbtermrc 的配置项目为：input-method=fcitx-fbterm</p>
+<p>重启后，进入终端，键入 ctrl + space ，即可开启切换中文拼音输入法。</p>
 <h2 id="_2">安装一些软件</h2>
 <p>主要使用 apt-get 命令安装。</p>
 <h3 id="svn">svn</h3>
@@ -872,6 +894,12 @@ sudo apt-get install meld</p>
 <div class="codehilite"><pre><span></span>gsettings get org.gnome.meld detect-encodings
 gsettings set org.gnome.meld detect-encodings &quot;[&#39;utf8&#39;,&#39;latin1&#39;, &#39;GBK&#39;]&quot;
 </pre></div>
+
+
+<h3 id="unity3d">Unity3D</h3>
+<p>https://beta.unity3d.com/download/1d86eef80e0a/public_download.html</p>
+<p>Linux Download Assistant</p>
+<p>下载好后，给予可执行权限，然后执行，在线下载、安装。完毕后，重启电脑，然后再打开进程。</p>
                 
                   
                 
