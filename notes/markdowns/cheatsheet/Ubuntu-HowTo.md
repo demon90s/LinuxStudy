@@ -20,7 +20,7 @@ Ubuntu的默认root密码是随机的，即每次开机都有一个新的root密
 
 默认 sh 链接到了 dash ，而工作和学习中通常使用 bash ，所以就先把此链接删掉，重新构造软链接。
 
-## 使用 fbterm 解决 tty 中文无法显示问题
+## 使用 fbterm 解决 tty 中文无法显示/输入问题
 
 默认情况下，tty 下面的中文都是无法显示的格子，这时候需要用 fbterm 来解决。
 
@@ -40,6 +40,32 @@ sudo chmod u+s /usr/bin/fbterm
 修改 ~/.fbtermrc 文件可以修改配置。
 
 在 fbterm 环境下，使用 alt + fN 来切换终端，而不是 ctrl + alt + fN
+
+还可以在 .profile 下面追加脚本，使得登入终端后自动进入 fbterm
+
+```bash
+# auto turn to fbterm
+if [ "$TERM" = linux ]; then
+        for t in 3 2 1
+        do
+                tput reset
+                echo "Turning to fbterm in $t seconds..."
+                sleep 1
+        done
+
+        fbterm
+fi
+```
+
+若要使用中文拼音输入，则：
+
+sudo apt-get install fcitx-frontend-fbterm
+
+然后在 Settings -> Region & Language -> Manage Installed Languages 里面将 keyboard Input method system 修改成 fcitx 。
+
+之后，修改 .fbtermrc 的配置项目为：input-method=fcitx-fbterm
+
+重启后，进入终端，键入 ctrl + space ，即可开启切换中文拼音输入法。
 
 ## 安装一些软件
 
