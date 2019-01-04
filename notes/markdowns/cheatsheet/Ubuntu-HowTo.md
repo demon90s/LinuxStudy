@@ -4,6 +4,10 @@ version: 18.04
 
 ---
 
+## X崩了，进不去桌面
+
+可以尝试： sudo apt-get intall --reinstall ubuntu-desktop
+
 ## su -
 
 Ubuntu的默认root密码是随机的，即每次开机都有一个新的root密码。我们可以在终端输入命令 sudo passwd，然后输入当前用户的密码，enter，终端会提示我们输入新的密码并确认，此时的密码就是root新密码。修改成功后，输入命令 su - ，再输入新的密码就ok了。
@@ -82,3 +86,11 @@ meld 查看/设置支持的编码：
 gsettings get org.gnome.meld detect-encodings
 gsettings set org.gnome.meld detect-encodings "['utf8','latin1', 'GBK']"
 ```
+
+### Unity3D
+
+https://beta.unity3d.com/download/1d86eef80e0a/public_download.html
+
+Linux Download Assistant
+
+下载好后，给予可执行权限，然后执行，在线下载、安装。完毕后，重启电脑，然后再打开进程。
