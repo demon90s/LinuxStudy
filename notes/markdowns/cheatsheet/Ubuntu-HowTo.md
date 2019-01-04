@@ -12,6 +12,10 @@ Ubuntu的默认root密码是随机的，即每次开机都有一个新的root密
 
 打开 Language Support ，按照提示更新好，重启。然后打开 Settings -> Region & Language , 在 Input Source 下加一个 Chinese(Intelligent Pinyin)。
 
+## 把应用添加成桌面启动项目
+
+在这个目录下为它新建一个 .desktop 配置：～/.local/share/applications
+
 ## sh 命令执行问题
 
 默认 sh 链接到了 dash ，而工作和学习中通常使用 bash ，所以就先把此链接删掉，重新构造软链接。
