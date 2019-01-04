@@ -1,6 +1,6 @@
 # MySQL操作
 
-操作环境：CentOS 7
+操作环境：CentOS7/Ubuntu18.04
 
 如果是虚拟机，除了做端口转发外，可能还需要添加一个远程连接的权限，并执行 iptables -F ，方可使用远程连接。
 
@@ -9,7 +9,7 @@
 ## 基本配置
 
 ```bash
-# 安装mysql
+# CentOS7 安装mysql
 $ yum install mariadb-server mariadb
 
 # 启动mysql服务
@@ -125,6 +125,52 @@ Create Table: CREATE TABLE `birds` (
   PRIMARY KEY (`bird_id`),
   UNIQUE KEY `scientific_name` (`scientific_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_bin
+```
+
+## 修改表
+
+在修改表之前，可以先复制一个新表，在这个新表上做修改：
+
+```bash
+# 备份表结构为 test.birds_new
+CREATE TABLE test.birds_new LIKE birds;
+```
+
+通过 ALTER TABLE 实现修改表结构：
+
+ALTER TABLE tablename changes;
+
+changes 是更改命令，比如是对列的各种修改。
+
+```bash
+# 为表 bird_families 增加一列 order_id ，此列将自动添加为最后一列
+ALTER TABLE bird_families ADD COLUMN order_id INT;
+
+# 在表的 birds_new 的 family_id 列后面增加一列 wing_id
+ALTER TABLE birds_new ADD COLOUMN wing_id CHAR(2) AFTER family_id;
+
+# 删除表 bird_new 中的 wing_id 列，也同时删除了该列所有的数据
+ALTER TABLE birds_new DROP COLUMN wing_id;
+
+# 修改 birds_new 中的 common_name 列的属性
+ALTER TABLE birds_new CHANGE COLUMN common_name common_name VARHAR(255);
+```
+
+使用 UPDATE 来修改表数据：
+
+```bash
+# 将 birds_new 表中所有满足条件的记录中的 endangered 列的数值修改成0
+UPDATE birds_new SET endangered = 0 WHERE bird_id IN(1,2,4,5);
+
+# 将 birds_new 表中所有的记录中的 endangerder 列的数值修改成7
+UPDATE birds_new SET endangered = 7;
+```
+
+使用 SHOW COLUMN 和 LIKE 子句来查看某一列的设定：
+
+```bash
+# 查看 birds_new 表的 endangered 列的设定
+SHOW COLUMNS FROM birds_new LIKE 'endangered' \G
 ```
 
 ## 其他操作

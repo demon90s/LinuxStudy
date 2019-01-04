@@ -31,8 +31,7 @@ nav:
   - CheatSheet:
     - shell_utility: markdowns/cheatsheet/shell_utility.md
     - MySQL操作: markdowns/cheatsheet/MySQL操作.md
-    - 用echo输出带颜色的文本: markdowns/cheatsheet/用echo输出带颜色的文本.md
-    - 让进程在后台运行: markdowns/cheatsheet/让进程在后台运行.md
+    - Bash HowTo: markdowns/cheatsheet/Bash-HowTo.md
     - CentOS7 HowTo: markdowns/cheatsheet/CentOS7-HowTo.md
     - Ubuntu HowTo: markdowns/cheatsheet/Ubuntu-HowTo.md
 
