@@ -107,6 +107,10 @@ fi
 ## 一些 svn 命令
 
 ```bash
+# 签出工作副本 workspace ，从 url:port ，可以忽略掉 port ，这时使用默认的端口号 3690
+# 本地的目录新建为 working_copy ，可以忽略这个参数，此时就使用 workspace 作目录名
+svn checkout svn://url:port/workspace working_copy
+
 # 查看当前目录的文件状态
 svn status
 
