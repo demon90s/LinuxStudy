@@ -95,8 +95,10 @@ sudo apt-get install mariadb-server mariadb-client
 
 ### rapidsvn
 
+```
 sudo apt-get install rapidsvn
 sudo apt-get install meld
+```
 
 show diff:
 
