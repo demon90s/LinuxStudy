@@ -594,6 +594,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#_2" title="把应用添加成桌面启动项目" class="md-nav__link">
+    把应用添加成桌面启动项目
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sh" title="sh 命令执行问题" class="md-nav__link">
     sh 命令执行问题
   </a>
@@ -608,7 +615,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" title="安装一些软件" class="md-nav__link">
+  <a href="#_3" title="安装一些软件" class="md-nav__link">
     安装一些软件
   </a>
   
@@ -699,6 +706,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cmake-HowTo/" title="cmake HowTo" class="md-nav__link">
+      cmake HowTo
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -739,6 +758,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#_2" title="把应用添加成桌面启动项目" class="md-nav__link">
+    把应用添加成桌面启动项目
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sh" title="sh 命令执行问题" class="md-nav__link">
     sh 命令执行问题
   </a>
@@ -753,7 +779,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" title="安装一些软件" class="md-nav__link">
+  <a href="#_3" title="安装一些软件" class="md-nav__link">
     安装一些软件
   </a>
   
@@ -847,6 +873,8 @@
 <p>Ubuntu的默认root密码是随机的，即每次开机都有一个新的root密码。我们可以在终端输入命令 sudo passwd，然后输入当前用户的密码，enter，终端会提示我们输入新的密码并确认，此时的密码就是root新密码。修改成功后，输入命令 su - ，再输入新的密码就ok了。</p>
 <h2 id="_1">添加中文拼音输入法</h2>
 <p>打开 Language Support ，按照提示更新好，重启。然后打开 Settings -&gt; Region &amp; Language , 在 Input Source 下加一个 Chinese(Intelligent Pinyin)。</p>
+<h2 id="_2">把应用添加成桌面启动项目</h2>
+<p>在这个目录下为它新建一个 .desktop 配置：～/.local/share/applications</p>
 <h2 id="sh">sh 命令执行问题</h2>
 <p>默认 sh 链接到了 dash ，而工作和学习中通常使用 bash ，所以就先把此链接删掉，重新构造软链接。</p>
 <h2 id="fbterm-tty">使用 fbterm 解决 tty 中文无法显示/输入问题</h2>
@@ -882,7 +910,7 @@ sudo chmod u+s /usr/bin/fbterm
 <p>然后在 Settings -&gt; Region &amp; Language -&gt; Manage Installed Languages 里面将 keyboard Input method system 修改成 fcitx 。</p>
 <p>之后，修改 .fbtermrc 的配置项目为：input-method=fcitx-fbterm</p>
 <p>重启后，进入终端，键入 ctrl + space ，即可开启切换中文拼音输入法。</p>
-<h2 id="_2">安装一些软件</h2>
+<h2 id="_3">安装一些软件</h2>
 <p>主要使用 apt-get 命令安装。</p>
 <h3 id="svn">svn</h3>
 <p>sudo apt-get install subversion</p>

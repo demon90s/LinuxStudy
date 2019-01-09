@@ -612,6 +612,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#howto" title="HowTo" class="md-nav__link">
+    HowTo
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="复制一个数据库的结构" class="md-nav__link">
+    复制一个数据库的结构
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -667,6 +687,18 @@
   <li class="md-nav__item">
     <a href="../subversion-HowTo/" title="subversion HowTo" class="md-nav__link">
       subversion HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cmake-HowTo/" title="cmake HowTo" class="md-nav__link">
+      cmake HowTo
     </a>
   </li>
 
@@ -765,6 +797,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#howto" title="HowTo" class="md-nav__link">
+    HowTo
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="复制一个数据库的结构" class="md-nav__link">
+    复制一个数据库的结构
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -828,6 +880,9 @@ mysql&gt; DROP DATABASE foo<span class="p">;</span>
 
 <span class="c1"># 查看数据库列表</span>
 mysql&gt; SHOW DATABASES<span class="p">;</span>
+
+<span class="c1"># 查看创建数据库 foo 的语句</span>
+mysql&gt; SHOW CREATE DATABASE foo<span class="p">;</span>
 
 <span class="c1"># 选择使用默认数据库 foo</span>
 mysql&gt; USE foo
@@ -959,6 +1014,21 @@ $ mysqldump -u ldw -p db_name table &gt; table_bak.sql
 <h2 id="mysql_1">MySql 函数</h2>
 <p>FROM_UNIXTIME - 将时间戳转换成字符串表示的时间</p>
 <p>COUNT(*) - 得到记录的总数目</p>
+<h2 id="howto">HowTo</h2>
+<h3 id="_9">复制一个数据库的结构</h3>
+<p>比如，要把数据库 foo 复制一份但不包含数据，新的数据库名叫 foo_new 。</p>
+<p>先查看一下创建数据库 foo 的语句：</p>
+<p>SHOW CREATE DATABASE foo;</p>
+<p>用查看到的语句来创建一个新的数据库 foo_new ，比如是：</p>
+<p>CREATE DATABASE foo_new;</p>
+<p>然后去到命令行，备份 foo 的结构：</p>
+<div class="codehilite"><pre><span></span>mysqldump -u diwen -p -d foo &gt; foo.sql
+</pre></div>
+
+
+<p>创建表：</p>
+<div class="codehilite"><pre><span></span>mysql -u diwen -p foo_new &lt; foo.sql
+</pre></div>
                 
                   
                 

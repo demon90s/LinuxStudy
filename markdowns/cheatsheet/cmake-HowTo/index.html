@@ -1,0 +1,1332 @@
+
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Linux Study Note">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.2.0">
+    
+    
+      
+        <title>cmake HowTo - Linux Study Note</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.572ca0f0.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.8c900955.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700|Open+Sans+Mono">
+        <style>body,input{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Open Sans Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#cmake-howto" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../.." title="Linux Study Note" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">school</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Linux Study Note
+              </span>
+              <span class="md-header-nav__topic">
+                cmake HowTo
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/demon90s/LinuxStudy/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../.." title="Linux Study Note" class="md-nav__button md-logo">
+      
+        <i class="md-icon">school</i>
+      
+    </a>
+    Linux Study Note
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/demon90s/LinuxStudy/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Chapters
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Chapters
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch01 入门/" title="ch01 入门" class="md-nav__link">
+      ch01 入门
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch02 shell程序设计/" title="ch02 shell程序设计" class="md-nav__link">
+      ch02 shell程序设计
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch03 文件操作/" title="ch03 文件操作" class="md-nav__link">
+      ch03 文件操作
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch04 Linux环境/" title="ch04 Linux环境" class="md-nav__link">
+      ch04 Linux环境
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch05 终端/" title="ch05 终端" class="md-nav__link">
+      ch05 终端
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch06 curses/" title="ch06 curses" class="md-nav__link">
+      ch06 curses
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch07 数据管理/" title="ch07 数据管理" class="md-nav__link">
+      ch07 数据管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch08 MySQL/" title="ch08 MySQL" class="md-nav__link">
+      ch08 MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch09 开发工具/" title="ch09 开发工具" class="md-nav__link">
+      ch09 开发工具
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch10 调试/" title="ch10 调试" class="md-nav__link">
+      ch10 调试
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch11 进程和信号/" title="ch11 进程和信号" class="md-nav__link">
+      ch11 进程和信号
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch12 POSIX线程/" title="ch12 POSIX线程" class="md-nav__link">
+      ch12 POSIX线程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch13 进程间通信_管道/" title="ch13 进程间通信_管道" class="md-nav__link">
+      ch13 进程间通信_管道
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch14 信号量_共享内存和消息队列/" title="ch14 信号量_共享内存和消息队列" class="md-nav__link">
+      ch14 信号量_共享内存和消息队列
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch15 套接字/" title="ch15 套接字" class="md-nav__link">
+      ch15 套接字
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch16 用GTK+进行GNOME编程/" title="ch16 用GTK+进行GNOME编程" class="md-nav__link">
+      ch16 用GTK+进行GNOME编程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch17 用Qt进行KDE编程/" title="ch17 用Qt进行KDE编程" class="md-nav__link">
+      ch17 用Qt进行KDE编程
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      CheatSheet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        CheatSheet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../shell_utility/" title="shell_utility" class="md-nav__link">
+      shell_utility
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../MySQL操作/" title="MySQL操作" class="md-nav__link">
+      MySQL操作
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Bash-HowTo/" title="Bash HowTo" class="md-nav__link">
+      Bash HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../CentOS7-HowTo/" title="CentOS7 HowTo" class="md-nav__link">
+      CentOS7 HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ubuntu-HowTo/" title="Ubuntu HowTo" class="md-nav__link">
+      Ubuntu HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../subversion-HowTo/" title="subversion HowTo" class="md-nav__link">
+      subversion HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        cmake HowTo
+      </label>
+    
+    <a href="./" title="cmake HowTo" class="md-nav__link md-nav__link--active">
+      cmake HowTo
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="概述" class="md-nav__link">
+    概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="安装与使用" class="md-nav__link">
+    安装与使用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="编写CMakeLists.txt" class="md-nav__link">
+    编写CMakeLists.txt
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="一些语法" class="md-nav__link">
+    一些语法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="一些指令" class="md-nav__link">
+    一些指令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="一些内置变量" class="md-nav__link">
+    一些内置变量
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" title="几个例子" class="md-nav__link">
+    几个例子
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="单项目工程" class="md-nav__link">
+    单项目工程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="多项目工程" class="md-nav__link">
+    多项目工程
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cmakelists" title="顶层 CMakeLists" class="md-nav__link">
+    顶层 CMakeLists
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmakelists_1" title="子项目 CMakeLists" class="md-nav__link">
+    子项目 CMakeLists
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="一个采取外部构建的脚本" class="md-nav__link">
+    一个采取外部构建的脚本
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" title="参考资料" class="md-nav__link">
+    参考资料
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="概述" class="md-nav__link">
+    概述
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="安装与使用" class="md-nav__link">
+    安装与使用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cmakeliststxt" title="编写CMakeLists.txt" class="md-nav__link">
+    编写CMakeLists.txt
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="一些语法" class="md-nav__link">
+    一些语法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="一些指令" class="md-nav__link">
+    一些指令
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="一些内置变量" class="md-nav__link">
+    一些内置变量
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" title="几个例子" class="md-nav__link">
+    几个例子
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="单项目工程" class="md-nav__link">
+    单项目工程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="多项目工程" class="md-nav__link">
+    多项目工程
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cmakelists" title="顶层 CMakeLists" class="md-nav__link">
+    顶层 CMakeLists
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cmakelists_1" title="子项目 CMakeLists" class="md-nav__link">
+    子项目 CMakeLists
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="一个采取外部构建的脚本" class="md-nav__link">
+    一个采取外部构建的脚本
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" title="参考资料" class="md-nav__link">
+    参考资料
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/demon90s/LinuxStudy/tree/master/study_notes/markdowns/cheatsheet/cmake-HowTo.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="cmake-howto">cmake HowTo</h1>
+<h2 id="_1">概述</h2>
+<p>cmake可以用来生成项目工程文件，比如 Linux 下的 Makefile 等文件，VS下的 sln 等文件。cmake使用一个名为 CMakeLists.txt 的文件来描述项目构建过程。</p>
+<p>使用 cmake 构建一个项目的流程如下：</p>
+<ol>
+<li>
+<p>编写 CMakeLists.txt 文件</p>
+</li>
+<li>
+<p>执行<code>cmake &lt;path&gt;</code>生成工程文件，path目录下存放着CMakeLists.txt文件</p>
+</li>
+<li>
+<p>编译项目，比如 Linux 下可使用 make 命令</p>
+</li>
+</ol>
+<h2 id="_2">安装与使用</h2>
+<p>CentOS 7安装命令：</p>
+<div class="codehilite"><pre><span></span>$ yum install cmake
+</pre></div>
+
+
+<p>Ubuntu18.04 安装命令：</p>
+<div class="codehilite"><pre><span></span>$ sudo apt-get install cmake
+</pre></div>
+
+
+<p>Windows下直接下载安装包即可：https://cmake.org/download/</p>
+<p><strong>构建项目</strong></p>
+<p>下面以Linux平台为例。</p>
+<p>使用方法为：</p>
+<div class="codehilite"><pre><span></span>$ cmake path
+$ make
+</pre></div>
+
+
+<p>使用path目录下的CMakeLists.txt来生成Makefile文件，生成的Makefile文件位于当前cmake命令执行目录。</p>
+<p>cmake命令还会在命令执行目录生成一些中间文件。</p>
+<p><strong>清理项目</strong></p>
+<p>只需输入：</p>
+<div class="codehilite"><pre><span></span>$ make clean
+</pre></div>
+
+
+<p>但不会清理cmake生成的中间文件。</p>
+<p><strong>外部构建</strong></p>
+<p>cmake除了会在命令执行目录生成MakeFile文件，还会生成许多一些中间文件，因此最好是把它们统一放到一个目录中，在此目录执行cmake，这就是外部构建。</p>
+<p>例如，可在项目目录下创建一个build目录，作为cmake命令的执行目录，CMakeLists.txt文件放在项目目录下，然后这样构建项目：</p>
+<div class="codehilite"><pre><span></span>$ <span class="nb">cd</span> build
+$ cmake ..
+$ make
+</pre></div>
+
+
+<p>这样，想要删除cmake生成的中间文件时，直接执行<code>rm -rf build</code>即可。</p>
+<p><strong>生成Debug或Release版本的程序</strong></p>
+<div class="codehilite"><pre><span></span>$ cmake -DCMAKE_BUILD_TYPE<span class="o">=</span>Debug path
+</pre></div>
+
+
+<p>这里设置了变量CMAKE_BUILD_TYPE的值为Debug，表示生成的是Debug版本的程序。还可以取值为Release。</p>
+<h2 id="cmakeliststxt">编写CMakeLists.txt</h2>
+<h4 id="_3">一些语法</h4>
+<p>CMakeLists.txt语法由指令、变量、注释组成。</p>
+<p><strong>指令</strong></p>
+<p>指令由指令名、小括号、参数组成。参数以空格分隔。</p>
+<p><strong>变量</strong></p>
+<p>变量分为内置的和自定义的。</p>
+<p>引用变量的方法是：${变量名}。</p>
+<p>变量是全局的，在上层CMakeLists.txt定义的变量，在下层可以使用。</p>
+<p><strong>注释</strong></p>
+<p><code>##</code>符号后面的内容被认为是注释</p>
+<h4 id="_4">一些指令</h4>
+<p>在官方文档中，指令中尖括号的内容是必填项，而方括号的内容是选填项，其余的是固定内容。</p>
+<p><strong>CMAKE_MINIMUM_REQUIRED</strong></p>
+<p>限定cmake的版本，如果当前cmake版本低，则生成失败。通常它位于顶层CMakeLists.txt的第一行。</p>
+<p>使用例子：</p>
+<div class="codehilite"><pre><span></span><span class="nb">CMAKE_MINIMUM_REQUIRED</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>PROJECT</strong></p>
+<p>定义项目的名称。</p>
+<p>使用例子：</p>
+<div class="codehilite"><pre><span></span><span class="nb">PROJECT</span><span class="p">(</span><span class="s">projectname</span><span class="p">)</span>
+</pre></div>
+
+
+<p>对于 vs ，这样的指令使得 sln 文件的名字为 projectname 。</p>
+<p><strong>MESSAGE</strong></p>
+<p>发送一段信息文本到标准输出。</p>
+<p>使用例子：</p>
+<div class="codehilite"><pre><span></span><span class="nb">MESSAGE</span><span class="p">(</span><span class="s2">&quot;cmake start&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>SET</strong></p>
+<p>自定义一个变量，或者改变内置变量的值。</p>
+<p>指令语法：</p>
+<div class="codehilite"><pre><span></span><span class="nb">SET</span><span class="p">(</span><span class="s">VAR</span> <span class="s">[VALUE]</span><span class="p">)</span>
+</pre></div>
+
+
+<p>使用例子：</p>
+<div class="codehilite"><pre><span></span><span class="nb">SET</span><span class="p">(</span><span class="s">SRC_LIST</span> <span class="s">main.c</span> <span class="s">t1.c</span> <span class="s">t2.c</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>INCLUDE_DIRECTORIES</strong></p>
+<p>设置头文件包含目录。</p>
+<p>使用例子：</p>
+<div class="codehilite"><pre><span></span><span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span><span class="s">.</span> <span class="s">./src</span><span class="p">)</span> <span class="c">## 目录列表</span>
+</pre></div>
+
+
+<p><strong>ADD_SUBDIRECTORY</strong></p>
+<p>指明本工程中还有一个子目录，当执行到此指令时，会进入到子目录中，使用子目录中的CMakeList进行构建。</p>
+<p>使用例子：</p>
+<div class="codehilite"><pre><span></span><span class="nb">ADD_SUBDIRECTORY</span><span class="p">(</span><span class="s">sub_project_dir</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>FILE</strong></p>
+<p>文件相关的操作。支持通配符扩展。</p>
+<p>使用例子：</p>
+<div class="codehilite"><pre><span></span><span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB_RECURSE</span> <span class="s">SRC_FILES</span> <span class="s">*.cpp</span> <span class="s">*.h</span><span class="p">)</span> <span class="c">## 获取当前处理的CMakeLists.txt文件所在目录及其子目录中所有的cpp文件和h文件，放到SRC_FILES变量里</span>
+</pre></div>
+
+
+<p>GLOB_RECURSE代表全局递归查找。</p>
+<p><strong>ADD_EXECUTABLE</strong></p>
+<p>设置生成一个可执行文件。通常位于次级CMakeLists.txt。</p>
+<p>指令语法：</p>
+<div class="codehilite"><pre><span></span><span class="nb">ADD_EXECUTABLE</span><span class="p">(</span><span class="s">exefile</span> <span class="s">src_file_list</span><span class="p">)</span>
+</pre></div>
+
+
+<p>使用例子：</p>
+<div class="codehilite"><pre><span></span><span class="nb">ADD_EXECUTABLE</span><span class="p">(</span><span class="s">main</span> <span class="s">main.c</span> <span class="s">t1.c</span> <span class="s">t2.c</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>ADD_LIBRARY</strong></p>
+<p>设置生成一个库文件。</p>
+<p>指令语法：</p>
+<div class="codehilite"><pre><span></span><span class="nb">ADD_LIBRARY</span><span class="p">(</span><span class="s">libname</span> <span class="s">[SHARED</span> <span class="s">|</span> <span class="s">STATIC]</span> <span class="s">source_list</span><span class="p">)</span>
+</pre></div>
+
+
+<p>说明：</p>
+<ul>
+<li>libname无需加lib前缀和.so后缀</li>
+<li>SHARED表示动态库，STATIC表示静态库，默认是静态库</li>
+</ul>
+<p><strong>LINK_DIRECTORIES和TARGET_LINK_LIBRARIES</strong></p>
+<p>设置链接库的所在目录，设置目标所需要的链接库文件。</p>
+<p>指令语法：</p>
+<div class="codehilite"><pre><span></span><span class="nb">LINK_DIRECTORIES</span><span class="p">(</span><span class="s">dir_list</span><span class="p">)</span>
+<span class="nb">TARGET_LINK_LIBRARIES</span><span class="p">(</span><span class="s">target</span> <span class="s">lib_list</span><span class="p">)</span>
+</pre></div>
+
+
+<p>注：</p>
+<ul>
+<li>
+<p>如果是共享库，可以不写前缀与后缀；如果是静态库，要写全名</p>
+</li>
+<li>
+<p>TARGET_LINK_LIBRARIES命令要写在ADD_EXECUTABLE后面</p>
+</li>
+</ul>
+<p><strong>STRING</strong></p>
+<p>可以修改字符串，将其存到一个变量里。此变量可以事先没有SET。</p>
+<p>指令语法：</p>
+<div class="codehilite"><pre><span></span><span class="nb">STRING</span><span class="p">(</span><span class="s">[TOLOWER</span> <span class="s">|</span> <span class="s">TOUPPER]</span> <span class="s">string</span> <span class="s">output_val</span><span class="p">)</span> <span class="c">## 将string转换成小写，赋给output_val</span>
+</pre></div>
+
+
+<p>使用例子：</p>
+<div class="codehilite"><pre><span></span><span class="nb">STRING</span><span class="p">(</span><span class="s">TOLOWER</span> <span class="o">${</span><span class="nv">CMAKE_BUILD_TYPE</span><span class="o">}</span> <span class="s">BUILD_TYPE</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>source_group</strong></p>
+<p>可以在 vs 中设置筛选器，里面包含指定的项目文件。</p>
+<p>指令语法：</p>
+<div class="codehilite"><pre><span></span><span class="nb">source_group</span><span class="p">(</span><span class="s">&lt;name&gt;</span> <span class="s">[FILES</span> <span class="s">&lt;src&gt;...]</span> <span class="s">[REGULAR_EXPRESSION</span> <span class="s">&lt;regex&gt;]</span><span class="p">)</span>
+<span class="nb">source_group</span><span class="p">(</span><span class="s">TREE</span> <span class="s">&lt;root&gt;</span> <span class="s">[PREFIX</span> <span class="s">&lt;prefix&gt;]</span> <span class="s">[FILES</span> <span class="s">&lt;src&gt;...]</span><span class="p">)</span>
+</pre></div>
+
+
+<p>使用例子：</p>
+<div class="codehilite"><pre><span></span><span class="nb">source_group</span><span class="p">(</span><span class="s">src</span> <span class="s">FILES</span> <span class="o">${</span><span class="nv">SRC_FILES</span><span class="o">}</span><span class="p">)</span> <span class="c"># src 是筛选器的名字</span>
+</pre></div>
+
+
+<p>PS: 在vs2015下面经过测试发现，需要重新构建项目，这个指令才会生效。</p>
+<p><strong>set_property</strong></p>
+<p>在一个作用域内设置某属性的值。</p>
+<p>指令语法：</p>
+<div class="codehilite"><pre><span></span><span class="nb">set_property</span><span class="p">(</span><span class="s">&lt;GLOBAL</span>                            <span class="s">|</span>
+              <span class="s">DIRECTORY</span> <span class="s">[dir]</span>                   <span class="s">|</span>
+              <span class="s">TARGET</span>    <span class="s">[target1</span> <span class="s">[target2</span> <span class="s">...]]</span> <span class="s">|</span>
+              <span class="s">SOURCE</span>    <span class="s">[src1</span> <span class="s">[src2</span> <span class="s">...]]</span>       <span class="s">|</span>
+              <span class="s">INSTALL</span>   <span class="s">[file1</span> <span class="s">[file2</span> <span class="s">...]]</span>     <span class="s">|</span>
+              <span class="s">TEST</span>      <span class="s">[test1</span> <span class="s">[test2</span> <span class="s">...]]</span>     <span class="s">|</span>
+              <span class="s">CACHE</span>     <span class="s">[entry1</span> <span class="s">[entry2</span> <span class="s">...]]&gt;</span>
+             <span class="s">[APPEND]</span> <span class="s">[APPEND_STRING]</span>
+             <span class="s">PROPERTY</span> <span class="s">&lt;name&gt;</span> <span class="s">[value1</span> <span class="s">[value2</span> <span class="s">...]]</span><span class="p">)</span>
+</pre></div>
+
+
+<p>使用例子：</p>
+<div class="codehilite"><pre><span></span><span class="nb">set_property</span><span class="p">(</span> <span class="s">DIRECTORY</span> <span class="s">PROPERTY</span> <span class="s">VS_STARTUP_PROJECT</span> <span class="s2">&quot;project&quot;</span> <span class="p">)</span> <span class="c"># 设置 vs 启动项目为 project</span>
+</pre></div>
+
+
+<p>DIRECTORY 默认使用当前的目录为作用域。</p>
+<p><strong>add_custom_command</strong></p>
+<p>设置一些自定义的命令。</p>
+<p>例如，在生成前和生成后执行以下命令行的命令：</p>
+<div class="codehilite"><pre><span></span><span class="c"># 生成前：更新一下 compileversion.cpp 文件，生成一个新的编译版本号</span>
+<span class="nb">add_custom_command</span><span class="p">(</span><span class="s">TARGET</span> <span class="s">EXEgameworld_</span><span class="o">${</span><span class="nv">ARPG_BUILD_TYPE</span><span class="o">}</span>
+    <span class="s">PRE_BUILD</span>
+    <span class="s">COMMAND</span> <span class="s">echo</span> <span class="s">[PRE_BUILD]</span> <span class="s">Update</span> <span class="s">compileversion</span> <span class="s">for</span> <span class="s">gameworld</span>
+    <span class="s">COMMAND</span> <span class="s">copy</span> <span class="s">/B</span> <span class="s">compileversion.cpp</span> <span class="s">+,,</span> <span class="s">&gt;</span> <span class="s">nul</span>
+    <span class="s">COMMENT</span> <span class="s2">&quot;Update compileversion&quot;</span>
+    <span class="s">WORKING_DIRECTORY</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/gameworld</span>
+<span class="p">)</span>
+
+<span class="c"># 生成完：将 EXEgameworld 拷贝到给 check_config</span>
+<span class="nb">add_custom_command</span><span class="p">(</span><span class="s">TARGET</span> <span class="s">EXEgameworld_</span><span class="o">${</span><span class="nv">ARPG_BUILD_TYPE</span><span class="o">}</span>
+    <span class="s">POST_BUILD</span>
+    <span class="s">COMMAND</span> <span class="s">echo</span> <span class="s">[POST_BUILD]</span> <span class="s">copy</span> <span class="s">EXEgameworld</span> <span class="s">for</span> <span class="s">check_config</span>
+    <span class="s">COMMAND</span> <span class="s">copy</span> <span class="s">vsproject\\Debug\\EXEgameworld_debug.exe</span> <span class="s">config\\server_opera_tools\\bin</span>
+    <span class="s">WORKING_DIRECTORY</span> <span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<h4 id="_5">一些内置变量</h4>
+<p><strong>PROJECT_BINARY_DIR与PROJECT_SOURCE_DIR</strong></p>
+<p>PROJECT_BINARY_DIR默认值是编译（make）发生的目录。</p>
+<p>PROJECT_SOURCE_DIR是工程的顶层目录（顶层CMakeLists.txt所在目录）。</p>
+<p><strong>EXECUTABLE_OUTPUT_PATH与LIBRARY_OUTPUT_PATH</strong></p>
+<p>最终的目标二进制位置；最终的共享库位置。都不包含中间文件。</p>
+<p>通常用SET命令设置，如：</p>
+<div class="codehilite"><pre><span></span>SET<span class="o">(</span>EXECUTABLE_OUTPUT_PATH <span class="si">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="si">}</span>/bin<span class="o">)</span>
+SET<span class="o">(</span>LIBRARY_OUTPUT_PATH <span class="si">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="si">}</span>/lib<span class="o">)</span>
+</pre></div>
+
+
+<p><strong>CMAKE_CXX_FLAGS</strong></p>
+<p>C++编译选项。</p>
+<p>另外还有：</p>
+<ul>
+<li>CMAKE_CXX_FLAGS, 默认选项</li>
+<li>CMAKE_CXX_FLAGS_DEBUG，当CMAKE_BUILD_TYPE为Debug时启用</li>
+<li>CMAKE_CXX_FLAGS_RELEASE，当CMAKE_BUILD_TYPE为Release时启用</li>
+</ul>
+<p><strong>CMAKE_CURRENT_SOURCE_DIR</strong></p>
+<p>当前处理的CMakeLists.txt所在路径。</p>
+<h2 id="_6">几个例子</h2>
+<h3 id="_7">单项目工程</h3>
+<div class="codehilite"><pre><span></span><span class="c"># 限定 cmake 最低版本</span>
+<span class="nb">CMAKE_MINIMUM_REQUIRED</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
+
+<span class="c"># 设置工程名</span>
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">project_name</span><span class="p">)</span>
+
+<span class="c"># 设定头文件包含目录</span>
+<span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span><span class="s">.</span><span class="p">)</span>
+
+<span class="c"># 设定编译选项</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_CXX_FLAGS</span> <span class="s2">&quot;-g -Wall&quot;</span><span class="p">)</span>
+
+<span class="c"># 设定项目文件</span>
+<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB_RECURSE</span> <span class="s">SRC_FILES</span> <span class="s2">&quot;${PROJECT_SOURCE_DIR}/src/*.cpp&quot;</span> <span class="s2">&quot;${PROJECT_SOURCE_DIR}/src/*.h&quot;</span><span class="p">)</span>
+
+<span class="c"># 设定输出目录</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">EXECUTABLE_OUTPUT_PATH</span> <span class="s">.</span><span class="p">)</span>
+
+<span class="c"># 设定可执行程序及生成它依赖的文件</span>
+<span class="nb">ADD_EXECUTABLE</span><span class="p">(</span><span class="s">project_name</span> <span class="o">${</span><span class="nv">SRC_FILES</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="_8">多项目工程</h3>
+<h4 id="cmakelists">顶层 CMakeLists</h4>
+<div class="codehilite"><pre><span></span><span class="c"># 限定 cmake 最低版本</span>
+<span class="nb">CMAKE_MINIMUM_REQUIRED</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
+
+<span class="c"># 设置工程名</span>
+<span class="nb">PROJECT</span><span class="p">(</span><span class="s">project_name</span><span class="p">)</span>
+
+<span class="c"># 设置编译选项，分别设置 DEBUG 和 RELEASE 的</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_CXX_FLAGS_DEBUG</span> <span class="s2">&quot;-g -Wall -std=c++11 -D_DEBUG&quot;</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_CXX_FLAGS_RELEASE</span> <span class="s2">&quot;-g -Wall -std=c++11&quot;</span><span class="p">)</span>
+
+<span class="c"># 设定头文件包含目录</span>
+<span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span><span class="s">.</span><span class="p">)</span>
+<span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/include</span><span class="p">)</span>
+
+<span class="c"># 设置库目录</span>
+<span class="nb">LINK_DIRECTORIES</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/lib</span><span class="p">)</span>
+
+<span class="c"># 引入子项目</span>
+<span class="nb">ADD_SUBDIRECTORY</span><span class="p">(</span><span class="s">program</span><span class="p">)</span>
+</pre></div>
+
+
+<h4 id="cmakelists_1">子项目 CMakeLists</h4>
+<div class="codehilite"><pre><span></span><span class="c"># 设定头文件包含目录</span>
+<span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/include</span><span class="p">)</span>
+
+<span class="c"># 设定项目文件</span>
+<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB_RECURSE</span> <span class="s">SRC_FILES</span> <span class="s2">&quot;*.cpp&quot;</span> <span class="s2">&quot;*.h&quot;</span><span class="p">)</span>
+
+<span class="c"># 设定输出目录</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">EXECUTABLE_OUTPUT_PATH</span> <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="p">)</span>
+
+<span class="c"># 设置可执行程序依赖的文件</span>
+<span class="nb">ADD_EXECUTABLE</span><span class="p">(</span><span class="s">program_</span><span class="o">${</span><span class="nv">CMAKE_BUILD_TYPE</span><span class="o">}</span> <span class="o">${</span><span class="nv">SRC_FILES</span><span class="o">}</span><span class="p">)</span>
+
+<span class="c"># 设置可执行程序依赖的库</span>
+<span class="nb">TARGET_LINK_LIBRARIES</span><span class="p">(</span><span class="s">program_</span><span class="o">${</span><span class="nv">CMAKE_BUILD_TYPE</span><span class="o">}</span> <span class="s">pthread</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="_9">一个采取外部构建的脚本</h3>
+<div class="codehilite"><pre><span></span><span class="ch">#! /bin/bash</span>
+
+<span class="c1"># usage: $ sh build.sh [rebuild | clear]</span>
+
+clear<span class="o">()</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">[</span> ! -d tmp_build <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="k">return</span>
+    <span class="k">fi</span>
+
+    <span class="nb">cd</span> tmp_build
+    make clean
+    <span class="nb">cd</span> ..
+    rm -rf tmp_build
+<span class="o">}</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;rebuild&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    clear
+<span class="k">elif</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;clear&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    clear
+    <span class="nb">exit</span>
+<span class="k">fi</span>
+
+mkdir -p tmp_build
+<span class="nb">cd</span> tmp_build
+
+cmake -DCMAKE_BUILD_TYPE<span class="o">=</span>debug ..
+<span class="nb">time</span> make -j4
+</pre></div>
+
+
+<h2 id="_10">参考资料</h2>
+<p><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-cmake/index.html">在 linux 下使用 CMake 构建应用程序</a></p>
+<p><a href="https://cmake.org">官方网站</a></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../subversion-HowTo/" title="subversion HowTo" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                subversion HowTo
+              </span>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; since 2018 Diwen Liu
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.b41f3d20.js"></script>
+      
+        
+        
+          
+          <script src="../../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../../../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../../../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      
+    
+    
+      
+        <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-XXXXXXXX-X","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+  </body>
+</html>
