@@ -142,3 +142,22 @@ svn revert -R dir
 # 如果想使用 vimdiff 替换掉 svn diff ，可以参考：https://stackoverflow.com/questions/7866286/how-to-view-svn-diff-in-vimdiff-style-in-svn
 svn diff file
 ```
+
+## revision 与关键字
+
+revision 指的是版本号，每次提交版本号都会+1 。使用 --revision REV 指定版本号为 REV ，使用 --revision REV1:REV2 来指定一个版本范围。
+
+REV 还可以是一些关键字：
+
+- HEAD ，表示版本库中的版本号
+
+- BASE ，表示工作服本中的某一个文件的“原始未变更”版本号（意思是本地最后一次 Update 它时候的版本号）
+
+- COMMITTED ，表示某一个文件在 BASE 之前最后一次变更的版本号。
+
+- PREV ，是 CIMMITTED - 1
+
+REV 还可以是一些时间：
+
+--revision {2019-01-01}
+

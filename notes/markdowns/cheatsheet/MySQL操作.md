@@ -51,6 +51,9 @@ mysql> DROP DATABASE foo;
 # 查看数据库列表
 mysql> SHOW DATABASES;
 
+# 查看创建数据库 foo 的语句
+mysql> SHOW CREATE DATABASE foo;
+
 # 选择使用默认数据库 foo
 mysql> USE foo
 ```
@@ -193,3 +196,29 @@ $ mysqldump -u ldw -p db_name table > table_bak.sql
 FROM_UNIXTIME - 将时间戳转换成字符串表示的时间
 
 COUNT(\*) - 得到记录的总数目
+
+## HowTo
+
+### 复制一个数据库的结构
+
+比如，要把数据库 foo 复制一份但不包含数据，新的数据库名叫 foo_new 。
+
+先查看一下创建数据库 foo 的语句：
+
+SHOW CREATE DATABASE foo;
+
+用查看到的语句来创建一个新的数据库 foo_new ，比如是：
+
+CREATE DATABASE foo_new;
+
+然后去到命令行，备份 foo 的结构：
+
+```
+mysqldump -u diwen -p -d foo > foo.sql
+```
+
+创建表：
+
+```
+mysql -u diwen -p foo_new < foo.sql
+```

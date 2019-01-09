@@ -35,6 +35,7 @@ nav:
     - CentOS7 HowTo: markdowns/cheatsheet/CentOS7-HowTo.md
     - Ubuntu HowTo: markdowns/cheatsheet/Ubuntu-HowTo.md
     - subversion HowTo: markdowns/cheatsheet/subversion-HowTo.md
+    - cmake HowTo: markdowns/cheatsheet/cmake-HowTo.md
 
 theme:
   name: 'material'
