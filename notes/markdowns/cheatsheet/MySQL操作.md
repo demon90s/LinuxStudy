@@ -69,7 +69,7 @@ mysql> USE foo
 # 4   family_id         INT
 # 5   description       TEXT
 
-# AUTO_INCREMENT 代表此列自增，如果没有设置起始数，就从1开始
+# AUTO_INCREMENT 代表此列自增，如果没有设置起始数，就从1开始，设置起始数的方式是：AUTO_INCREMENT=N
 # PRIMARY KEY 表示此列作为主键，使数据能以其索引
 # UNIQUE 表示另一种键的类型
 CREATE TABLE birds (
@@ -157,6 +157,10 @@ ALTER TABLE birds_new DROP COLUMN wing_id;
 
 # 修改 birds_new 中的 common_name 列的属性
 ALTER TABLE birds_new CHANGE COLUMN common_name common_name VARHAR(255);
+
+# 设置列属性之默认值的方法 把 birds_new.common_name 的默认值设置成 unkown
+ALTER TABLE birds_new CHANGE COLUMN common_name common_name VARCHAR(255) DEFAULT 'unknown'; # 方法1
+ALTER TABLE birds_new ALTER common_name SET DEFAULT 'unknown'; # 方法2
 ```
 
 使用 UPDATE 来修改表数据：
@@ -174,6 +178,24 @@ UPDATE birds_new SET endangered = 7;
 ```bash
 # 查看 birds_new 表的 endangered 列的设定
 SHOW COLUMNS FROM birds_new LIKE 'endangered' \G
+```
+
+使用 RENAME TABLE 来对表名字重命名：
+
+```bash
+# 将 table_altered 重命名为 table
+RENAME TABLE table_altered TO table;
+```
+
+如果数据库中已经有一个表叫做 table ，那么就会失败。
+
+可以把一个数据库中的表移动到另一个数据库中，此时它同时改名和移动：
+
+```bash
+# 先将 rookery.birds 改名成 rookery.birds_old
+# 再将 test.birds_new 移动到 rookery.birds
+RENAME TABLE rookery.birds TO rookery.birds_old,
+test.birds_new TO rookery.birds;
 ```
 
 ## 其他操作
@@ -222,3 +244,17 @@ mysqldump -u diwen -p -d foo > foo.sql
 ```
 mysql -u diwen -p foo_new < foo.sql
 ```
+
+### 使用 LIKE 来精准匹配或模糊匹配
+
+比如，要显示某一个数据库 foo ，可以：
+
+SHOW DATABASES LIKE 'foo';
+
+如果要显示以 foo 开头的数据库，可以：
+
+SHOW DATABASES LIKE 'foo%';
+
+LIKE 具有更普遍的适用性，比如可以显示数据库 foo 中名字是 birds 开头的表，可以：
+
+SHOW TABLES IN foo LIKE 'birds%';
