@@ -139,6 +139,8 @@ Create Table: CREATE TABLE `birds` (
 CREATE TABLE test.birds_new LIKE birds;
 ```
 
+### 修改表结构
+
 通过 ALTER TABLE 实现修改表结构：
 
 ALTER TABLE tablename changes;
@@ -159,9 +161,12 @@ ALTER TABLE birds_new DROP COLUMN wing_id;
 ALTER TABLE birds_new CHANGE COLUMN common_name common_name VARHAR(255);
 
 # 设置列属性之默认值的方法 把 birds_new.common_name 的默认值设置成 unkown
+# 注意：这种方法不能修改被主键绑定的列！修改方法见下文 [索引小节]
 ALTER TABLE birds_new CHANGE COLUMN common_name common_name VARCHAR(255) DEFAULT 'unknown'; # 方法1
 ALTER TABLE birds_new ALTER common_name SET DEFAULT 'unknown'; # 方法2
 ```
+
+### 其他修改表操作
 
 使用 UPDATE 来修改表数据：
 
@@ -196,6 +201,49 @@ RENAME TABLE table_altered TO table;
 # 再将 test.birds_new 移动到 rookery.birds
 RENAME TABLE rookery.birds TO rookery.birds_old,
 test.birds_new TO rookery.birds;
+```
+
+使用 ORDER BY 来重新排序一个表。
+
+```bash
+# 使查询结果按照 country_name 排序，并且只显示前三条记录
+SELECT * FROM country_codes
+ORDER BY country_name
+LIMIT 3;
+
+# 修改表使其排序，按照 country_code
+ALTER TABLE country_codes
+ORDER BY country_code;
+```
+
+### 索引
+
+索引的作用是令 MySQL 能快速地定位数据。如果没有索引，MySQL 就需要一行行去搜索。
+
+索引和列是两个不同的东西，尽管名字可能一样。
+
+使用下面的方法可以查看一个表拥有的索引：
+
+```bash
+SHOW INDEX FROM table \G
+```
+
+使用下面的方法可以建立索引：
+
+```bash
+# 为 table 表建立索引，名为 names ，它绑定到列 name_last 和 name_first 。
+ALTER TABLE table
+ADD INDEX names(name_last, name_first);
+```
+
+修改主键绑定的列的信息：
+
+```bash
+# 将 table 表的列 some_id 改成 new_some_id ，它原本绑定给了一个主键
+# 方法是，先删掉索引，然后再创建
+ALTER TABLE table
+DROP PROMARY KEY,
+CHANGE some_id new_some_id INT PRIMARY KEY AUTO_INCREMENT;
 ```
 
 ## 其他操作

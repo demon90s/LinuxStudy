@@ -23,7 +23,7 @@
 
 Test1()
 {
-    # 显示时间
+    # 显示当前时间
 
     # 默认格式
     echo -e "data: \c" && date
@@ -46,6 +46,8 @@ Test1()
 
 Test2()
 {
+    # 显示某一天的时间
+
     echo -e "+1 day: \c" && date -d "+1 day" +"%c"
     echo -e "-1 day: \c" && date -d "-1 day" +"%c"
     echo -e "+1 month: \c" && date -d "+1 month" +"%c"
@@ -58,6 +60,9 @@ Test2()
     echo -e "+30 second: \c" && date -d "+30 second" +"%c"
     echo -e "+30 minute: \c" && date -d "+30 minute" +"%c"
     echo -e "+10 hour: \c" && date -d "+10 hour" +"%c"
+
+    # 时间戳 -> 时间描述
+    echo -e "@1000000000: \c" && date -d "@1000000000"
 }
 
 Test3()
@@ -74,9 +79,9 @@ Test3()
 main()
 {
     #Test1
-    #Test2
+    Test2
 
-    Test3
+    #Test3
 }
 
 main
