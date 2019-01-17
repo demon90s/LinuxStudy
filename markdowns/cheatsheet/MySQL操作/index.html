@@ -596,10 +596,37 @@
     修改表
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="修改表结构" class="md-nav__link">
+    修改表结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="其他修改表操作" class="md-nav__link">
+    其他修改表操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="索引" class="md-nav__link">
+    索引
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_8" title="其他操作" class="md-nav__link">
+  <a href="#_11" title="其他操作" class="md-nav__link">
     其他操作
   </a>
   
@@ -621,8 +648,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_9" title="复制一个数据库的结构" class="md-nav__link">
+  <a href="#_12" title="复制一个数据库的结构" class="md-nav__link">
     复制一个数据库的结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#like" title="使用 LIKE 来精准匹配或模糊匹配" class="md-nav__link">
+    使用 LIKE 来精准匹配或模糊匹配
   </a>
   
 </li>
@@ -687,6 +721,18 @@
   <li class="md-nav__item">
     <a href="../subversion-HowTo/" title="subversion HowTo" class="md-nav__link">
       subversion HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../GDB-HowTo/" title="GDB HowTo" class="md-nav__link">
+      GDB HowTo
     </a>
   </li>
 
@@ -781,10 +827,37 @@
     修改表
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="修改表结构" class="md-nav__link">
+    修改表结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="其他修改表操作" class="md-nav__link">
+    其他修改表操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="索引" class="md-nav__link">
+    索引
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_8" title="其他操作" class="md-nav__link">
+  <a href="#_11" title="其他操作" class="md-nav__link">
     其他操作
   </a>
   
@@ -806,8 +879,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_9" title="复制一个数据库的结构" class="md-nav__link">
+  <a href="#_12" title="复制一个数据库的结构" class="md-nav__link">
     复制一个数据库的结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#like" title="使用 LIKE 来精准匹配或模糊匹配" class="md-nav__link">
+    使用 LIKE 来精准匹配或模糊匹配
   </a>
   
 </li>
@@ -898,7 +978,7 @@ mysql&gt; USE foo
 <span class="c1"># 4   family_id         INT</span>
 <span class="c1"># 5   description       TEXT</span>
 
-<span class="c1"># AUTO_INCREMENT 代表此列自增，如果没有设置起始数，就从1开始</span>
+<span class="c1"># AUTO_INCREMENT 代表此列自增，如果没有设置起始数，就从1开始，设置起始数的方式是：AUTO_INCREMENT=N</span>
 <span class="c1"># PRIMARY KEY 表示此列作为主键，使数据能以其索引</span>
 <span class="c1"># UNIQUE 表示另一种键的类型</span>
 CREATE TABLE birds <span class="o">(</span>
@@ -965,6 +1045,7 @@ CREATE TABLE test.birds_new LIKE birds<span class="p">;</span>
 </pre></div>
 
 
+<h3 id="_8">修改表结构</h3>
 <p>通过 ALTER TABLE 实现修改表结构：</p>
 <p>ALTER TABLE tablename changes;</p>
 <p>changes 是更改命令，比如是对列的各种修改。</p>
@@ -979,9 +1060,15 @@ ALTER TABLE birds_new DROP COLUMN wing_id<span class="p">;</span>
 
 <span class="c1"># 修改 birds_new 中的 common_name 列的属性</span>
 ALTER TABLE birds_new CHANGE COLUMN common_name common_name VARHAR<span class="o">(</span><span class="m">255</span><span class="o">)</span><span class="p">;</span>
+
+<span class="c1"># 设置列属性之默认值的方法 把 birds_new.common_name 的默认值设置成 unkown</span>
+<span class="c1"># 注意：这种方法不能修改被主键绑定的列！修改方法见下文 [索引小节]</span>
+ALTER TABLE birds_new CHANGE COLUMN common_name common_name VARCHAR<span class="o">(</span><span class="m">255</span><span class="o">)</span> DEFAULT <span class="s1">&#39;unknown&#39;</span><span class="p">;</span> <span class="c1"># 方法1</span>
+ALTER TABLE birds_new ALTER common_name SET DEFAULT <span class="s1">&#39;unknown&#39;</span><span class="p">;</span> <span class="c1"># 方法2</span>
 </pre></div>
 
 
+<h3 id="_9">其他修改表操作</h3>
 <p>使用 UPDATE 来修改表数据：</p>
 <div class="codehilite"><pre><span></span><span class="c1"># 将 birds_new 表中所有满足条件的记录中的 endangered 列的数值修改成0</span>
 UPDATE birds_new SET <span class="nv">endangered</span> <span class="o">=</span> <span class="m">0</span> WHERE bird_id IN<span class="o">(</span><span class="m">1</span>,2,4,5<span class="o">)</span><span class="p">;</span>
@@ -997,7 +1084,58 @@ SHOW COLUMNS FROM birds_new LIKE <span class="s1">&#39;endangered&#39;</span> <s
 </pre></div>
 
 
-<h2 id="_8">其他操作</h2>
+<p>使用 RENAME TABLE 来对表名字重命名：</p>
+<div class="codehilite"><pre><span></span><span class="c1"># 将 table_altered 重命名为 table</span>
+RENAME TABLE table_altered TO table<span class="p">;</span>
+</pre></div>
+
+
+<p>如果数据库中已经有一个表叫做 table ，那么就会失败。</p>
+<p>可以把一个数据库中的表移动到另一个数据库中，此时它同时改名和移动：</p>
+<div class="codehilite"><pre><span></span><span class="c1"># 先将 rookery.birds 改名成 rookery.birds_old</span>
+<span class="c1"># 再将 test.birds_new 移动到 rookery.birds</span>
+RENAME TABLE rookery.birds TO rookery.birds_old,
+test.birds_new TO rookery.birds<span class="p">;</span>
+</pre></div>
+
+
+<p>使用 ORDER BY 来重新排序一个表。</p>
+<div class="codehilite"><pre><span></span><span class="c1"># 使查询结果按照 country_name 排序，并且只显示前三条记录</span>
+SELECT * FROM country_codes
+ORDER BY country_name
+LIMIT <span class="m">3</span><span class="p">;</span>
+
+<span class="c1"># 修改表使其排序，按照 country_code</span>
+ALTER TABLE country_codes
+ORDER BY country_code<span class="p">;</span>
+</pre></div>
+
+
+<h3 id="_10">索引</h3>
+<p>索引的作用是令 MySQL 能快速地定位数据。如果没有索引，MySQL 就需要一行行去搜索。</p>
+<p>索引和列是两个不同的东西，尽管名字可能一样。</p>
+<p>使用下面的方法可以查看一个表拥有的索引：</p>
+<div class="codehilite"><pre><span></span>SHOW INDEX FROM table <span class="se">\G</span>
+</pre></div>
+
+
+<p>使用下面的方法可以建立索引：</p>
+<div class="codehilite"><pre><span></span><span class="c1"># 为 table 表建立索引，名为 names ，它绑定到列 name_last 和 name_first 。</span>
+ALTER TABLE table
+ADD INDEX names<span class="o">(</span>name_last, name_first<span class="o">)</span><span class="p">;</span>
+</pre></div>
+
+
+<p>修改主键绑定的列的信息：</p>
+<div class="codehilite"><pre><span></span><span class="c1"># 将 table 表的列 some_id 改成 new_some_id ，它原本绑定给了一个主键</span>
+<span class="c1"># 方法是，先删掉索引，然后再创建</span>
+ALTER TABLE table
+DROP PROMARY KEY,
+CHANGE some_id new_some_id INT PRIMARY KEY AUTO_INCREMENT<span class="p">;</span>
+</pre></div>
+
+
+<h2 id="_11">其他操作</h2>
 <div class="codehilite"><pre><span></span><span class="c1"># 通过非交互模式运行mysql</span>
 $ mysql -u ldw --password<span class="o">=</span><span class="m">123456</span> foo &lt; sqlcmd.sql
 $ mysql -uroot -p foo -e <span class="s1">&#39;SELECT * FROM boo&#39;</span>
@@ -1015,7 +1153,7 @@ $ mysqldump -u ldw -p db_name table &gt; table_bak.sql
 <p>FROM_UNIXTIME - 将时间戳转换成字符串表示的时间</p>
 <p>COUNT(*) - 得到记录的总数目</p>
 <h2 id="howto">HowTo</h2>
-<h3 id="_9">复制一个数据库的结构</h3>
+<h3 id="_12">复制一个数据库的结构</h3>
 <p>比如，要把数据库 foo 复制一份但不包含数据，新的数据库名叫 foo_new 。</p>
 <p>先查看一下创建数据库 foo 的语句：</p>
 <p>SHOW CREATE DATABASE foo;</p>
@@ -1029,6 +1167,15 @@ $ mysqldump -u ldw -p db_name table &gt; table_bak.sql
 <p>创建表：</p>
 <div class="codehilite"><pre><span></span>mysql -u diwen -p foo_new &lt; foo.sql
 </pre></div>
+
+
+<h3 id="like">使用 LIKE 来精准匹配或模糊匹配</h3>
+<p>比如，要显示某一个数据库 foo ，可以：</p>
+<p>SHOW DATABASES LIKE 'foo';</p>
+<p>如果要显示以 foo 开头的数据库，可以：</p>
+<p>SHOW DATABASES LIKE 'foo%';</p>
+<p>LIKE 具有更普遍的适用性，比如可以显示数据库 foo 中名字是 birds 开头的表，可以：</p>
+<p>SHOW TABLES IN foo LIKE 'birds%';</p>
                 
                   
                 
