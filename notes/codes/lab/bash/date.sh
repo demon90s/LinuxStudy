@@ -42,6 +42,9 @@ Test1()
     echo -e "data +%H:%M:%S: \c" && date +'%H:%M:%S'
 
     echo -e "data +%s: \c" && date +'%s'
+
+    # 显示当前毫秒级别的时间戳，保留三位小数点
+    echo "scale=3; $(date +%s%N) / 1000000000" | bc -l
 }
 
 Test2()
@@ -78,8 +81,8 @@ Test3()
 
 main()
 {
-    #Test1
-    Test2
+    Test1
+    #Test2
 
     #Test3
 }
