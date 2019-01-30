@@ -67,6 +67,16 @@ $ make
 
 这样，想要删除cmake生成的中间文件时，直接执行`rm -rf build`即可。
 
+也可以这样执行外部构建：
+
+```
+$ cmake -H. -Bbuild
+```
+
+-H. 表示在当前目录寻找 root CMakeLists.txt 。
+
+-Bbuild 表示将 cmakefiles 创建到 build 目录， build 目录也可以自动创建。
+
 **生成Debug或Release版本的程序**
 
 ```
@@ -84,6 +94,8 @@ CMakeLists.txt语法由指令、变量、注释组成。
 **指令**
 
 指令由指令名、小括号、参数组成。参数以空格分隔。
+
+指令可以不分大小写。
 
 **变量**
 
