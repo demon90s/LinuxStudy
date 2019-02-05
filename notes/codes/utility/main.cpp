@@ -15,6 +15,7 @@
 #include "HeartBeat.h"
 #include "Timer.h"
 #include "Network.h"
+#include "INetSocket.h"
 
 using namespace utility;
 
@@ -29,7 +30,7 @@ int main(int argc, char* argv[])
 	//Test_String();
 	//Test_Clock();
 	//Test_HeartBeat();
-	Test_Timer();
+	//Test_Timer();
 	
 	/*
 	if (argc > 1 && strcmp(argv[1], "1") == 0)
@@ -37,6 +38,11 @@ int main(int argc, char* argv[])
 	else
 		Test_Network_Client();
 	*/
+
+	if (argc > 1 && strcmp(argv[1], "1") == 0)
+		Test_INetSocket_Server();
+	else
+		Test_INetSocket_Client();
 
 	exit(0);
 }
