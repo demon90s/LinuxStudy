@@ -11,7 +11,9 @@
 
 namespace utility
 {
-	static const unsigned short PORT = 12345;
+	static const unsigned short PORT = 8888;
+	//static const char IP[] = "118.24.3.169";
+	static const char IP[] = "127.0.0.1";
 
 	void Test_INetSocket_Server()
 	{
@@ -31,10 +33,15 @@ namespace utility
 
 		while (true) {
 			char ip[128] = {0};
-			unsigned short port;
+			unsigned short port = 0;
 			int client_socketfd = INetSocket::Accept(socketfd, ip, &port);
 
-			printf("[DEBUG] Accept a client from %s:%u\n", ip, port);
+			if (client_socketfd == -1) {
+				perror("Accept");
+				continue;
+			}
+
+			printf("[DEBUG] Accept a client from %s on port %u\n", ip, port);
 
 			// echo
 			int nread = 0;
@@ -62,7 +69,7 @@ namespace utility
 	{
 		int socketfd = INetSocket::Socket();
 
-		if (!INetSocket::Connect(socketfd, "127.0.0.1", PORT)) {
+		if (!INetSocket::Connect(socketfd, IP, PORT)) {
 			perror("Connect");
 			return;
 		}
@@ -118,15 +125,15 @@ bool INetSocket::Listen(int socketfd, int backlog)
 int INetSocket::Accept(int socketfd, char* ip_out, unsigned short *port_out)
 {
 	struct sockaddr_in address;
-	socklen_t address_len;
+	memset(&address, 0, sizeof(address));
+	socklen_t address_len = 0;
 	int new_socketfd = accept(socketfd, (struct sockaddr*)&address, &address_len);
 
 	if (new_socketfd != -1)
 	{
-		if (ip_out) {
-			const char* ip = inet_ntoa(address.sin_addr);
-			strcpy(ip_out, ip);
-		}
+		if (ip_out) 
+			strcpy(ip_out, inet_ntoa(address.sin_addr));
+
 		if (port_out)
 			*port_out = ntohs(address.sin_port);
 	}
