@@ -75,7 +75,7 @@ void Network::CheckRecvFromClient()
 			if ((int)m_sockfd_to_netid_map.size() >= MAX_CONNECT_COUNT)
 			{
 				printf("[ERROR] Network::CheckRecvFromClient, connect count limit\n");
-				return;
+                continue;
 			}
 			client_len = sizeof(client_address);
 			int client_sockfd = accept(m_server_sockfd, (struct sockaddr*)&client_address, &client_len);

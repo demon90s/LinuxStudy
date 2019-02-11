@@ -2,6 +2,8 @@
 
 #include <cstring>
 #include <cstdio>
+#include <csignal>
+#include <cstdlib>
 
 #include <unistd.h>
 #include <sys/types.h>
@@ -12,19 +14,32 @@
 namespace utility
 {
 	static const unsigned short PORT = 8888;
-	//static const char IP[] = "118.24.3.169";
-	static const char IP[] = "127.0.0.1";
+    //static const char IP[] = "118.24.3.169";
+    static const char IP[] = "127.0.0.1";
+
+    int test_server_socketfd;
+    void OnTestServerSignal(int sig) {
+        INetSocket::Close(test_server_socketfd);
+        printf("[DEBUG] Catch signal %d, close socket and exist.\n", sig);
+        exit(0);
+    }
 
 	void Test_INetSocket_Server()
 	{
-		int socketfd = INetSocket::Socket();
+        signal(SIGINT, OnTestServerSignal);
 
-		if (!INetSocket::Bind(socketfd, PORT)) {
+        test_server_socketfd = INetSocket::Socket();
+        if (test_server_socketfd == -1) {
+			perror("Socket");
+			return;
+		}
+
+        if (!INetSocket::Bind(test_server_socketfd, IP, PORT)) {
 			perror("Bind");
 			return;
 		}
 
-		if (!INetSocket::Listen(socketfd)) {
+        if (!INetSocket::Listen(test_server_socketfd, 1)) {
 			perror("Listen");
 			return;
 		}
@@ -34,7 +49,7 @@ namespace utility
 		while (true) {
 			char ip[128] = {0};
 			unsigned short port = 0;
-			int client_socketfd = INetSocket::Accept(socketfd, ip, &port);
+            int client_socketfd = INetSocket::Accept(test_server_socketfd, ip, &port);
 
 			if (client_socketfd == -1) {
 				perror("Accept");
@@ -58,16 +73,24 @@ namespace utility
 					printf("[DEBUG] Connect closed\n");
 					INetSocket::Close(client_socketfd);
 				}
+                else {
+                    perror("Recv");
+                    INetSocket::Close(client_socketfd);
+                }
 				
 			} while (nread > 0);
 		}
 
-		INetSocket::Close(socketfd);
+        INetSocket::Close(test_server_socketfd);
 	}
 
 	void Test_INetSocket_Client()
 	{
 		int socketfd = INetSocket::Socket();
+		if (socketfd == -1) {
+			perror("Socket");
+			return;
+        }
 
 		if (!INetSocket::Connect(socketfd, IP, PORT)) {
 			perror("Connect");
@@ -106,12 +129,18 @@ int INetSocket::Socket()
 	return socket(AF_INET, SOCK_STREAM, 0);
 }
 
-bool INetSocket::Bind(int socketfd, unsigned short port)
+bool INetSocket::Bind(int socketfd, const char* ip, unsigned short port)
 {
 	struct sockaddr_in address;
 
 	address.sin_family = AF_INET;
-	address.sin_addr.s_addr = htonl(INADDR_ANY);
+
+	if (ip == nullptr) {
+		address.sin_addr.s_addr = htonl(INADDR_ANY);	
+	}
+	else {
+		address.sin_addr.s_addr = inet_addr(ip);
+	}
 	address.sin_port = htons(port);
 
 	return bind(socketfd, (struct sockaddr*)&address, sizeof(address)) == 0;
@@ -125,8 +154,7 @@ bool INetSocket::Listen(int socketfd, int backlog)
 int INetSocket::Accept(int socketfd, char* ip_out, unsigned short *port_out)
 {
 	struct sockaddr_in address;
-	memset(&address, 0, sizeof(address));
-	socklen_t address_len = 0;
+	socklen_t address_len;
 	int new_socketfd = accept(socketfd, (struct sockaddr*)&address, &address_len);
 
 	if (new_socketfd != -1)

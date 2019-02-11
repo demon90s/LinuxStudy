@@ -1,3 +1,5 @@
 site/
 nohup.out
 .vscode/
+notes/codes/utility/CMakeLists.txt.user
+notes/codes/utility/build/

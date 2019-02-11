@@ -13,11 +13,11 @@ public:
 	// 获取 socket fd
 	static int Socket();
 
-	// 命名 socket ，绑定到所有网卡
-	static bool Bind(int socketfd, unsigned short port);
+	// 命名 socket
+	static bool Bind(int socketfd, const char *ip, unsigned short port);
 
 	// 监听 socket
-	static bool Listen(int socketfd, int backlog = 8);
+    static bool Listen(int socketfd, int backlog = 5);
 
 	// 接收连接，返回新的 socket fd
 	static int Accept(int socketfd, char* ip_out = 0, unsigned short *port_out = 0);
