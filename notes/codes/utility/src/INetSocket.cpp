@@ -18,16 +18,9 @@ namespace utility
     static const char IP[] = "127.0.0.1";
 
     int test_server_socketfd;
-    void OnTestServerSignal(int sig) {
-        INetSocket::Close(test_server_socketfd);
-        printf("[DEBUG] Catch signal %d, close socket and exist.\n", sig);
-        exit(0);
-    }
 
 	void Test_INetSocket_Server()
 	{
-        signal(SIGINT, OnTestServerSignal);
-
         test_server_socketfd = INetSocket::Socket();
         if (test_server_socketfd == -1) {
 			perror("Socket");
@@ -70,15 +63,15 @@ namespace utility
 					INetSocket::Send(client_socketfd, buf, nread);
 				}
 				else if (nread == 0) {
-					printf("[DEBUG] Connect closed\n");
-					INetSocket::Close(client_socketfd);
+                    printf("[DEBUG] Connect closed\n");
 				}
                 else {
                     perror("Recv");
-                    INetSocket::Close(client_socketfd);
                 }
 				
 			} while (nread > 0);
+
+            INetSocket::Close(client_socketfd);
 		}
 
         INetSocket::Close(test_server_socketfd);
@@ -148,7 +141,14 @@ bool INetSocket::Bind(int socketfd, const char* ip, unsigned short port)
 
 bool INetSocket::Listen(int socketfd, int backlog)
 {
-	return listen(socketfd, backlog) == 0;
+    int ret = listen(socketfd, backlog);
+    if (ret != 0) return false;
+
+    int enable = 1;
+    ret = setsockopt(socketfd, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(enable));
+    if (ret != 0) return false;
+
+    return true;
 }
 
 int INetSocket::Accept(int socketfd, char* ip_out, unsigned short *port_out)
