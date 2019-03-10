@@ -17,7 +17,8 @@ namespace utility
  */
 void ParseParam(const char *str, std::vector<std::string> &result, const char *delim);
 
-/* 拷贝文件
+/*
+ * 拷贝文件
  * 源文件必须存在，否则失败并输出错误信息，目标文件会自动创建（并截断）
  * 成功返回true
  */
