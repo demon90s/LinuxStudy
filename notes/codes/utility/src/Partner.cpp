@@ -18,7 +18,8 @@ void Test_Partner(const char* type)
     }
     else if (strcmp("client", type) == 0) {
         Partner client(PartnerType::Client, nullptr);
-        client.Start();
+        if (!client.Start())
+            exit(1);
 
         char buffer[4096];
         while (fgets(buffer, sizeof(buffer), stdin)) {
