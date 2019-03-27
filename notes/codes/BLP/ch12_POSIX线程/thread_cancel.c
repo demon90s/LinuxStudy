@@ -1,5 +1,21 @@
 /*
  * 取消一个线程（p436）
+ * 
+ * #include <pthread.h>
+ * int pthread_cancel(pthread_t thread);
+ * 给线程发送一个取消请求, 线程可以选择接受或忽略. 线程接受后会选择一个时机终止.
+ * 
+ * 线程选择接受或忽略由下面接口设定:
+ * int pthread_setcancelstate(int state, int *oldstate);
+ * state 取值有:
+ * PTHREAD_CANCEL_ENABLE 表示接受取消请求, 是默认选项
+ * PTHREAD_CANCEL_DISABLE 表示忽略取消请求
+ * 
+ * 当接受了取消请求后, 线程由下面的接口选择取消时机:
+ * int pthread_setcanceltype(int type, int *oldtype);
+ * type 取值有:
+ * PTHREAD_CANCEL_DEFERRED 是默认选项, 表示挂起线程, 并等待请求的线程执行了某个特定函数后结束, 比如 pthread_join
+ * PTHREAD_CANCEL_ASYNCHRONOUS 表示立刻采取行动 
  */
 
 #include <stdio.h>
@@ -48,16 +64,17 @@ int main(int argc, char* argv[])
 
 void* thread_function(void *arg)
 {
-	int i, res;
+	int i, res = 0;
 
-	res = pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+	res = pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);	// 默认就是 ENABLE 的
+	//res = pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL); // 此选项忽略掉取消请求
 	if (res != 0)
 	{
 		perror("Thread pthread_setcancelstate failed");
 		exit(EXIT_FAILURE);
 	}
 
-	res = pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);
+	res = pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, NULL);	// 默认类型就是 DEFERRED
 	if (res != 0)
 	{
 		perror("Thread pthread_setcanceltype failed");
