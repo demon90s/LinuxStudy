@@ -9,15 +9,20 @@
     int epoll_wait(int epfd, struct epoll_event *events, int maxevents, int timeout);
 
     epoll_create 创建 epoll 文件描述符，为后续的 api 的第一个参数。 size 是告诉内核要监听的文件描述符数量。
+    PS: 这个数量没有限制. 是可以打开的最大文件描述符数量. see: `cat /proc/sys/fs/file-max`
 
     epoll_ctl 用来增加、修改、删除在 fd 上监听的事件类型。
     op 的取值可以是： EPOLL_CTL_ADD, EPOLL_CTL_MOD, EPOLL_CTL_DEL 。
     struct epoll_event {
         __unit32 events;        // 可取值 EPOLLIN 读, EPOLLOUT 写 ...
-        epoll_data_t data;      // user data, 有一个成员 fd
+        epoll_data_t data;      // user data
     };
+    typedef union epoll_data {
+        void *ptr;
+        int fd;
+    } epoll_data_t;
 
-    epoll_wait 等待事件的产生， events 从内核得到事件的集合， maxevents 告诉内核这个 events 有多大， 
+    epoll_wait 等待事件的产生， events 从内核得到事件的集合， maxevents 告诉内核这个 events 有多大， 不能大于 epoll_create 的 size
     timeout 是毫秒级别的超时时间，如果取值-1代表阻塞等待。
     函数返回需要处理的事件数目，返回0代表超时。
 */
@@ -182,6 +187,8 @@ void do_epoll(int listenfd)
         int ret = epoll_wait(epollfd, events, EPOLLEVENTS, -1);
         handle_events(epollfd, events, ret, listenfd, buf);
     }
+
+    close(epollfd);
 }
 
 int main()

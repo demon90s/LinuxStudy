@@ -392,6 +392,8 @@ ADD_EXECUTABLE(project_name ${SRC_FILES})
 #### 顶层 CMakeLists
 
 ```cmake
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
+
 # 限定 cmake 最低版本
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
@@ -416,6 +418,8 @@ ADD_SUBDIRECTORY(program)
 #### 子项目 CMakeLists
 
 ```cmake
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
+
 # 设定头文件包含目录
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include)
 

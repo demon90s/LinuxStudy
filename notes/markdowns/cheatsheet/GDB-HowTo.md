@@ -58,6 +58,7 @@ $ delete break          # 删除所有的断点
 $ q                     # 退出调试
 $ c                     # 继续执行程序
 $ run                   # 开始执行程序
+$ handle SIGINT nostop pass # 忽略掉 SIGINT 信号, 使其可以传递给调试程序, 默认gdb会拦截掉 SIGINT 信号
 ```
 
 可以这样输出数组中有限数量的元素：
