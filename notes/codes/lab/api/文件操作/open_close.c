@@ -14,6 +14,15 @@
  * 函数成功返回一个文件描述符，失败返回-1 。
  */
 
+/*
+ * #include <unistd.h>
+ * int close(int fd);
+ * 		成功返回0，出错返回-1
+ * 关闭一个打开的文件。
+ * 
+ * 当一个进程终止时，内核自动关闭它所有的文件。
+ */
+
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -66,7 +75,8 @@ void example_openfile_to_write2()
 {
 	int fd;
 
-	fd = open("/tmp/test.txt", O_WRONLY | O_CREAT, 0777);
+	//fd = open("/tmp/test.txt", O_WRONLY | O_CREAT, 0777);	// 不截断
+	fd = open("/tmp/test.txt", O_WRONLY | O_CREAT | O_TRUNC, 0777);	// 截断
 	if (fd == -1) {
 		perror("open");
 		return;
@@ -76,7 +86,6 @@ void example_openfile_to_write2()
 
 	close(fd);
 }
-
 
 int main()
 {
