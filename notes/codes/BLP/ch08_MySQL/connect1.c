@@ -2,6 +2,17 @@
 //
 // 简单的连接数据库foo的例程
 
+/*
+ MYSQL *mysql_real_connect(MYSQL *connection, )
+							const char *server_host,
+							const char *sql_user_name,
+							const char *sql_password,
+							const char *db_name,
+							unsigned int port_number,
+							const cahr *unix_socket_name,
+							unsigned int flags);
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 

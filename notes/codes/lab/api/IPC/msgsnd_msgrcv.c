@@ -7,7 +7,7 @@
     消息队列的结构地址由 msg_ptr 给出，它的长度必须小于系统规定的上限，且必须以一个长整型成员开始。
     如：
     struct my_message {
-        long int message_type;
+        long int message_type; // 测试发现, 要大于0
         data...
     };
 
