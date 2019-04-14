@@ -5,7 +5,7 @@
     long fpathconf(int fd, int name);
             成功返回相应值，失败返回-1
 
-    这些函数用来或许系统的运行时限制的值。
+    这些函数用来获取系统的运行时限制的值。
     sysconf 获得的值与文件与路径无关，pathconf fpathconf 有关。
 
     name 用于标识系统限制，_SC_开始的常量用于 sysconf, _PC_开始的用于 pathconf fpathconfig
