@@ -109,6 +109,34 @@ CMakeLists.txt语法由指令、变量、注释组成。
 
 `##`符号后面的内容被认为是注释
 
+**条件**
+
+使用 if else endif 来进行条件选择.
+
+例子:
+
+```cmake
+if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+	message(STATUS "Configure on/for Linux")
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+	message(STATUS "Configure on/for macOS")
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+	message(STATUS "Configure on/for Windows")
+else ()
+	message(STATUS "Configure on/for %{CMAKE_SYSTEM_NAME}")
+endif()
+```
+
+or:
+
+```cmake
+if (MSVC)
+	...
+else ()
+	...
+endif (MSVC)
+```
+
 #### 一些指令
 
 在官方文档中，指令中尖括号的内容是必填项，而方括号的内容是选填项，其余的是固定内容。
@@ -365,26 +393,39 @@ C++编译选项。
 ### 单项目工程
 
 ```cmake
-# 限定 cmake 最低版本
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+# 要求 cmake 最低版本
+cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 # 设置工程名
-PROJECT(project_name)
+project(project_name)
 
-# 设定头文件包含目录
-INCLUDE_DIRECTORIES(.)
+# 自定义变量
+set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
+set(LINK_DIR ${PROJECT_SOURCE_DIR}/lib)
+set(LIBS m)
 
 # 设定编译选项
-SET(CMAKE_CXX_FLAGS "-g -Wall")
+set(CMAKE_CXX_FLAGS "-g -Wall -std=c++11")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall -std=c++11")
+set(CMAKE_CXX_FLAGS_RELEASE "-g -Wall -std=c++11")
+
+# 设定头文件包含目录
+include_directories(${INCLUDE_DIR})
+
+# 设定链接目录
+link_directories(${LINK_DIR})
 
 # 设定项目文件
-FILE(GLOB_RECURSE SRC_FILES "${PROJECT_SOURCE_DIR}/src/*.cpp" "${PROJECT_SOURCE_DIR}/src/*.h")
+file(GLOB_RECURSE SRC_FILES "${PROJECT_SOURCE_DIR}/src/*.cpp" "${PROJECT_SOURCE_DIR}/src/*.h")
 
 # 设定输出目录
-SET(EXECUTABLE_OUTPUT_PATH .)
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/out)
 
 # 设定可执行程序及生成它依赖的文件
-ADD_EXECUTABLE(project_name ${SRC_FILES})
+add_executable(project_name ${SRC_FILES})
+
+# 设定可执行程序依赖的库
+target_link_libraries(project_name ${LIBS})
 ```
 
 ### 多项目工程
