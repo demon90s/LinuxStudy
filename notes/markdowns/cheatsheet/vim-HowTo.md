@@ -4,7 +4,7 @@
 
 ```
 set nu
-set fileencoding=utf8
+set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936
 set nobackup
 set autoindent
 set tabstop=4
