@@ -19,6 +19,7 @@ tteesstt
 
 # 输出分割字符串，默认采取空白分割，使用 -F 'X' 或 FS='X' 表示用 X 分割
 # $0 代表整个行 $1,$2,$3... 分别代表第几个子串
+# $NF 代表最后一个字段
 example2()
 {
 	# 输出每行第二个子串
@@ -33,6 +34,13 @@ welldown GOOD bug
 abc:world:hello
 uuid:moc:c++
 welldown:GOOD:bug
+!TEST_FILE!
+
+	# 输出每行的最后一个字段
+	awk '{print $NF}' << !TEST_FILE!
+abc world hello
+uuid moc c++
+welldown GOOD bug
 !TEST_FILE!
 }
 
@@ -50,8 +58,8 @@ welldown GOOD bug
 main()
 {
 	#example1
-	#example2
-	example3
+	example2
+	#example3
 }
 
 main
