@@ -141,6 +141,9 @@ svn revert -R dir
 # 查看文件 file 的本地修改
 # 如果想使用 vimdiff 替换掉 svn diff ，可以参考：https://stackoverflow.com/questions/7866286/how-to-view-svn-diff-in-vimdiff-style-in-svn
 svn diff file
+
+# 查看目录或者文件的最后版本，如果是目录，那么第一行是.的版本号信息
+svn -v list dir
 ```
 
 ## revision 与关键字

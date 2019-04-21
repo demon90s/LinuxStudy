@@ -36,10 +36,22 @@ welldown:GOOD:bug
 !TEST_FILE!
 }
 
+# NR==row 可以表示处理扫描第row行 
+example3()
+{
+	# 输出第2行第2个子串
+	awk 'NR==2 {print $2}' << !TEST_FILE!
+abc world hello
+uuid moc c++
+welldown GOOD bug
+!TEST_FILE!
+}
+
 main()
 {
 	#example1
-	example2
+	#example2
+	example3
 }
 
 main
