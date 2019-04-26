@@ -18,3 +18,7 @@ ctrl + E - 向下滚动
 ctrl + Y - 向上滚动
 ctrl + F - 向下滚动一页
 ctrl + B - 向上滚动一页
+
+## Edit mode
+
+:qa - 关闭掉所有打开的窗口

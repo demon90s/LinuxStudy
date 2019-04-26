@@ -1,7 +1,5 @@
 #! /bin/bash -x
 
-# 
-
 # awk 扫描一个模式，并对符合的模式执行一个动作
 # awk 以行为处理单位，然后根据相应的命令，来处理文本
 
@@ -14,6 +12,14 @@ test
 test123
 123test
 tteesstt
+!TEST_FILE!
+
+	# 输出第二个字符串等于WOW的行
+	awk '$2=="Wow" {print}' << !TEST_FILE!
+nihao www
+Hello Wow BBB
+foo xxx lll
+Bird Wow hei
 !TEST_FILE!
 }
 
@@ -57,8 +63,8 @@ welldown GOOD bug
 
 main()
 {
-	#example1
-	example2
+	example1
+	#example2
 	#example3
 }
 
