@@ -111,6 +111,9 @@ fi
 # 本地的目录新建为 working_copy ，可以忽略这个参数，此时就使用 workspace 作目录名
 svn checkout svn://url:port/workspace working_copy
 
+# 可以加入下面的设置来指定一个用户
+svn co --username name --password passwd svn://url:port/workspace
+
 # 查看当前目录的文件状态
 svn status
 
