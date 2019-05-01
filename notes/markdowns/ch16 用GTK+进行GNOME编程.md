@@ -4,7 +4,7 @@ Linux 中所有的 GUI 库都基于被称作X视窗系统的底层视窗系统�
 
 在编写本章节的代码时，需要安装好相应的库，在 CentOS7 上，使用这个脚本安装：
 
-[install_libs](../codes/ch16_用GTK+进行GNOME编程/install_libs.sh)
+[install_libs](../codes/BLP/ch16_用GTK+进行GNOME编程/install_libs.sh)
 
 ---
 

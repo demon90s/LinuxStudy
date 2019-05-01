@@ -37,6 +37,7 @@ nav:
     - subversion HowTo: markdowns/cheatsheet/subversion-HowTo.md
     - GDB HowTo: markdowns/cheatsheet/GDB-HowTo.md
     - cmake HowTo: markdowns/cheatsheet/cmake-HowTo.md
+    - ssh HowTo: markdowns/cheatsheet/ssh-HowTo.md
 
 theme:
   name: 'material'
