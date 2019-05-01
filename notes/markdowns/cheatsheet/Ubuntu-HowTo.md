@@ -12,6 +12,8 @@ Ubuntu的默认root密码是随机的，即每次开机都有一个新的root密
 
 打开 Language Support ，按照提示更新好，重启。然后打开 Settings -> Region & Language , 在 Input Source 下加一个 Chinese(Intelligent Pinyin)。
 
+在工作实践中，搜狗输入法的使用体验更好。
+
 ## 把应用添加成桌面启动项目
 
 在这个目录下为它新建一个 .desktop 配置：～/.local/share/applications

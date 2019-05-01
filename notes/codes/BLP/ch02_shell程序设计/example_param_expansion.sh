@@ -18,4 +18,8 @@ echo ${bar%%local*}	# /usr/
 far=Hello-Every-Body
 echo ${far//-/_}	# Hello_Every_Body
 
+# 截取(${var:start:len})
+far=123456
+echo ${far:0:3}     # 123
+
 exit 0
