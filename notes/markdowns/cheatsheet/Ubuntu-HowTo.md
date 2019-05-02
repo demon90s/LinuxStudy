@@ -69,6 +69,12 @@ sudo apt-get install fcitx-frontend-fbterm
 
 重启后，进入终端，键入 ctrl + space ，即可开启切换中文拼音输入法。
 
+## laptop 右键失灵
+
+安装 gnome-tweaks: sudo apt-get install gnome-tweaks
+
+打开 keyboard & mouse 标签页，勾选 Mouse click emulation 下的 area.
+
 ## 安装一些软件
 
 主要使用 apt-get 命令安装。
