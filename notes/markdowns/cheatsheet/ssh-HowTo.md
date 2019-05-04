@@ -104,7 +104,7 @@ ssh -fCNR 7001:localhost:18888 root@118.24.3.169 -p 18888 -i ~/.ssh/Identity_dev
 
 ```bash
 # ssh -fCNL *:客户端登录端口:localhost:本地端口 localhost -p 本地ssh端口
-ssh -fCNL *:7002:localhost:7001 localhost -p 18888 -i ./.ssh/Identity_dev
+ssh -fCNL *:7002:localhost:7001 localhost -p 18888 -i ~/.ssh/Identity_dev
 ```
 
 客户机登录:
