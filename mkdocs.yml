@@ -38,6 +38,7 @@ nav:
     - GDB HowTo: markdowns/cheatsheet/GDB-HowTo.md
     - cmake HowTo: markdowns/cheatsheet/cmake-HowTo.md
     - ssh HowTo: markdowns/cheatsheet/ssh-HowTo.md
+    - vim HowTo: markdowns/cheatsheet/vim-HowTo.md
 
 theme:
   name: 'material'
