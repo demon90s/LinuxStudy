@@ -20,6 +20,15 @@ set tabstop=4
 |:set nonu|不显示行号|
 |:set list|显示不可见字符|
 |:set nolist|不显示不可见字符|
+|:set path+=dir|添加dir为find命令的搜索路径|
+
+## 缓冲区
+
+:ls 命令列出已经打开的文件
+
+:bN 命令选择打开的文件, N是编号
+
+:bdelete N1 N2 删除编号为N1 N2的缓冲区
 
 ## 文本编辑
 
