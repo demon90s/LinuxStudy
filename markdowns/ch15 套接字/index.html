@@ -660,8 +660,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../cheatsheet/shell_utility/" title="shell_utility" class="md-nav__link">
-      shell_utility
+    <a href="../cheatsheet/errno/" title="errno" class="md-nav__link">
+      errno
     </a>
   </li>
 
@@ -746,6 +746,30 @@
   <li class="md-nav__item">
     <a href="../cheatsheet/cmake-HowTo/" title="cmake HowTo" class="md-nav__link">
       cmake HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/ssh-HowTo/" title="ssh HowTo" class="md-nav__link">
+      ssh HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/vim-HowTo/" title="vim HowTo" class="md-nav__link">
+      vim HowTo
     </a>
   </li>
 
@@ -1044,8 +1068,9 @@
 <p>对于服务器来说，应该在read调用返回0时关闭套接字，但如果套接字是一个面向连接类型的，并设置了SOCK_LINGER选项，close调用会在该套接字还有未传输数据时阻塞。</p>
 <h3 id="_12">套接字通讯</h3>
 <p>我们不能使用小于1024的端口号，因为它们是为系统使用保留的。其它的端口号信息通常列在系统文件<code>/etc/services</code>中。编写基于套接字的应用程序时，请注意总要选择没有列在该配置文件中的端口号。</p>
-<p>我们将在局域网中运行客户和服务器。UNIX计算机通常会配置一个回路网络，它只包含一台计算机（自身），传统上它被称为localhost，它有一个标准的IP地址170.0.0.1。这就是本地主机。</p>
+<p>我们将在局域网中运行客户和服务器。UNIX计算机通常会配置一个回路网络，它只包含一台计算机（自身），传统上它被称为localhost，它有一个标准的IP地址127.0.0.1。这就是本地主机。</p>
 <p>见代码案例：example2，但这个案例有一个故意设置的错误（没有考虑主机序和网络序）。</p>
+<p>整数 INADDR_ANY 可以表示将接受来自计算机任何网络接口的连接。</p>
 <h3 id="_13">主机字节序和网络字节序</h3>
 <p>使用netstat命令可以查看网络连接情况，包括连接对应的服务器和客户的端口号。</p>
 <p>如上例，显示的服务器套接字的端口号是错误的，这是因为没有把主机字节序转换成网络字节序（不同计算机的主机字节序可能不同，为了保证不同计算机的一致性，所以要转换成统一的网络字节序）。</p>

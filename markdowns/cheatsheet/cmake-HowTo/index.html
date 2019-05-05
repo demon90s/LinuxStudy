@@ -505,8 +505,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../shell_utility/" title="shell_utility" class="md-nav__link">
-      shell_utility
+    <a href="../errno/" title="errno" class="md-nav__link">
+      errno
     </a>
   </li>
 
@@ -735,6 +735,30 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ssh-HowTo/" title="ssh HowTo" class="md-nav__link">
+      ssh HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../vim-HowTo/" title="vim HowTo" class="md-nav__link">
+      vim HowTo
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -942,6 +966,13 @@ $ make
 
 
 <p>这样，想要删除cmake生成的中间文件时，直接执行<code>rm -rf build</code>即可。</p>
+<p>也可以这样执行外部构建：</p>
+<div class="codehilite"><pre><span></span>$ cmake -H. -Bbuild
+</pre></div>
+
+
+<p>-H. 表示在当前目录寻找 root CMakeLists.txt 。</p>
+<p>-Bbuild 表示将 cmakefiles 创建到 build 目录， build 目录也可以自动创建。</p>
 <p><strong>生成Debug或Release版本的程序</strong></p>
 <div class="codehilite"><pre><span></span>$ cmake -DCMAKE_BUILD_TYPE<span class="o">=</span>Debug path
 </pre></div>
@@ -953,12 +984,37 @@ $ make
 <p>CMakeLists.txt语法由指令、变量、注释组成。</p>
 <p><strong>指令</strong></p>
 <p>指令由指令名、小括号、参数组成。参数以空格分隔。</p>
+<p>指令可以不分大小写。</p>
 <p><strong>变量</strong></p>
 <p>变量分为内置的和自定义的。</p>
 <p>引用变量的方法是：${变量名}。</p>
 <p>变量是全局的，在上层CMakeLists.txt定义的变量，在下层可以使用。</p>
 <p><strong>注释</strong></p>
 <p><code>##</code>符号后面的内容被认为是注释</p>
+<p><strong>条件</strong></p>
+<p>使用 if else endif 来进行条件选择.</p>
+<p>例子:</p>
+<div class="codehilite"><pre><span></span><span class="nb">if</span> <span class="p">(</span><span class="s">CMAKE_SYSTEM_NAME</span> <span class="s">STREQUAL</span> <span class="s2">&quot;Linux&quot;</span><span class="p">)</span>
+    <span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Configure on/for Linux&quot;</span><span class="p">)</span>
+<span class="nb">elseif</span> <span class="p">(</span><span class="s">CMAKE_SYSTEM_NAME</span> <span class="s">STREQUAL</span> <span class="s2">&quot;Darwin&quot;</span><span class="p">)</span>
+    <span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Configure on/for macOS&quot;</span><span class="p">)</span>
+<span class="nb">elseif</span> <span class="p">(</span><span class="s">CMAKE_SYSTEM_NAME</span> <span class="s">STREQUAL</span> <span class="s2">&quot;Windows&quot;</span><span class="p">)</span>
+    <span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Configure on/for Windows&quot;</span><span class="p">)</span>
+<span class="nb">else</span> <span class="p">()</span>
+    <span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Configure on/for %{CMAKE_SYSTEM_NAME}&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+
+
+<p>or:</p>
+<div class="codehilite"><pre><span></span><span class="nb">if</span> <span class="p">(</span><span class="s">MSVC</span><span class="p">)</span>
+    <span class="err">...</span>
+<span class="nb">else</span> <span class="p">()</span>
+    <span class="err">...</span>
+<span class="nb">endif</span> <span class="p">(</span><span class="s">MSVC</span><span class="p">)</span>
+</pre></div>
+
+
 <h4 id="_4">一些指令</h4>
 <p>在官方文档中，指令中尖括号的内容是必填项，而方括号的内容是选填项，其余的是固定内容。</p>
 <p><strong>CMAKE_MINIMUM_REQUIRED</strong></p>
@@ -1151,68 +1207,88 @@ SET<span class="o">(</span>LIBRARY_OUTPUT_PATH <span class="si">${</span><span c
 <p>当前处理的CMakeLists.txt所在路径。</p>
 <h2 id="_6">几个例子</h2>
 <h3 id="_7">单项目工程</h3>
-<div class="codehilite"><pre><span></span><span class="c"># 限定 cmake 最低版本</span>
-<span class="nb">CMAKE_MINIMUM_REQUIRED</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="c1"># 要求 cmake 最低版本</span>
+cmake_minimum_required<span class="o">(</span>VERSION <span class="m">2</span>.8 FATAL_ERROR<span class="o">)</span>
 
-<span class="c"># 设置工程名</span>
-<span class="nb">PROJECT</span><span class="p">(</span><span class="s">project_name</span><span class="p">)</span>
+<span class="c1"># 设置工程名</span>
+project<span class="o">(</span>project_name<span class="o">)</span>
 
-<span class="c"># 设定头文件包含目录</span>
-<span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span><span class="s">.</span><span class="p">)</span>
+<span class="c1"># 自定义变量</span>
+set<span class="o">(</span>INCLUDE_DIR <span class="si">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="si">}</span>/include<span class="o">)</span>
+set<span class="o">(</span>LINK_DIR <span class="si">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="si">}</span>/lib<span class="o">)</span>
+set<span class="o">(</span>LIBS m<span class="o">)</span>
 
-<span class="c"># 设定编译选项</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_CXX_FLAGS</span> <span class="s2">&quot;-g -Wall&quot;</span><span class="p">)</span>
+<span class="c1"># 设定编译选项</span>
+set<span class="o">(</span>CMAKE_CXX_FLAGS <span class="s2">&quot;-g -Wall -std=c++11&quot;</span><span class="o">)</span>
+set<span class="o">(</span>CMAKE_CXX_FLAGS_DEBUG <span class="s2">&quot;-g -Wall -std=c++11 -D_DEBUG&quot;</span><span class="o">)</span>
+set<span class="o">(</span>CMAKE_CXX_FLAGS_RELEASE <span class="s2">&quot;-g -Wall -std=c++11&quot;</span><span class="o">)</span>
 
-<span class="c"># 设定项目文件</span>
-<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB_RECURSE</span> <span class="s">SRC_FILES</span> <span class="s2">&quot;${PROJECT_SOURCE_DIR}/src/*.cpp&quot;</span> <span class="s2">&quot;${PROJECT_SOURCE_DIR}/src/*.h&quot;</span><span class="p">)</span>
+<span class="c1"># 设定头文件包含目录</span>
+include_directories<span class="o">(</span><span class="si">${</span><span class="nv">INCLUDE_DIR</span><span class="si">}</span><span class="o">)</span>
 
-<span class="c"># 设定输出目录</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">EXECUTABLE_OUTPUT_PATH</span> <span class="s">.</span><span class="p">)</span>
+<span class="c1"># 设定链接目录</span>
+link_directories<span class="o">(</span><span class="si">${</span><span class="nv">LINK_DIR</span><span class="si">}</span><span class="o">)</span>
 
-<span class="c"># 设定可执行程序及生成它依赖的文件</span>
-<span class="nb">ADD_EXECUTABLE</span><span class="p">(</span><span class="s">project_name</span> <span class="o">${</span><span class="nv">SRC_FILES</span><span class="o">}</span><span class="p">)</span>
+<span class="c1"># 设定项目文件</span>
+file<span class="o">(</span>GLOB_RECURSE SRC_FILES <span class="s2">&quot;</span><span class="si">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="si">}</span><span class="s2">/src/*.cpp&quot;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="si">}</span><span class="s2">/src/*.h&quot;</span><span class="o">)</span>
+
+<span class="c1"># 设定输出目录</span>
+set<span class="o">(</span>EXECUTABLE_OUTPUT_PATH <span class="si">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="si">}</span>/out<span class="o">)</span>
+
+<span class="c1"># 设定可执行程序及生成它依赖的文件</span>
+add_executable<span class="o">(</span>project_name <span class="si">${</span><span class="nv">SRC_FILES</span><span class="si">}</span><span class="o">)</span>
+
+<span class="c1"># 设定可执行程序依赖的库</span>
+target_link_libraries<span class="o">(</span>project_name <span class="si">${</span><span class="nv">LIBS</span><span class="si">}</span><span class="o">)</span>
 </pre></div>
 
 
 <h3 id="_8">多项目工程</h3>
 <h4 id="cmakelists">顶层 CMakeLists</h4>
-<div class="codehilite"><pre><span></span><span class="c"># 限定 cmake 最低版本</span>
-<span class="nb">CMAKE_MINIMUM_REQUIRED</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span>cmake_minimum_required<span class="o">(</span>VERSION <span class="m">3</span>.5 FATAL_ERROR<span class="o">)</span>
 
-<span class="c"># 设置工程名</span>
-<span class="nb">PROJECT</span><span class="p">(</span><span class="s">project_name</span><span class="p">)</span>
+<span class="c1"># 设置工程名</span>
+project<span class="o">(</span>project_name<span class="o">)</span>
 
-<span class="c"># 设置编译选项，分别设置 DEBUG 和 RELEASE 的</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_CXX_FLAGS_DEBUG</span> <span class="s2">&quot;-g -Wall -std=c++11 -D_DEBUG&quot;</span><span class="p">)</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_CXX_FLAGS_RELEASE</span> <span class="s2">&quot;-g -Wall -std=c++11&quot;</span><span class="p">)</span>
+<span class="c1"># 自定义变量</span>
+set<span class="o">(</span>INCLUDE_DIR <span class="si">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="si">}</span>/include<span class="o">)</span>
+set<span class="o">(</span>LINK_DIR <span class="si">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="si">}</span>/lib<span class="o">)</span>
+set<span class="o">(</span>LIBS m<span class="o">)</span>
 
-<span class="c"># 设定头文件包含目录</span>
-<span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span><span class="s">.</span><span class="p">)</span>
-<span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/include</span><span class="p">)</span>
+<span class="c1"># 设置编译选项</span>
+set<span class="o">(</span>CMAKE_CXX_FLAGS <span class="s2">&quot;-g -Wall -std=c++11&quot;</span><span class="o">)</span>
+set<span class="o">(</span>CMAKE_CXX_FLAGS_DEBUG <span class="s2">&quot;-g -Wall -std=c++11 -D_DEBUG&quot;</span><span class="o">)</span>
+set<span class="o">(</span>CMAKE_CXX_FLAGS_RELEASE <span class="s2">&quot;-g -Wall -std=c++11&quot;</span><span class="o">)</span>
 
-<span class="c"># 设置库目录</span>
-<span class="nb">LINK_DIRECTORIES</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="o">}</span><span class="s">/lib</span><span class="p">)</span>
+<span class="c1"># 设定头文件包含目录</span>
+include_directories<span class="o">(</span><span class="si">${</span><span class="nv">INCLUDE_DIR</span><span class="si">}</span><span class="o">)</span>
 
-<span class="c"># 引入子项目</span>
-<span class="nb">ADD_SUBDIRECTORY</span><span class="p">(</span><span class="s">program</span><span class="p">)</span>
+<span class="c1"># 设定链接目录</span>
+link_directories<span class="o">(</span><span class="si">${</span><span class="nv">LINK_DIR</span><span class="si">}</span><span class="o">)</span>
+
+<span class="c1"># 设定输出目录</span>
+set<span class="o">(</span>EXECUTABLE_OUTPUT_PATH <span class="si">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="si">}</span>/out<span class="o">)</span>
+
+<span class="c1"># 引入子项目</span>
+add_subdirectory<span class="o">(</span>program<span class="o">)</span>
 </pre></div>
 
 
 <h4 id="cmakelists_1">子项目 CMakeLists</h4>
-<div class="codehilite"><pre><span></span><span class="c"># 设定头文件包含目录</span>
-<span class="nb">INCLUDE_DIRECTORIES</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/include</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="c1"># 自定义变量</span>
+set<span class="o">(</span>PROGRAM_INCLUDE_DIR <span class="si">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="si">}</span>/include<span class="o">)</span>
 
-<span class="c"># 设定项目文件</span>
-<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB_RECURSE</span> <span class="s">SRC_FILES</span> <span class="s2">&quot;*.cpp&quot;</span> <span class="s2">&quot;*.h&quot;</span><span class="p">)</span>
+<span class="c1"># 设定头文件包含目录</span>
+include_directories<span class="o">(</span><span class="si">${</span><span class="nv">INCLUDE_DIR</span><span class="si">}</span> <span class="si">${</span><span class="nv">PROGRAM_INCLUDE_DIR</span><span class="si">}</span><span class="o">)</span>
 
-<span class="c"># 设定输出目录</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">EXECUTABLE_OUTPUT_PATH</span> <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="p">)</span>
+<span class="c1"># 设定项目文件</span>
+file<span class="o">(</span>GLOB_RECURSE SRC_FILES <span class="s2">&quot;*.cpp&quot;</span> <span class="s2">&quot;*.h&quot;</span><span class="o">)</span>
 
-<span class="c"># 设置可执行程序依赖的文件</span>
-<span class="nb">ADD_EXECUTABLE</span><span class="p">(</span><span class="s">program_</span><span class="o">${</span><span class="nv">CMAKE_BUILD_TYPE</span><span class="o">}</span> <span class="o">${</span><span class="nv">SRC_FILES</span><span class="o">}</span><span class="p">)</span>
+<span class="c1"># 设置可执行程序依赖的文件</span>
+add_executable<span class="o">(</span>program_<span class="si">${</span><span class="nv">CMAKE_BUILD_TYPE</span><span class="si">}</span> <span class="si">${</span><span class="nv">SRC_FILES</span><span class="si">}</span><span class="o">)</span>
 
-<span class="c"># 设置可执行程序依赖的库</span>
-<span class="nb">TARGET_LINK_LIBRARIES</span><span class="p">(</span><span class="s">program_</span><span class="o">${</span><span class="nv">CMAKE_BUILD_TYPE</span><span class="o">}</span> <span class="s">pthread</span><span class="p">)</span>
+<span class="c1"># 设置可执行程序依赖的库</span>
+target_link_libraries<span class="o">(</span>program_<span class="si">${</span><span class="nv">CMAKE_BUILD_TYPE</span><span class="si">}</span> <span class="si">${</span><span class="nv">LIBS</span><span class="si">}</span><span class="o">)</span>
 </pre></div>
 
 
@@ -1285,6 +1361,20 @@ cmake -DCMAKE_BUILD_TYPE<span class="o">=</span>debug ..
             </div>
           </a>
         
+        
+          <a href="../ssh-HowTo/" title="ssh HowTo" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                ssh HowTo
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
         
       </nav>
     </div>

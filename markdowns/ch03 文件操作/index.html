@@ -674,8 +674,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../cheatsheet/shell_utility/" title="shell_utility" class="md-nav__link">
-      shell_utility
+    <a href="../cheatsheet/errno/" title="errno" class="md-nav__link">
+      errno
     </a>
   </li>
 
@@ -760,6 +760,30 @@
   <li class="md-nav__item">
     <a href="../cheatsheet/cmake-HowTo/" title="cmake HowTo" class="md-nav__link">
       cmake HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/ssh-HowTo/" title="ssh HowTo" class="md-nav__link">
+      ssh HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/vim-HowTo/" title="vim HowTo" class="md-nav__link">
+      vim HowTo
     </a>
   </li>
 
@@ -1065,7 +1089,7 @@ ssize_t read(int fd, void *buf, size_t count);
 
 
 <h3 id="open">open系统调用</h3>
-<p>为了创建一个新的文件描述符，你需要使用系统调用 <a href="../../codes/lab/api/文件操作/open.c">open</a> 。</p>
+<p>为了创建一个新的文件描述符，你需要使用系统调用 open 。</p>
 <div class="codehilite"><pre><span></span>#include &lt;sys/types.h&gt;
 #include &lt;sys/stat.h&gt;
 #include &lt;fcntl.h&gt;
@@ -1234,7 +1258,7 @@ int lstat(const char *path, struct stat *buf);
 <p>/proc 目录中以数字命名的子目录用于提供正在运行的程序信息。</p>
 <h2 id="fcntlmap">高级主题：fcntl和map</h2>
 <p>fcntl 用于对底层文件描述符提供更多的操纵方法。</p>
-<p><a href="../../codes/ch03_文件操作/mmap.c">mmap</a> 建立一段可以被两个或更多程序读写的内存。这一功能还可以用在文件处理上。</p>
+<p>mmap 建立一段可以被两个或更多程序读写的内存。这一功能还可以用在文件处理上。</p>
                 
                   
                 

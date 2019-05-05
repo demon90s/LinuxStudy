@@ -659,8 +659,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../cheatsheet/shell_utility/" title="shell_utility" class="md-nav__link">
-      shell_utility
+    <a href="../cheatsheet/errno/" title="errno" class="md-nav__link">
+      errno
     </a>
   </li>
 
@@ -745,6 +745,30 @@
   <li class="md-nav__item">
     <a href="../cheatsheet/cmake-HowTo/" title="cmake HowTo" class="md-nav__link">
       cmake HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/ssh-HowTo/" title="ssh HowTo" class="md-nav__link">
+      ssh HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/vim-HowTo/" title="vim HowTo" class="md-nav__link">
+      vim HowTo
     </a>
   </li>
 
@@ -1105,15 +1129,6 @@ $ ps -l
 <p>my note: -c允许sh执行一个二进制文件，如：sh -c "echo hi"</p>
 </blockquote>
 <p>如果无法启动shell来运行这个命令，system函数将返回错误代码127；如果是其他错误，则返回-1。否则，system返回该命令的退出码。</p>
-<p>案例代码：</p>
-<ul>
-<li>
-<p><a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/system1.c">阻塞版本</a></p>
-</li>
-<li>
-<p><a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/system2.c">非阻塞版本</a></p>
-</li>
-</ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>一般来说，使用system函数远非启动其他进程的理想手段，因为它必须用一个shell来启动需要的程序。因此对shell的安装情况及其环境的依赖也很大，所以使用system函数的效率不高。</p>
@@ -1162,10 +1177,6 @@ $ ps -l
 </pre></div>
 
 
-<p>案例代码：</p>
-<ul>
-<li><a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/pexec.c">execlp函数</a></li>
-</ul>
 <p>新进程的PID、PPID和nice值与原先的完全一样。</p>
 <p>一般情况下，exec函数是不会返回的，除非发生了错误。出现错误时，exec函数将返回-1，并会设置errno。</p>
 <p>由exec启动的新进程继承了原进程的许多特性。特别地，在原进程中已打开的文件描述符在新进程中仍将保持打开。除非它们的“执行时关闭标志”被置位（参考fcntl系统调用，第三章）。任何在原进程中已打开的目录流都将在新进程中被关闭。</p>
@@ -1182,10 +1193,6 @@ $ ps -l
 <p><img alt="fork" src="../image/fork.png" /></p>
 <p>如图，父进程中的fork调用返回的是子进程的PID，子进程中的fork返回的是0。通过这一点来判断究竟谁是父进程，谁是子进程。</p>
 <p>如果fork失败，它将返回-1。失败通常是因为父进程所拥有的子进程数目超过了规定的限制（CHILD_MAX），此时errno将被设置为EAGAIN。如果是因为进程表里没有足够的空间用于创建新的表单或虚拟内存不足，errno变量将被设置为ENOMEM。</p>
-<p>案例代码：</p>
-<ul>
-<li><a href="../../codes/lab/api/进程/fork.c">fork函数</a></li>
-</ul>
 <h3 id="_11">等待一个进程</h3>
 <p>当用fork启动一个子进程时，子进程就有了它自己的生命周期并将独立运行。有时我们希望知道一个子进程何时结束。通过在父进程中调用wait函数让父进程等待子进程的结束。</p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
@@ -1231,16 +1238,12 @@ $ ps -l
 </tr>
 </tbody>
 </table>
-<p>案例代码：</p>
-<p><a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/wait.c">wait函数</a></p>
 <h3 id="_12">僵尸进程</h3>
 <p>子进程结束时，它与父进程的关联还会保持，直到父进程也终止或父进程调用wait才告结束。因此，进程中代表子进程的表项不会立即释放。虽然子系统已经不再运行，但它仍存在于系统中。因为它的退出码还需要保存起来，以备父进程今后的wait调用使用。这时它将成为一个死(defunct)进程或僵尸(zombie)进程。</p>
 <p>如果父进程在子进程结束前异常终止，子进程将自动把PID为1的进程作为自己的父进程。子进程现在是一个不再运行的僵尸进程，但因为其父进程异常终止，所以它由init进程接管。僵尸进程将一直保留在进程表中直到被init进程发现并释放。进程表越大，这一过程就越慢。应该避免产生僵尸进程。</p>
 <p>还有另一个系统调用可用来等待子进程的结束，它是waitpid函数。可以用它来等待某个特定的进程的结束，并且可以设置非阻塞的模式。</p>
 <h3 id="_13">输入和输出重定向</h3>
 <p>已打开的文件描述符将在fork和exec调用之后保留下来。</p>
-<p>参见案例代码：</p>
-<p><a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/useupper.c">重定向</a></p>
 <h2 id="_14">信号</h2>
 <p>信号是Unix和Linux系统相应某些条件而产生的一个事件。接收到该信号的进程会相应地采取一些行动。我们用术语生成（raise）表示一个信号的产生，使用术语捕获（catch）表示接收到一个信号。</p>
 <p>信号的生成可能是：</p>
@@ -1326,7 +1329,6 @@ $ ps -l
 </tr>
 </tbody>
 </table>
-<p><a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/ctrlc.c"><mark>signal案例代码</mark></a></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>在信号处理函数中，调用像printf这样的函数是不安全的。一个有用的技巧是，在信号处理函数中设置一个标志，然后在主程序中检查这个标志。</p>
@@ -1380,9 +1382,6 @@ $ ps -l
 <span class="kt">sigset_t</span>   <span class="n">sa_mask</span><span class="p">;</span>                 <span class="cm">/* signals to block in sa_handler */</span>
 <span class="kt">int</span>        <span class="n">sa_flags</span><span class="p">;</span>                <span class="cm">/* signal action modifiers */</span>
 </pre></div>
-
-
-<p>见<a href="https://github.com/demon90s/Beginning_Linux_Programming_CodeNote/blob/master/ch11_Processes_and_Signals/ctrlc2.c"><mark>sigaction案例代码</mark></a></p>
                 
                   
                 

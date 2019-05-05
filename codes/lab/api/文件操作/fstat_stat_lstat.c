@@ -18,6 +18,7 @@
 	st_ctime - 文件的权限、属主、组或上一次被改变的时间
 	st_mtime - 文件的内容上一次被修改的时间
 	st_nlink - 文件的硬链接的个数
+	st_size - 以字节为单位的文件大小，只对普通文件、目录和符号链接有效
 
 	使用一些宏可以测试 st_mode ，比如：
 	S_ISDIR - 测试文件是一个目录
@@ -44,8 +45,21 @@ void test1(const char *this_file)
 	printf("%s is regular file? %s\n", this_file, is_reg_file ? "yes" : "no");
 }
 
+void test2(const char* this_file)
+{
+	struct stat buf;
+	int res = stat(this_file, &buf);
+	if (res == -1) {
+		perror("stat");
+		return;
+	}
+
+	printf("%s size is; %ld\n", this_file, (long int)buf.st_size);
+}
+
 int main(int argc, char *argv[])
 {
-	test1(argv[0]);
+	//test1(argv[0]);
+	test2(argv[0]);
 	return 0;
 }

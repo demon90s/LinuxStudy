@@ -505,8 +505,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../shell_utility/" title="shell_utility" class="md-nav__link">
-      shell_utility
+    <a href="../errno/" title="errno" class="md-nav__link">
+      errno
     </a>
   </li>
 
@@ -661,6 +661,30 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ssh-HowTo/" title="ssh HowTo" class="md-nav__link">
+      ssh HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../vim-HowTo/" title="vim HowTo" class="md-nav__link">
+      vim HowTo
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -788,6 +812,7 @@ $ delete <span class="nb">break</span>          <span class="c1"># 删除所有�
 $ q                     <span class="c1"># 退出调试</span>
 $ c                     <span class="c1"># 继续执行程序</span>
 $ run                   <span class="c1"># 开始执行程序</span>
+$ handle SIGINT nostop pass <span class="c1"># 忽略掉 SIGINT 信号, 使其可以传递给调试程序, 默认gdb会拦截掉 SIGINT 信号</span>
 </pre></div>
 
 
@@ -817,6 +842,12 @@ c
 </pre></div>
 
 
+<p>脚本调试时, 可以修改变量的值, 或者调用函数, 方法是:</p>
+<ul>
+<li>修改变量的值: set var = 42</li>
+<li>调用函数: call this-&gt;SomeFunc(paramlist)</li>
+</ul>
+<p>函数调用需要把参数填写满.</p>
 <h2 id="_4">调试死循环</h2>
 <p>直接gdb附加进程后，使用bt命令查看调用堆栈即可。</p>
                 

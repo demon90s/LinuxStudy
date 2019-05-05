@@ -505,8 +505,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../shell_utility/" title="shell_utility" class="md-nav__link">
-      shell_utility
+    <a href="../errno/" title="errno" class="md-nav__link">
+      errno
     </a>
   </li>
 
@@ -678,6 +678,30 @@
   <li class="md-nav__item">
     <a href="../cmake-HowTo/" title="cmake HowTo" class="md-nav__link">
       cmake HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ssh-HowTo/" title="ssh HowTo" class="md-nav__link">
+      ssh HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../vim-HowTo/" title="vim HowTo" class="md-nav__link">
+      vim HowTo
     </a>
   </li>
 
@@ -885,6 +909,9 @@ authz-db = authz
 <span class="c1"># 本地的目录新建为 working_copy ，可以忽略这个参数，此时就使用 workspace 作目录名</span>
 svn checkout svn://url:port/workspace working_copy
 
+<span class="c1"># 可以加入下面的设置来指定一个用户</span>
+svn co --username name --password passwd svn://url:port/workspace
+
 <span class="c1"># 查看当前目录的文件状态</span>
 svn status
 
@@ -915,6 +942,9 @@ svn revert -R dir
 <span class="c1"># 查看文件 file 的本地修改</span>
 <span class="c1"># 如果想使用 vimdiff 替换掉 svn diff ，可以参考：https://stackoverflow.com/questions/7866286/how-to-view-svn-diff-in-vimdiff-style-in-svn</span>
 svn diff file
+
+<span class="c1"># 查看目录或者文件的最后版本，如果是目录，那么第一行是.的版本号信息</span>
+svn -v list dir
 </pre></div>
 
 
