@@ -10,6 +10,12 @@
 
 使用 Settings -> Detailes 来修改默认使用的程序。
 
+许多软件需要EPEL安装包，这样子安装：
+
+```bash
+yum install epel-release
+```
+
 ### lantern - VPN
 
 安装：

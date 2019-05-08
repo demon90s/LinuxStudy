@@ -24,11 +24,23 @@ example3()
     echo "$expr = $res"
 }
 
+# 使用 bc 进行进制转换
+example4()
+{
+    number=20
+    echo -e "dec 20 -> hex \c"
+    echo "obase=16;20" | bc
+
+    echo -e "dec 20 -> bin \c"
+    echo "obase=2;20" | bc
+}
+
 main()
 {
     #example1
     #example2
-    example3
+    #example3
+    example4
 }
 
 main
