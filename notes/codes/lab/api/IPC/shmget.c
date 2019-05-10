@@ -8,6 +8,7 @@
     shmflg 有9个比特的权限标志，其作用和文件的权限标志一样。 IPC_CREAT 标志表示创建一个共享内存，如果无需用到它，也不会有错误。
 
     成功函数返回一个非负整数，即共享内存标示符，如果失败，返回-1 。
+    失败的原因可能是无法分配内存。
 */
 
 #include <sys/shm.h>
@@ -38,7 +39,7 @@ int main(int argc, char *argv[])
     
     shm_id = shmget(key, sizeof(struct shared_block), shmflg);
     if (shm_id == -1) {
-        fprintf(stderr, "shmget failed\n");
+        perror("shmget failed");
         return 2;
     }
     else
