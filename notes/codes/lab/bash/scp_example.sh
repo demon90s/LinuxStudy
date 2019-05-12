@@ -20,10 +20,18 @@ f_example2()
     scp -i ~/.ssh/Identity_dev -P 18888 ./scp_example.sh root@118.24.3.169:/root/tmp/
 }
 
+# 设置超时时间
+# -oConnectTimeout=seconds
+f_example3()
+{
+	scp -oConnectTimeout=3 root@192.168.11.214:~/tmp.txt .
+}
+
 f_main()
 {
     #f_example1
-    f_example2
+    #f_example2
+	f_example3
 }
 
 f_main $@
