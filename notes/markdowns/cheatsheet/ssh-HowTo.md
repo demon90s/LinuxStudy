@@ -43,6 +43,10 @@ ssh-keygen -t rsa -C "your comment" -f outputfile
 
 其余保持默认即可。
 
+问题：秘钥登录设置后还是提示需要输入密码（密码登录未取消）
+
+解决：可能是权限的问题，检查：服务器的 .ssh 目录权限是700, authorized_keys 的权限是600
+
 ## 加入公钥认证
 
 将公钥的内容加入到文件（服务器）： `~/.ssh/authorized_keys`
