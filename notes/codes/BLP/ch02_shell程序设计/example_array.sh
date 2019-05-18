@@ -6,6 +6,7 @@
 # 定义数组：array=(Val1 Val2 Val3)
 # 修改元素：array[i]=ValA
 # 访问元素：${array[i]}
+# 打印数组：$(array[@])
 # 数组长度：${#array[@]}
 
 array=(Hello World Hi Wow)
@@ -19,6 +20,9 @@ traverse_func()
 		echo ${array[$i]}
 		i=$((i + 1))
 	done
+
+	# or
+	echo -e "array: ${array[@]}"
 }
 
 # 数组查询 参数1是查询内容，返回 index
