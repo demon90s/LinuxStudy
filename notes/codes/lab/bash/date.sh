@@ -76,6 +76,8 @@ Test3()
 
     #echo -e "set to +1 day: \c" && date -s "+1 day"
 
+    # date -s "+30 minutes"
+
     echo -e "set to +1 day zero time: \c" && date -s "+1 day 0:0:0"
 }
 
