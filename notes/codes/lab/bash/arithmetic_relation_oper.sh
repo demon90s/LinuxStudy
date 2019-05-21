@@ -1,5 +1,6 @@
 #! /bin/bash
 
+# 方法1
 # -lt(<)
 # -gt(>)
 # -le(<=)
@@ -42,9 +43,23 @@ example()
 	fi
 }
 
+# 方法2
+# 使用 ((expr))
+example2()
+{
+	if ((2 > 1)); then
+		echo "2 > 1"
+	fi
+
+	if !((2 < 1)); then
+		echo "2 < 1 is false"
+	fi
+}
+
 main()
 {
-	example
+	#example
+	example2
 }
 
 main
