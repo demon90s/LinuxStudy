@@ -25,6 +25,8 @@ example3()
 }
 
 # 使用 bc 进行进制转换
+# obase 表示输出进制
+# ibase 表示输入进制, 默认10进制
 example4()
 {
     number=20
@@ -33,6 +35,9 @@ example4()
 
     echo -e "dec 20 -> bin \c"
     echo "obase=2;20" | bc
+
+    echo -e "hex 14 -> dec \c"
+    echo "obase=10;ibase=16;14" | bc
 }
 
 main()
