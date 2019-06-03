@@ -33,18 +33,18 @@
       
         <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
       
-      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.2.0">
     
     
       
-        <title>Linux Study Note</title>
+        <title>ch13 进程间通信_管道 - Linux Study Note</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/application.572ca0f0.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.572ca0f0.css">
       
-        <link rel="stylesheet" href="assets/stylesheets/application-palette.22915126.css">
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.22915126.css">
       
       
         
@@ -53,7 +53,7 @@
       
     
     
-      <script src="assets/javascripts/modernizr.8c900955.js"></script>
+      <script src="../assets/javascripts/modernizr.8c900955.js"></script>
     
     
       
@@ -62,7 +62,7 @@
         <style>body,input{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Open Sans Mono","Courier New",Courier,monospace}</style>
       
     
-    <link rel="stylesheet" href="assets/fonts/material-icons.css">
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
     
     
     
@@ -101,7 +101,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#linux-study-note" tabindex="1" class="md-skip">
+      <a href="#_1" tabindex="1" class="md-skip">
         跳转至
       </a>
     
@@ -110,7 +110,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="." title="Linux Study Note" class="md-header-nav__button md-logo">
+        <a href=".." title="Linux Study Note" class="md-header-nav__button md-logo">
           
             <i class="md-icon">school</i>
           
@@ -127,7 +127,7 @@
                 Linux Study Note
               </span>
               <span class="md-header-nav__topic">
-                Introduction
+                ch13 进程间通信_管道
               </span>
             
           
@@ -206,7 +206,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="." title="Linux Study Note" class="md-nav__button md-logo">
+    <a href=".." title="Linux Study Note" class="md-nav__button md-logo">
       
         <i class="md-icon">school</i>
       
@@ -242,20 +242,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="." title="Introduction" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href=".." title="Introduction" class="md-nav__link">
       Introduction
     </a>
-    
   </li>
 
     
@@ -263,10 +254,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
     
     <label class="md-nav__link" for="nav-2">
       Chapters
@@ -284,7 +277,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ch01 入门/" title="ch01 入门" class="md-nav__link">
+    <a href="../ch01 入门/" title="ch01 入门" class="md-nav__link">
       ch01 入门
     </a>
   </li>
@@ -296,7 +289,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ch02 shell程序设计/" title="ch02 shell程序设计" class="md-nav__link">
+    <a href="../ch02 shell程序设计/" title="ch02 shell程序设计" class="md-nav__link">
       ch02 shell程序设计
     </a>
   </li>
@@ -308,7 +301,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ch03 文件操作/" title="ch03 文件操作" class="md-nav__link">
+    <a href="../ch03 文件操作/" title="ch03 文件操作" class="md-nav__link">
       ch03 文件操作
     </a>
   </li>
@@ -320,7 +313,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ch04 Linux环境/" title="ch04 Linux环境" class="md-nav__link">
+    <a href="../ch04 Linux环境/" title="ch04 Linux环境" class="md-nav__link">
       ch04 Linux环境
     </a>
   </li>
@@ -332,7 +325,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ch05 终端/" title="ch05 终端" class="md-nav__link">
+    <a href="../ch05 终端/" title="ch05 终端" class="md-nav__link">
       ch05 终端
     </a>
   </li>
@@ -344,7 +337,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ch06 curses/" title="ch06 curses" class="md-nav__link">
+    <a href="../ch06 curses/" title="ch06 curses" class="md-nav__link">
       ch06 curses
     </a>
   </li>
@@ -356,7 +349,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ch07 数据管理/" title="ch07 数据管理" class="md-nav__link">
+    <a href="../ch07 数据管理/" title="ch07 数据管理" class="md-nav__link">
       ch07 数据管理
     </a>
   </li>
@@ -368,7 +361,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ch08 MySQL/" title="ch08 MySQL" class="md-nav__link">
+    <a href="../ch08 MySQL/" title="ch08 MySQL" class="md-nav__link">
       ch08 MySQL
     </a>
   </li>
@@ -380,7 +373,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ch09 开发工具/" title="ch09 开发工具" class="md-nav__link">
+    <a href="../ch09 开发工具/" title="ch09 开发工具" class="md-nav__link">
       ch09 开发工具
     </a>
   </li>
@@ -392,7 +385,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ch10 调试/" title="ch10 调试" class="md-nav__link">
+    <a href="../ch10 调试/" title="ch10 调试" class="md-nav__link">
       ch10 调试
     </a>
   </li>
@@ -404,7 +397,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ch11 进程和信号/" title="ch11 进程和信号" class="md-nav__link">
+    <a href="../ch11 进程和信号/" title="ch11 进程和信号" class="md-nav__link">
       ch11 进程和信号
     </a>
   </li>
@@ -416,7 +409,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ch12 POSIX线程/" title="ch12 POSIX线程" class="md-nav__link">
+    <a href="../ch12 POSIX线程/" title="ch12 POSIX线程" class="md-nav__link">
       ch12 POSIX线程
     </a>
   </li>
@@ -426,11 +419,116 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="ch13 进程间通信_管道/" title="ch13 进程间通信_管道" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        ch13 进程间通信_管道
+      </label>
+    
+    <a href="./" title="ch13 进程间通信_管道" class="md-nav__link md-nav__link--active">
       ch13 进程间通信_管道
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="什么是管道" class="md-nav__link">
+    什么是管道
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="进程管道" class="md-nav__link">
+    进程管道
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#popen" title="如何实现 popen" class="md-nav__link">
+    如何实现 popen
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipe" title="pipe 调用" class="md-nav__link">
+    pipe 调用
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="管道关闭后的读操作" class="md-nav__link">
+    管道关闭后的读操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="把管道用作标准输入和标准输出" class="md-nav__link">
+    把管道用作标准输入和标准输出
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fifo" title="命名管道 FIFO" class="md-nav__link">
+    命名管道 FIFO
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fifo_1" title="访问 FIFO 文件" class="md-nav__link">
+    访问 FIFO 文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -440,7 +538,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ch14 信号量_共享内存和消息队列/" title="ch14 信号量_共享内存和消息队列" class="md-nav__link">
+    <a href="../ch14 信号量_共享内存和消息队列/" title="ch14 信号量_共享内存和消息队列" class="md-nav__link">
       ch14 信号量_共享内存和消息队列
     </a>
   </li>
@@ -452,7 +550,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ch15 套接字/" title="ch15 套接字" class="md-nav__link">
+    <a href="../ch15 套接字/" title="ch15 套接字" class="md-nav__link">
       ch15 套接字
     </a>
   </li>
@@ -464,7 +562,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ch16 用GTK+进行GNOME编程/" title="ch16 用GTK+进行GNOME编程" class="md-nav__link">
+    <a href="../ch16 用GTK+进行GNOME编程/" title="ch16 用GTK+进行GNOME编程" class="md-nav__link">
       ch16 用GTK+进行GNOME编程
     </a>
   </li>
@@ -476,7 +574,7 @@
 
 
   <li class="md-nav__item">
-    <a href="ch17 用Qt进行KDE编程/" title="ch17 用Qt进行KDE编程" class="md-nav__link">
+    <a href="../ch17 用Qt进行KDE编程/" title="ch17 用Qt进行KDE编程" class="md-nav__link">
       ch17 用Qt进行KDE编程
     </a>
   </li>
@@ -512,7 +610,7 @@
 
 
   <li class="md-nav__item">
-    <a href="cheatsheet/errno/" title="errno" class="md-nav__link">
+    <a href="../cheatsheet/errno/" title="errno" class="md-nav__link">
       errno
     </a>
   </li>
@@ -524,7 +622,7 @@
 
 
   <li class="md-nav__item">
-    <a href="cheatsheet/MySQL操作/" title="MySQL操作" class="md-nav__link">
+    <a href="../cheatsheet/MySQL操作/" title="MySQL操作" class="md-nav__link">
       MySQL操作
     </a>
   </li>
@@ -536,7 +634,7 @@
 
 
   <li class="md-nav__item">
-    <a href="cheatsheet/Bash-HowTo/" title="Bash HowTo" class="md-nav__link">
+    <a href="../cheatsheet/Bash-HowTo/" title="Bash HowTo" class="md-nav__link">
       Bash HowTo
     </a>
   </li>
@@ -548,7 +646,7 @@
 
 
   <li class="md-nav__item">
-    <a href="cheatsheet/CentOS7-HowTo/" title="CentOS7 HowTo" class="md-nav__link">
+    <a href="../cheatsheet/CentOS7-HowTo/" title="CentOS7 HowTo" class="md-nav__link">
       CentOS7 HowTo
     </a>
   </li>
@@ -560,7 +658,7 @@
 
 
   <li class="md-nav__item">
-    <a href="cheatsheet/Ubuntu-HowTo/" title="Ubuntu HowTo" class="md-nav__link">
+    <a href="../cheatsheet/Ubuntu-HowTo/" title="Ubuntu HowTo" class="md-nav__link">
       Ubuntu HowTo
     </a>
   </li>
@@ -572,7 +670,7 @@
 
 
   <li class="md-nav__item">
-    <a href="cheatsheet/subversion-HowTo/" title="subversion HowTo" class="md-nav__link">
+    <a href="../cheatsheet/subversion-HowTo/" title="subversion HowTo" class="md-nav__link">
       subversion HowTo
     </a>
   </li>
@@ -584,7 +682,7 @@
 
 
   <li class="md-nav__item">
-    <a href="cheatsheet/GDB-HowTo/" title="GDB HowTo" class="md-nav__link">
+    <a href="../cheatsheet/GDB-HowTo/" title="GDB HowTo" class="md-nav__link">
       GDB HowTo
     </a>
   </li>
@@ -596,7 +694,7 @@
 
 
   <li class="md-nav__item">
-    <a href="cheatsheet/cmake-HowTo/" title="cmake HowTo" class="md-nav__link">
+    <a href="../cheatsheet/cmake-HowTo/" title="cmake HowTo" class="md-nav__link">
       cmake HowTo
     </a>
   </li>
@@ -608,7 +706,7 @@
 
 
   <li class="md-nav__item">
-    <a href="cheatsheet/ssh-HowTo/" title="ssh HowTo" class="md-nav__link">
+    <a href="../cheatsheet/ssh-HowTo/" title="ssh HowTo" class="md-nav__link">
       ssh HowTo
     </a>
   </li>
@@ -620,7 +718,7 @@
 
 
   <li class="md-nav__item">
-    <a href="cheatsheet/vim-HowTo/" title="vim HowTo" class="md-nav__link">
+    <a href="../cheatsheet/vim-HowTo/" title="vim HowTo" class="md-nav__link">
       vim HowTo
     </a>
   </li>
@@ -648,6 +746,89 @@
     
   
   
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="什么是管道" class="md-nav__link">
+    什么是管道
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="进程管道" class="md-nav__link">
+    进程管道
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#popen" title="如何实现 popen" class="md-nav__link">
+    如何实现 popen
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipe" title="pipe 调用" class="md-nav__link">
+    pipe 调用
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="管道关闭后的读操作" class="md-nav__link">
+    管道关闭后的读操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="把管道用作标准输入和标准输出" class="md-nav__link">
+    把管道用作标准输入和标准输出
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fifo" title="命名管道 FIFO" class="md-nav__link">
+    命名管道 FIFO
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fifo_1" title="访问 FIFO 文件" class="md-nav__link">
+    访问 FIFO 文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -658,11 +839,87 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/demon90s/LinuxStudy/tree/master/study_notes/index.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/demon90s/LinuxStudy/tree/master/study_notes/ch13 进程间通信_管道.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="linux-study-note">Linux Study Note</h1>
-<p>What is and How To</p>
+                <h1 id="_1">第十三章 进程间通信：管道</h1>
+<hr />
+<h2 id="_2">什么是管道</h2>
+<p>当从一个进程连接数据流到另一个进程时，我们使用术语管道（ pipe ）。我们通常是把一个进程的输出通过管道连接到另一个进程的输入。</p>
+<p>对于 shell 命令，命令的连接是通过管道字符来完成的，如：</p>
+<div class="codehilite"><pre><span></span>cmd1 | cmd2
+</pre></div>
+
+
+<p>shell 负责安排两个命令的标准输入和标准输出：</p>
+<ul>
+<li>
+<p>cmd1 的标准输入来自终端键盘</p>
+</li>
+<li>
+<p>cmd1 的标准输出传递给 cmd2 ，作为它的标准输入</p>
+</li>
+<li>
+<p>cmd2 的标准输出连接到终端屏幕</p>
+</li>
+</ul>
+<h2 id="_3">进程管道</h2>
+<p>最简单的在两个程序之间传递数据的方法是使用 popen 和 pclose 函数。</p>
+<p>popen 打开一个子进程，返回一个文件流，通过文件流从子进程的标准输入读取数据，或向子进程的标准输出写数据。</p>
+<h3 id="popen">如何实现 popen</h3>
+<p>请求 popen 调用运行一个程序时，它首先启动一个 shell ，然后将命令字符串作为参数传递给它。这么做有一个好处和一个缺点。</p>
+<p>好处是， Linux 可以用 shell 做参数扩展，从而可以让 popen 执行非常复杂的 shell 命令。</p>
+<p>缺点是，不仅要启动被请求的程序，还需要启动一个 shell ，从节省资源的角度看， popen 函数的调用成本略高。</p>
+<h2 id="pipe">pipe 调用</h2>
+<p>pipe 函数相对更底层。通过这个函数两个程序传递数据不需要启动一个 shell 。</p>
+<p>我们可以用 pipe, fork, exec 来模拟一个生产者、消费者程序。</p>
+<h3 id="_4">管道关闭后的读操作</h3>
+<p>通常读取输入的程序不知道有多少数据需要读取，所以往往采用循环的方法，读取数据 - 处理数据 - 读取更多数据，直到没有数据可读为止。</p>
+<p>当没有数据可读时， read 调用通常会阻塞，直到有数据到达为止。如果管道的另一端已被关闭，对一个已关闭写数据的管道做 read 调用将返回0而不是阻塞。</p>
+<p>如果跨越 fork 调用使用管道，就会有两个不同的文件描述符可以用于管道写数据，一个在父进程中，一个在子进程中。只有把父子进程对管道的写文件描述符都关闭，管道才会被认为是关闭了，对 read 调用才会失败。</p>
+<h3 id="_5">把管道用作标准输入和标准输出</h3>
+<p>为了完成这个工作，可以使用 dup 函数。</p>
+<p>dup 函数打开一个新的文件描述符，与其参数共同指向同一个文件，并且它是可用的最小文件描述符。因此，只要关闭了标准输入0或标准输出1，那么获得的新描述符就是其中之一，接下来就可以使用标准输入输出函数进行操作。</p>
+<p>如果参数是管道文件描述符，那么标准输入输出函数操作的实际上就是管道。</p>
+<p>详见书本。</p>
+<p>参考代码：</p>
+<h2 id="fifo">命名管道 FIFO</h2>
+<p>之前的讨论只能在相关的程序之间传递数据，即这些程序是由一个共同的祖先进程启动的。</p>
+<p>FIFO 可以让我们在不相关的进程之间传递数据，它通常被称为命名管道（ named pipe ）。它以一种特殊的文件的形式存在。</p>
+<p>我们可以在命令行上创建命名管道：</p>
+<div class="codehilite"><pre><span></span>$ mkfifo &lt;filename&gt;
+</pre></div>
+
+
+<p>mkfifo 函数在程序中创建一个命名管道。</p>
+<h3 id="fifo_1">访问 FIFO 文件</h3>
+<p>命名管道出现在文件系统中，所以可以像平常文件名一样在命令中使用。</p>
+<p>比如，可以这样开始读一个管道：</p>
+<div class="codehilite"><pre><span></span>$ cat &lt; /tmp/my_fifo
+</pre></div>
+
+
+<p>在另一个终端，对这个管道进行写操作：</p>
+<div class="codehilite"><pre><span></span>$ <span class="nb">echo</span> <span class="s2">&quot;Hello World&quot;</span> &gt; /tmp/my_fifo
+</pre></div>
+
+
+<p><strong>使用 open 打开 FIFO 文件</strong></p>
+<p>程序不能以 O_RDWR 模式打开 FIFO 文件进行读写操作，这样做的后果并未明确定义。 FIFO 只是为了单向传递数据，所以没有必要使用 O_RDWR 。</p>
+<p>可以使用 O_NONBLOCK 的组合模式打开文件。</p>
+<p><strong>对 FIFO 进行读写操作</strong></p>
+<p>使用了 O_NONBLOCK 模式会影响到 FIFO 的 read 和 write 调用。</p>
+<p>对一个空的、阻塞的 FIFO 的 read 调用将等待，直到有数据可以读时才继续。</p>
+<p>对一个空的、非阻塞的 FIFO 的 read 调用将立刻返回0字节。</p>
+<p>对一个满的、阻塞的 FIFO 的 write 调用将等待，直到有数据可以被写入时才会继续执行。</p>
+<p>如果 FIFO 不能接收所有写入的数据，那么：</p>
+<div class="codehilite"><pre><span></span>- 如果请求写入的数据长度小于等于 PIPE_BUF 字节，调用失败，数据不能写入。
+- 如果请求写入的数据长度大于 PIPE_BUF 字节，将写入部分数据，返回实际写入的字节数，也可能是0 。
+</pre></div>
+
+
+<p>任一时刻，在一个 FIFO 中可以存在的数据长度是有限制的，它由 #define PIPE_BUF 定义。</p>
+<p>系统规定：在一个以 O_WRONLY （非阻塞）打开的 FIFO 中，如果写入的数据长度小于等于 PIPE_BUF ,那么或者写入全部字节，或者一个字节都不写入。</p>
                 
                   
                 
@@ -683,14 +940,28 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
+          <a href="../ch12 POSIX线程/" title="ch12 POSIX线程" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                ch12 POSIX线程
+              </span>
+            </div>
+          </a>
         
-          <a href="ch01 入门/" title="ch01 入门" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+        
+          <a href="../ch14 信号量_共享内存和消息队列/" title="ch14 信号量_共享内存和消息队列" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   前进
                 </span>
-                ch01 入门
+                ch14 信号量_共享内存和消息队列
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -724,26 +995,26 @@
       
     </div>
     
-      <script src="assets/javascripts/application.b41f3d20.js"></script>
+      <script src="../assets/javascripts/application.b41f3d20.js"></script>
       
         
         
           
-          <script src="assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          <script src="../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
           
             
               
-                <script src="assets/javascripts/lunr/tinyseg.js"></script>
+                <script src="../assets/javascripts/lunr/tinyseg.js"></script>
               
               
-                <script src="assets/javascripts/lunr/lunr.jp.js"></script>
+                <script src="../assets/javascripts/lunr/lunr.jp.js"></script>
               
             
           
           
         
       
-      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
     
     

@@ -1,3 +1,0 @@
-/home/diwen/workspace/LinuxStudy/notes/codes/utility/build/CMakeFiles/rebuild_cache.dir
-/home/diwen/workspace/LinuxStudy/notes/codes/utility/build/CMakeFiles/utility.dir
-/home/diwen/workspace/LinuxStudy/notes/codes/utility/build/CMakeFiles/edit_cache.dir

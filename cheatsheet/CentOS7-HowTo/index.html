@@ -1,0 +1,1164 @@
+
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Linux Study Note">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.2.0">
+    
+    
+      
+        <title>CentOS7 HowTo - Linux Study Note</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.572ca0f0.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.8c900955.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700|Open+Sans+Mono">
+        <style>body,input{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Open Sans Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#centos7-howto" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Linux Study Note" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">school</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Linux Study Note
+              </span>
+              <span class="md-header-nav__topic">
+                CentOS7 HowTo
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/demon90s/LinuxStudy/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="Linux Study Note" class="md-nav__button md-logo">
+      
+        <i class="md-icon">school</i>
+      
+    </a>
+    Linux Study Note
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/demon90s/LinuxStudy/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Chapters
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Chapters
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch01 入门/" title="ch01 入门" class="md-nav__link">
+      ch01 入门
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch02 shell程序设计/" title="ch02 shell程序设计" class="md-nav__link">
+      ch02 shell程序设计
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch03 文件操作/" title="ch03 文件操作" class="md-nav__link">
+      ch03 文件操作
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch04 Linux环境/" title="ch04 Linux环境" class="md-nav__link">
+      ch04 Linux环境
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch05 终端/" title="ch05 终端" class="md-nav__link">
+      ch05 终端
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch06 curses/" title="ch06 curses" class="md-nav__link">
+      ch06 curses
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch07 数据管理/" title="ch07 数据管理" class="md-nav__link">
+      ch07 数据管理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch08 MySQL/" title="ch08 MySQL" class="md-nav__link">
+      ch08 MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch09 开发工具/" title="ch09 开发工具" class="md-nav__link">
+      ch09 开发工具
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch10 调试/" title="ch10 调试" class="md-nav__link">
+      ch10 调试
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch11 进程和信号/" title="ch11 进程和信号" class="md-nav__link">
+      ch11 进程和信号
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch12 POSIX线程/" title="ch12 POSIX线程" class="md-nav__link">
+      ch12 POSIX线程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch13 进程间通信_管道/" title="ch13 进程间通信_管道" class="md-nav__link">
+      ch13 进程间通信_管道
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch14 信号量_共享内存和消息队列/" title="ch14 信号量_共享内存和消息队列" class="md-nav__link">
+      ch14 信号量_共享内存和消息队列
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch15 套接字/" title="ch15 套接字" class="md-nav__link">
+      ch15 套接字
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch16 用GTK+进行GNOME编程/" title="ch16 用GTK+进行GNOME编程" class="md-nav__link">
+      ch16 用GTK+进行GNOME编程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ch17 用Qt进行KDE编程/" title="ch17 用Qt进行KDE编程" class="md-nav__link">
+      ch17 用Qt进行KDE编程
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      CheatSheet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        CheatSheet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../errno/" title="errno" class="md-nav__link">
+      errno
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../MySQL操作/" title="MySQL操作" class="md-nav__link">
+      MySQL操作
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Bash-HowTo/" title="Bash HowTo" class="md-nav__link">
+      Bash HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        CentOS7 HowTo
+      </label>
+    
+    <a href="./" title="CentOS7 HowTo" class="md-nav__link md-nav__link--active">
+      CentOS7 HowTo
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="软件安装" class="md-nav__link">
+    软件安装
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lantern-vpn" title="lantern - VPN" class="md-nav__link">
+    lantern - VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vscode-" title="vscode - 代码、文档编辑器" class="md-nav__link">
+    vscode - 代码、文档编辑器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chrome-" title="Chrome - 谷歌浏览器" class="md-nav__link">
+    Chrome - 谷歌浏览器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flash-player-" title="flash-player - 浏览器视频播放插件" class="md-nav__link">
+    flash-player - 浏览器视频播放插件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filezilla-ftp" title="Filezilla - FTP 工具" class="md-nav__link">
+    Filezilla - FTP 工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtualbox-" title="VirtualBox - 虚拟机" class="md-nav__link">
+    VirtualBox - 虚拟机
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vlc-" title="VLC - 视频播放器" class="md-nav__link">
+    VLC - 视频播放器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steam-" title="steam - 游戏平台" class="md-nav__link">
+    steam - 游戏平台
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kdevelop-c-ide" title="KDevelop - C++ IDE" class="md-nav__link">
+    KDevelop - C++ IDE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mysql-workbench-mysql" title="Mysql Workbench - Mysql 图形化工具" class="md-nav__link">
+    Mysql Workbench - Mysql 图形化工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#teamviewer-" title="TeamViewer - 远程桌面" class="md-nav__link">
+    TeamViewer - 远程桌面
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Ubuntu-HowTo/" title="Ubuntu HowTo" class="md-nav__link">
+      Ubuntu HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../subversion-HowTo/" title="subversion HowTo" class="md-nav__link">
+      subversion HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../GDB-HowTo/" title="GDB HowTo" class="md-nav__link">
+      GDB HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cmake-HowTo/" title="cmake HowTo" class="md-nav__link">
+      cmake HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ssh-HowTo/" title="ssh HowTo" class="md-nav__link">
+      ssh HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../vim-HowTo/" title="vim HowTo" class="md-nav__link">
+      vim HowTo
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="软件安装" class="md-nav__link">
+    软件安装
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lantern-vpn" title="lantern - VPN" class="md-nav__link">
+    lantern - VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vscode-" title="vscode - 代码、文档编辑器" class="md-nav__link">
+    vscode - 代码、文档编辑器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chrome-" title="Chrome - 谷歌浏览器" class="md-nav__link">
+    Chrome - 谷歌浏览器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flash-player-" title="flash-player - 浏览器视频播放插件" class="md-nav__link">
+    flash-player - 浏览器视频播放插件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filezilla-ftp" title="Filezilla - FTP 工具" class="md-nav__link">
+    Filezilla - FTP 工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtualbox-" title="VirtualBox - 虚拟机" class="md-nav__link">
+    VirtualBox - 虚拟机
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vlc-" title="VLC - 视频播放器" class="md-nav__link">
+    VLC - 视频播放器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steam-" title="steam - 游戏平台" class="md-nav__link">
+    steam - 游戏平台
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kdevelop-c-ide" title="KDevelop - C++ IDE" class="md-nav__link">
+    KDevelop - C++ IDE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mysql-workbench-mysql" title="Mysql Workbench - Mysql 图形化工具" class="md-nav__link">
+    Mysql Workbench - Mysql 图形化工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#teamviewer-" title="TeamViewer - 远程桌面" class="md-nav__link">
+    TeamViewer - 远程桌面
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/demon90s/LinuxStudy/tree/master/study_notes/cheatsheet/CentOS7-HowTo.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="centos7-howto">CentOS7-HowTo</h1>
+<hr />
+<h2 id="_1">软件安装</h2>
+<p>一些 windows 下常用的软件，或许可以使用 AppImage 来使用，比如钉钉。</p>
+<p>见：https://appimage.org/</p>
+<p>使用 Settings -&gt; Detailes 来修改默认使用的程序。</p>
+<p>许多软件需要EPEL安装包，这样子安装：</p>
+<div class="codehilite"><pre><span></span>yum install epel-release
+</pre></div>
+
+
+<h3 id="lantern-vpn">lantern - VPN</h3>
+<p>安装：</p>
+<div class="codehilite"><pre><span></span>$ sudo yum install epel-release
+$ sudo yum install alien.noarch
+$ sudo yum install rpmrebuild
+$ sudo yum install libappindicator-gtk3
+</pre></div>
+
+
+<p>下载 lantern Ubuntu 64 位包：https://github.com/getlantern/lantern/releases/tag/latest</p>
+<p>转化成 rpm 包：</p>
+<div class="codehilite"><pre><span></span>$ sudo alien -r lantern-installer-64-bit.deb
+</pre></div>
+
+
+<p>修改 rpm 包：</p>
+<div class="codehilite"><pre><span></span>$ sudo rpmrebuild -pe lantern-???.x86_64.rpm
+</pre></div>
+
+
+<p>替换内容：</p>
+<div class="codehilite"><pre><span></span><span class="p">(</span><span class="n">Converted</span> <span class="n">from</span> <span class="n">a</span> <span class="n">deb</span> <span class="n">package</span> <span class="n">by</span> <span class="n">alien</span> <span class="n">version</span> <span class="mf">8.95</span><span class="p">.)</span>
+<span class="nf">%files</span>
+<span class="cp">#%dir %attr(0755, root, root) &quot;/&quot;</span>
+<span class="cp">#%dir %attr(0755, root, root) &quot;/usr&quot;</span>
+<span class="cp">#%dir %attr(0755, root, root) &quot;/usr/bin&quot;</span>
+<span class="nf">%attr</span><span class="p">(</span><span class="mo">0777</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span> <span class="s">&quot;/usr/bin/lantern&quot;</span>
+<span class="cp">#%dir %attr(0755, root, root) &quot;/usr/lib&quot;</span>
+<span class="nf">%dir</span> <span class="nf">%attr</span><span class="p">(</span><span class="mo">0755</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span> <span class="s">&quot;/usr/lib/lantern&quot;</span>
+<span class="nf">%attr</span><span class="p">(</span><span class="mo">0644</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span> <span class="s">&quot;/usr/lib/lantern/.packaged-lantern.yaml&quot;</span>
+<span class="nf">%attr</span><span class="p">(</span><span class="mo">0644</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span> <span class="s">&quot;/usr/lib/lantern/lantern-binary&quot;</span>
+<span class="nf">%attr</span><span class="p">(</span><span class="mo">0755</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span> <span class="s">&quot;/usr/lib/lantern/lantern.sh&quot;</span>
+<span class="nf">%attr</span><span class="p">(</span><span class="mo">0644</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span> <span class="s">&quot;/usr/lib/lantern/lantern.yaml&quot;</span>
+<span class="cp">#%dir %attr(0755, root, root) &quot;/usr/share&quot;</span>
+<span class="cp">#%dir %attr(0755, root, root) &quot;/usr/share/applications&quot;</span>
+<span class="nf">%attr</span><span class="p">(</span><span class="mo">0644</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span> <span class="s">&quot;/usr/share/applications/lantern.desktop&quot;</span>
+<span class="cp">#%dir %attr(0755, root, root) &quot;/usr/share/doc&quot;</span>
+<span class="nf">%dir</span> <span class="nf">%attr</span><span class="p">(</span><span class="mo">0755</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span> <span class="s">&quot;/usr/share/doc/lantern&quot;</span>
+<span class="nf">%doc</span> <span class="nf">%attr</span><span class="p">(</span><span class="mo">0644</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span> <span class="s">&quot;/usr/share/doc/lantern/changelog.gz&quot;</span>
+<span class="nf">%doc</span> <span class="nf">%attr</span><span class="p">(</span><span class="mo">0644</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span> <span class="s">&quot;/usr/share/doc/lantern/copyright&quot;</span>
+<span class="cp">#%dir %attr(0755, root, root) &quot;/usr/share/icons&quot;</span>
+<span class="cp">#%dir %attr(0755, root, root) &quot;/usr/share/icons/hicolor&quot;</span>
+<span class="cp">#%dir %attr(0755, root, root) &quot;/usr/share/icons/hicolor/128x128&quot;</span>
+<span class="cp">#%dir %attr(0755, root, root) &quot;/usr/share/icons/hicolor/128x128/apps&quot;</span>
+<span class="nf">%attr</span><span class="p">(</span><span class="mo">0644</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span> <span class="s">&quot;/usr/share/icons/hicolor/128x128/apps/lantern.png&quot;</span>
+<span class="nf">%changelog</span>
+</pre></div>
+
+
+<p>按照最后输出的目录安装：</p>
+<div class="codehilite"><pre><span></span>sudo rpm -i ???.rpm
+</pre></div>
+
+
+<p>运行 lantern 即可。</p>
+<h3 id="vscode-">vscode - 代码、文档编辑器</h3>
+<div class="codehilite"><pre><span></span>$ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+$ sudo sh -c <span class="s1">&#39;echo -e &quot;[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc&quot; &gt; /etc/yum.repos.d/vscode.repo&#39;</span>
+$ yum check-update
+$ sudo yum install code
+</pre></div>
+
+
+<h3 id="chrome-">Chrome - 谷歌浏览器</h3>
+<p>安装:</p>
+<ul>
+<li>添加源文件 /etc/yum.repos.d/google-chrome.repo，填写内容：</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="k">[google-chrome]</span>
+<span class="na">name</span><span class="o">=</span><span class="s">google-chrome</span>
+<span class="na">baseurl</span><span class="o">=</span><span class="s">http://dl.google.com/linux/chrome/rpm/stable/x86_64</span>
+<span class="na">enabled</span><span class="o">=</span><span class="s">1</span>
+<span class="na">gpgcheck</span><span class="o">=</span><span class="s">1</span>
+<span class="na">gpgkey</span><span class="o">=</span><span class="s">https://dl.google.com/linux/linux_signing_key.pub</span>
+</pre></div>
+
+
+<ul>
+<li>yum install google-chrome-stable</li>
+</ul>
+<h3 id="flash-player-">flash-player - 浏览器视频播放插件</h3>
+<p>进入 Adobe Flash Player 官网 https://get.adobe.com/cn/flashplayer/</p>
+<p>选择 .rpm 适用于 linux</p>
+<p>下载完毕后，打开命令行，输入：</p>
+<div class="codehilite"><pre><span></span>sudo rpm -ivh flash-player-npapi-31.0.0.153-release.x86_64.rpm
+</pre></div>
+
+
+<p>重启浏览器。</p>
+<h3 id="filezilla-ftp">Filezilla - FTP 工具</h3>
+<p>安装</p>
+<div class="codehilite"><pre><span></span>yum -y install epel-release
+yum -y install filezilla
+</pre></div>
+
+
+<p>安装完毕后，直接搜索并运行。</p>
+<p><strong>使用 ssh key 登陆的方法</strong></p>
+<ol>
+<li>In FileZilla-&gt;Settings.. select Connection-&gt;SFTP</li>
+<li>Press the Add key file... button</li>
+<li>选择一个可以用的 private key</li>
+<li>会提示转换文件格式，并保存到一个位置，跟着做</li>
+<li>点击 OK</li>
+<li>Choose Protocol "SFTP" and select Logon Type "Normal". Don't worry about a password if you key file doesn't have a password</li>
+<li>Click Connect and you'll see your files</li>
+</ol>
+<h3 id="virtualbox-">VirtualBox - 虚拟机</h3>
+<p>安装</p>
+<div class="codehilite"><pre><span></span>$ <span class="nb">cd</span> /etc/yum.repos.d
+$ sudo wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
+$ sudo yum install VirtualBox-5.2.x86_64
+</pre></div>
+
+
+<p>安装完毕后，直接搜索并运行。</p>
+<p>参考：https://wiki.centos.org/zh/HowTos/Virtualization/VirtualBox</p>
+<h3 id="vlc-">VLC - 视频播放器</h3>
+<p>安装</p>
+<div class="codehilite"><pre><span></span>su -
+yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+yum install https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm
+yum install vlc
+</pre></div>
+
+
+<p>参考：https://www.videolan.org/vlc/download-redhat.html</p>
+<h3 id="steam-">steam - 游戏平台</h3>
+<p>安装</p>
+<div class="codehilite"><pre><span></span>sudo yum install steam.i686
+</pre></div>
+
+
+<p>启动</p>
+<div class="codehilite"><pre><span></span>$ <span class="nv">LD_PRELOAD</span><span class="o">=</span><span class="s1">&#39;/usr/$LIB/libstdc++.so.6&#39;</span> <span class="nv">LIBGL_DRI3_DISABLE</span><span class="o">=</span><span class="m">1</span> steam
+</pre></div>
+
+
+<h3 id="kdevelop-c-ide">KDevelop - C++ IDE</h3>
+<p>安装并启动：</p>
+<div class="codehilite"><pre><span></span>wget -O KDevelop.AppImage https://download.kde.org/stable/kdevelop/5.3.0/bin/linux/KDevelop-5.3.0-x86_64.AppImage
+chmod +x KDevelop.AppImage
+./KDevelop.AppImage
+</pre></div>
+
+
+<p>参考：https://www.kdevelop.org/download</p>
+<h3 id="mysql-workbench-mysql">Mysql Workbench - Mysql 图形化工具</h3>
+<p>安装：</p>
+<ol>
+<li>
+<p>安装 mysql 源， rpm 下载地址：https://dev.mysql.com/downloads/repo/yum/</p>
+</li>
+<li>
+<p>安装：yum install mysql-workbench-community.x86_64</p>
+</li>
+</ol>
+<h3 id="teamviewer-">TeamViewer - 远程桌面</h3>
+<p>先引入 key ：</p>
+<div class="codehilite"><pre><span></span><span class="err">$</span> <span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">dl</span><span class="o">.</span><span class="n">tvcdn</span><span class="o">.</span><span class="n">de</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">signature</span><span class="o">/</span><span class="n">TeamViewer2017</span><span class="o">.</span><span class="n">asc</span>
+<span class="err">$</span> <span class="n">sudo</span> <span class="n">rpm</span> <span class="o">--</span><span class="kn">import</span> <span class="nn">TeamViewer2017.asc</span>
+</pre></div>
+
+
+<p>使用 yum 安装：</p>
+<div class="codehilite"><pre><span></span>$ wget https://download.teamviewer.com/download/linux/teamviewer.x86_64.rpm
+<span class="c1"># yum install epel-release</span>
+<span class="c1"># yum install ./teamviewer*.rpm</span>
+</pre></div>
+
+
+<p>参考：https://community.teamviewer.com/t5/Knowledge-Base/How-to-install-TeamViewer-on-Red-Hat-and-CentOS/ta-p/30708</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../Bash-HowTo/" title="Bash HowTo" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                Bash HowTo
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../Ubuntu-HowTo/" title="Ubuntu HowTo" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                Ubuntu HowTo
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; since 2018 Diwen Liu
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.b41f3d20.js"></script>
+      
+        
+        
+          
+          <script src="../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+    
+    
+      
+        <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-XXXXXXXX-X","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+  </body>
+</html>

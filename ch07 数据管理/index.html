@@ -1,0 +1,1092 @@
+
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Linux Study Note">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="jp">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.2.0">
+    
+    
+      
+        <title>ch07 数据管理 - Linux Study Note</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.572ca0f0.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.8c900955.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700|Open+Sans+Mono">
+        <style>body,input{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Open Sans Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#_1" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="Linux Study Note" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">school</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Linux Study Note
+              </span>
+              <span class="md-header-nav__topic">
+                ch07 数据管理
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/demon90s/LinuxStudy/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="Linux Study Note" class="md-nav__button md-logo">
+      
+        <i class="md-icon">school</i>
+      
+    </a>
+    Linux Study Note
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/demon90s/LinuxStudy/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Chapters
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Chapters
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch01 入门/" title="ch01 入门" class="md-nav__link">
+      ch01 入门
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch02 shell程序设计/" title="ch02 shell程序设计" class="md-nav__link">
+      ch02 shell程序设计
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch03 文件操作/" title="ch03 文件操作" class="md-nav__link">
+      ch03 文件操作
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch04 Linux环境/" title="ch04 Linux环境" class="md-nav__link">
+      ch04 Linux环境
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch05 终端/" title="ch05 终端" class="md-nav__link">
+      ch05 终端
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch06 curses/" title="ch06 curses" class="md-nav__link">
+      ch06 curses
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        ch07 数据管理
+      </label>
+    
+    <a href="./" title="ch07 数据管理" class="md-nav__link md-nav__link--active">
+      ch07 数据管理
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="内存管理" class="md-nav__link">
+    内存管理
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="简单地内存分配" class="md-nav__link">
+    简单地内存分配
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="释放内存" class="md-nav__link">
+    释放内存
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="其他内存分配函数" class="md-nav__link">
+    其他内存分配函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" title="文件锁定" class="md-nav__link">
+    文件锁定
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="创建锁文件" class="md-nav__link">
+    创建锁文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="区域锁定" class="md-nav__link">
+    区域锁定
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="锁定状态下的读写操作" class="md-nav__link">
+    锁定状态下的读写操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="死锁" class="md-nav__link">
+    死锁
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" title="数据库" class="md-nav__link">
+    数据库
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dbm" title="dbm 数据库" class="md-nav__link">
+    dbm 数据库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dbm_1" title="dbm 例程" class="md-nav__link">
+    dbm 例程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dbm_2" title="dbm 访问函数" class="md-nav__link">
+    dbm 访问函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch08 MySQL/" title="ch08 MySQL" class="md-nav__link">
+      ch08 MySQL
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch09 开发工具/" title="ch09 开发工具" class="md-nav__link">
+      ch09 开发工具
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch10 调试/" title="ch10 调试" class="md-nav__link">
+      ch10 调试
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch11 进程和信号/" title="ch11 进程和信号" class="md-nav__link">
+      ch11 进程和信号
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch12 POSIX线程/" title="ch12 POSIX线程" class="md-nav__link">
+      ch12 POSIX线程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch13 进程间通信_管道/" title="ch13 进程间通信_管道" class="md-nav__link">
+      ch13 进程间通信_管道
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch14 信号量_共享内存和消息队列/" title="ch14 信号量_共享内存和消息队列" class="md-nav__link">
+      ch14 信号量_共享内存和消息队列
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch15 套接字/" title="ch15 套接字" class="md-nav__link">
+      ch15 套接字
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch16 用GTK+进行GNOME编程/" title="ch16 用GTK+进行GNOME编程" class="md-nav__link">
+      ch16 用GTK+进行GNOME编程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ch17 用Qt进行KDE编程/" title="ch17 用Qt进行KDE编程" class="md-nav__link">
+      ch17 用Qt进行KDE编程
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      CheatSheet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        CheatSheet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/errno/" title="errno" class="md-nav__link">
+      errno
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/MySQL操作/" title="MySQL操作" class="md-nav__link">
+      MySQL操作
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/Bash-HowTo/" title="Bash HowTo" class="md-nav__link">
+      Bash HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/CentOS7-HowTo/" title="CentOS7 HowTo" class="md-nav__link">
+      CentOS7 HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/Ubuntu-HowTo/" title="Ubuntu HowTo" class="md-nav__link">
+      Ubuntu HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/subversion-HowTo/" title="subversion HowTo" class="md-nav__link">
+      subversion HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/GDB-HowTo/" title="GDB HowTo" class="md-nav__link">
+      GDB HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/cmake-HowTo/" title="cmake HowTo" class="md-nav__link">
+      cmake HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/ssh-HowTo/" title="ssh HowTo" class="md-nav__link">
+      ssh HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cheatsheet/vim-HowTo/" title="vim HowTo" class="md-nav__link">
+      vim HowTo
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="内存管理" class="md-nav__link">
+    内存管理
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" title="简单地内存分配" class="md-nav__link">
+    简单地内存分配
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" title="释放内存" class="md-nav__link">
+    释放内存
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" title="其他内存分配函数" class="md-nav__link">
+    其他内存分配函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" title="文件锁定" class="md-nav__link">
+    文件锁定
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="创建锁文件" class="md-nav__link">
+    创建锁文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" title="区域锁定" class="md-nav__link">
+    区域锁定
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" title="锁定状态下的读写操作" class="md-nav__link">
+    锁定状态下的读写操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" title="死锁" class="md-nav__link">
+    死锁
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" title="数据库" class="md-nav__link">
+    数据库
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dbm" title="dbm 数据库" class="md-nav__link">
+    dbm 数据库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dbm_1" title="dbm 例程" class="md-nav__link">
+    dbm 例程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dbm_2" title="dbm 访问函数" class="md-nav__link">
+    dbm 访问函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/demon90s/LinuxStudy/tree/master/study_notes/ch07 数据管理.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="_1">第七章 数据管理</h1>
+<hr />
+<h2 id="_2">内存管理</h2>
+<p>在所有计算机系统中，内存都是一种稀缺资源。</p>
+<p>Linux 程序决不允许直接访问内存，应用程序只是看起来好像可以这么做。</p>
+<h3 id="_3">简单地内存分配</h3>
+<p>使用 malloc 函数来分配内存。</p>
+<p>malloc 函数可以保证其返回的内存是地址对齐的，所以它可以被转换为任何类型的指针。</p>
+<p>目前大多数 Linux 系统都使用32位整数和32位指针来指向内存，32位的指针可寻址的地址空间可达4GB 。并且有越来越多的64位 Linux 系统已经投入实际使用。</p>
+<p>应用程序所分配的内存是由 Linux 内核管理的，每次应用程序请求内存或者尝试读写它已经分配的内存时，便会由 Linux 内核接管并决定如何处理这些请求。</p>
+<p>刚开始的时候，内核只是通过使用空闲的物理内存来满足应用程序的内存请求，但是当物理内存耗尽时，它便会开始使用交换空间（ swap space ）。交换空间是在安装系统时分配的独立的磁盘区域。</p>
+<p>内核会在物理内存和交换空间之间移动数据和程序代码，使得每次读写内存时，数据看起来总像是已存在于物理内存中。</p>
+<p>更专业的说， Linux 实现了一个“按需换页的虚拟内存系统”。用户程序看到的内存全是虚拟的，它并不真正存在于程序使用的物理地址上。 Linux 将所有的内存都以页为单位进行划分，通常每一页大小为4096字节。每当程序试图访问内存时，就会发生虚拟内存到物理内存的转换，转换的具体实现和耗费时间取决于你所使用的特定硬件情况。</p>
+<p>Linux 内核会对访问的内存地址进行检查，如果这个地址对于程序来说是合法可用的，内核就会确定需要向程序提供哪一个物理内存页面。</p>
+<p>如果程序耗尽了物理内存和交换空间，或者当最大栈长度被超过时，内核将拒绝此后的内存请求，并可能提前终止程序的运行。</p>
+<h3 id="_4">释放内存</h3>
+<p>Linux 内存管理系统完全有能力保证在程序结束时，把分配给它的内存返回给系统。但是，大多数程序还会动态使用内存。</p>
+<p>动态使用内存的程序应该总是通过 free 调用把不用的内存释放掉。这样做可以把分散的内存块重新合并到一起。</p>
+<h3 id="_5">其他内存分配函数</h3>
+<p>使用 calloc 和 realloc 也可以分配内存。</p>
+<h2 id="_6">文件锁定</h2>
+<p>文件锁定是多用户、多任务操作系统中一个非常重要的组成部分。程序经常要共享数据，而这通常是通过文件来实现的。</p>
+<p>Linux 提供了多种特性来实现文件锁定。其中最简单的办法是以原子操作的方式创建锁文件。所谓原子操作，就是在创建文件时，系统不允许任何其他事情发生。这就确保了创建的文件是唯一的。</p>
+<p>第二种方法是锁定文件的一部分。</p>
+<h3 id="_7">创建锁文件</h3>
+<p>许多应用程序只需要能够针对某个资源创建一个锁文件，然后，其他应用程序就可以通过检查这个文件来判断它们自己是否允许被访问这个资源。</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>锁文件仅仅只是充当指示器的角色，程序间需要通过相互协作来使用它们。用术语说，锁文件只是建议锁，而不是强制锁。</p>
+</div>
+<p>使用 open 调用可以创建这样的文件，只要带上 O_CREAT | O_EXCL 的标志即可。这样就通过原子操作完成两项工作：确定文件不存在，然后创建它。</p>
+<h3 id="_8">区域锁定</h3>
+<p>有时候需要一些协调方法来提供对同一个文件的并发访问。</p>
+<p>可以通过锁定文件区域的方法来处理这个问题，文件中的某个特定部分被锁定了，但其他文件可以访问这个文件的其他部分。</p>
+<p>使用 fcntl 可以实现这个功能。锁定的信息由结构 flock 给出。</p>
+<h3 id="_9">锁定状态下的读写操作</h3>
+<p>当对文件区域加锁之后，必须使用底层的 read 和 write 来访问文件中的数据，而不能使用更高级的 fread 和 fwrite 。这是因为高级函数会对读写数据进行缓存，缓存的数据可能在未来将会被加锁。</p>
+<h3 id="_10">死锁</h3>
+<p>假设两个程序想要更新同一个文件，它们需要同时更新文件中的字节1和字节2。程序A选择首先更新字节2，然后再更新字节1 。程序B选择先更新字节1 ，然后才是字节2 。</p>
+<p>若两个程序同时启动，程序A锁定字节2 ，程序B锁定字节1 。然后程序A试图锁定字节1 ，但会失败，A将等待。程序B尝试锁定字节2 ，也失败，程序B将等待。</p>
+<p>于是两个程序都无法进行下去。这种情况称为死锁（ deadlock ）。 Linux 内核不能解开这样的死锁，这就要通过外部干涉，比如强制终止掉其中一个程序。</p>
+<h2 id="_11">数据库</h2>
+<p>与使用文件来存储数据相比，使用数据库有如下方面的优势：</p>
+<ul>
+<li>
+<p>你可以存储长度可变的数据记录，这对平面的、非结构化的文件来说实现起来有点困难。</p>
+</li>
+<li>
+<p>数据库使用索引来有效地存储和检索数据。这样做的一个显著优点是这个索引不必非得是一个简单的记录号——这在平面文件中很容易实现，它可以是一个任意的字符串。</p>
+</li>
+</ul>
+<h3 id="dbm">dbm 数据库</h3>
+<p>Linux 带有一个基本的、但却非常高效的数据存储例程集，被称为 dbm 数据库。 dbm 数据库适合于存储相对比较静态的索引化数据。</p>
+<p>dbm 是一个轻量级的数据库软件，无需安装独立的服务器（使用本地文件存储）。</p>
+<p>dbm 数据库可以使用 key 存储可变长的数据结构，它适用于处理那些被频繁访问但却很少被更新的数据，因为它创建数据项时非常慢，而检索时非常快。</p>
+<p>在我的 CentOS 7 上，这样获取：</p>
+<div class="codehilite"><pre><span></span>$ sudo yum install gdbm-devel.x86_64
+</pre></div>
+
+
+<p>使用时，引入其头文件：ndbm.h</p>
+<p>并加入链接选项：-lgdbm -lgdbm_compat</p>
+<h3 id="dbm_1">dbm 例程</h3>
+<p>dbm 数据库的基本元素是存储数据块和关键字数据块，每个数据都有一个唯一的 key 。这个数据块被定义为 datum 结构类型，它至少包含两个成员：</p>
+<ul>
+<li>void *dptr 数据空间地址</li>
+<li>size_t dsize 数据大小</li>
+</ul>
+<p>dbm 使用一个 DBM 类型来访问数据库 API。当打开 dbm 数据库时，就会获取这个类型的变量的指针，然后会创建两个物理文件，它们的后缀分别是 .pag 和 .dir 。</p>
+<h3 id="dbm_2">dbm 访问函数</h3>
+<p>dbm_open dbm_close 打开/关闭数据库。</p>
+<p>dbm_store dbm_fetch dbm_delete 存储记录/获取记录/删除记录。</p>
+<p>dbm_firstkey dbm_nextkey 遍历数据库的每一个记录。</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../ch06 curses/" title="ch06 curses" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  后退
+                </span>
+                ch06 curses
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../ch08 MySQL/" title="ch08 MySQL" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  前进
+                </span>
+                ch08 MySQL
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; since 2018 Diwen Liu
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.b41f3d20.js"></script>
+      
+        
+        
+          
+          <script src="../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../assets/javascripts/lunr/lunr.jp.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+    
+      
+        <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-XXXXXXXX-X","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+  </body>
+</html>
