@@ -16,8 +16,6 @@ explain:
 
 - YourText - your text to display
 
-[参考代码](../../codes/lab/bash/colors.sh)
-
 ## 让进程在后台运行
 
 [参考资料](https://www.ibm.com/developerworks/cn/linux/l-cn-nohup/)

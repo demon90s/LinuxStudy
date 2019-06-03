@@ -2,9 +2,7 @@
 
 Linux 中所有的 GUI 库都基于被称作X视窗系统的底层视窗系统。
 
-在编写本章节的代码时，需要安装好相应的库，在 CentOS7 上，使用这个脚本安装：
-
-[install_libs](../codes/BLP/ch16_用GTK+进行GNOME编程/install_libs.sh)
+在编写本章节的代码时，需要安装好相应的库。
 
 ---
 
@@ -121,7 +119,7 @@ $ gtk-demo
 `pkg-config --cflags --libs gtk+-2.0`
 ```
 
-[gtk_window_new](../codes/lab/api/GTK2.0/window.c) 可以创建一个窗口。
+gtk_window_new 可以创建一个窗口。
 
 一个 gtk 程序的简单框架是：
 
@@ -156,7 +154,7 @@ GTK+ 有自己的事件和监听器系统，它们被称为信号和回调函数
 void a_callback(GtkWidget *widget, gpointer user_data);
 ```
 
-连接回调函数的方法是 [g_signal_connect](../codes/lab/api/GTK2.0/g_signal_connect.c) 。
+连接回调函数的方法是 g_signal_connect。
 
 ## 组装盒构件
 
@@ -170,11 +168,9 @@ GUI 的布局对其可以用性来说至关重要。排列构件的真正困难�
 
 使用 gtk_box_pack_start 或 gtk_box_pack_end 来向盒构件添加构件。
 
-[参考代码](../codes/lab/api/GTK2.0/box.c)
-
 ## Gtk+构件
 
-本节介绍了 [GtkWindow](../codes/lab/api/GTK2.0/window2.c), [GtkEntry](../codes/lab/api/GTK2.0/entry.c), [GtkSpinButton](../codes/lab/api/GTK2.0/spinbutton.c), [GtkButton](../codes/lab/api/GTK2.0/button.c), [GtkCheckButton](../codes/lab/api/GTK2.0/check_button.c), [GtkToggleButton](../codes/lab/api/GTK2.0/toggle_button.c), [GtkRadioButton](../codes/lab/api/GTK2.0/radio_button.c), [GtkTreeView](../codes/lab/api/GTK2.0/tree_view.c) 的相关 API 。
+本节介绍了 GtkWindow, GtkEntry, GtkSpinButton, GtkButton, GtkCheckButton, GtkToggleButton, GtkRadioButton, GtkTreeView 的相关 API 。
 
 ## GNOME 构件
 

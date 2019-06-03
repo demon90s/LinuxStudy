@@ -74,10 +74,6 @@ QT 定义了两个伪关键字（ signal 和 slot ）来标识代码中类的信
 
 通过 QObject::connect 方法将信号连接到槽。
 
-[参考代码](../codes/lab/api/QT3/window_with_signal_slot.h)
-
 QLayout 提供了排列构件和布局的方法。其子类 QVBoxLayout 和 QHBoxLayout 分别以垂直和水平的方向包含其他构件和布局。
 
 使用 QBoxLayout::addWidget 和 QBoxLayout::addLayout 完成这个功能。
-
-[参考代码](../codes/lab/api/QT3/window_with_boxlayout.h)
