@@ -958,8 +958,7 @@
                 
                 <h1 id="gtkgnome">第十六章 用GTK+进行GNOME编程</h1>
 <p>Linux 中所有的 GUI 库都基于被称作X视窗系统的底层视窗系统。</p>
-<p>在编写本章节的代码时，需要安装好相应的库，在 CentOS7 上，使用这个脚本安装：</p>
-<p><a href="../../codes/BLP/ch16_用GTK+进行GNOME编程/install_libs.sh">install_libs</a></p>
+<p>在编写本章节的代码时，需要安装好相应的库。</p>
 <hr />
 <h2 id="x">X视窗系统简介</h2>
 <p>X是一个开源的图形化系统。X没有定义用户界面，但提供了创建用户界面的手段。这意味这可以自由地创建自己的整个桌面环境。</p>
@@ -1041,7 +1040,7 @@ $ sudo yum -y install libgnomeui-devel.x86_64
 </pre></div>
 
 
-<p><a href="../../codes/lab/api/GTK2.0/window.c">gtk_window_new</a> 可以创建一个窗口。</p>
+<p>gtk_window_new 可以创建一个窗口。</p>
 <p>一个 gtk 程序的简单框架是：</p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;gtk/gtk.h&gt;</span><span class="cp"></span>
 
@@ -1069,16 +1068,15 @@ $ sudo yum -y install libgnomeui-devel.x86_64
 </pre></div>
 
 
-<p>连接回调函数的方法是 <a href="../../codes/lab/api/GTK2.0/g_signal_connect.c">g_signal_connect</a> 。</p>
+<p>连接回调函数的方法是 g_signal_connect。</p>
 <h2 id="_3">组装盒构件</h2>
 <p>GUI 的布局对其可以用性来说至关重要。排列构件的真正困难在于，你不能指望所有用户都有相同的屏幕分辨率，或者有相同的窗口大小、主题、字体、颜色方案。</p>
 <p>为了保持一致，要避免使用绝对坐标来放置构件，而是采用一种更灵活的布局系统。 GTK+ 通过容器构件来实现这一目标。盒构件是一个非常有用的容器构件类型。</p>
 <p>盒是一个不可见的构件，其工作就是包含其他的构件，并控制它们的布局。</p>
 <p>使用 gtk_hbox_new 和 gtk_vbox_new 来创建一个横向和纵向的盒构件。</p>
 <p>使用 gtk_box_pack_start 或 gtk_box_pack_end 来向盒构件添加构件。</p>
-<p><a href="../../codes/lab/api/GTK2.0/box.c">参考代码</a></p>
 <h2 id="gtk_2">Gtk+构件</h2>
-<p>本节介绍了 <a href="../../codes/lab/api/GTK2.0/window2.c">GtkWindow</a>, <a href="../../codes/lab/api/GTK2.0/entry.c">GtkEntry</a>, <a href="../../codes/lab/api/GTK2.0/spinbutton.c">GtkSpinButton</a>, <a href="../../codes/lab/api/GTK2.0/button.c">GtkButton</a>, <a href="../../codes/lab/api/GTK2.0/check_button.c">GtkCheckButton</a>, <a href="../../codes/lab/api/GTK2.0/toggle_button.c">GtkToggleButton</a>, <a href="../../codes/lab/api/GTK2.0/radio_button.c">GtkRadioButton</a>, <a href="../../codes/lab/api/GTK2.0/tree_view.c">GtkTreeView</a> 的相关 API 。</p>
+<p>本节介绍了 GtkWindow, GtkEntry, GtkSpinButton, GtkButton, GtkCheckButton, GtkToggleButton, GtkRadioButton, GtkTreeView 的相关 API 。</p>
 <h2 id="gnome_1">GNOME 构件</h2>
 <p>GTK+ 被设计成独立于桌面的。它不假定运行在 GNOME 中，甚至不假定它运行在 Linux 上。这样， GTK+ 可以被相对容易地移植到 Windows 或者任何其他视窗系统中。但其导致的结果是： GTK+ 缺乏将程序与桌面紧密结合的方法。</p>
 <p>GNOME 库包含 GNOME 构件，它们扩展了 GTK+ ，用一些更容易使用的构件替换了 GTK+ 中的部分构件。</p>

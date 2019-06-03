@@ -943,12 +943,10 @@
 <p>锁文件仅仅只是充当指示器的角色，程序间需要通过相互协作来使用它们。用术语说，锁文件只是建议锁，而不是强制锁。</p>
 </div>
 <p>使用 open 调用可以创建这样的文件，只要带上 O_CREAT | O_EXCL 的标志即可。这样就通过原子操作完成两项工作：确定文件不存在，然后创建它。</p>
-<p><a href="../../codes/lab/api/文件操作/create_lockfile.c" title="create_lockfile.c">测试程序</a></p>
 <h3 id="_8">区域锁定</h3>
 <p>有时候需要一些协调方法来提供对同一个文件的并发访问。</p>
 <p>可以通过锁定文件区域的方法来处理这个问题，文件中的某个特定部分被锁定了，但其他文件可以访问这个文件的其他部分。</p>
 <p>使用 fcntl 可以实现这个功能。锁定的信息由结构 flock 给出。</p>
-<p><a href="../../codes/lab/api/文件操作/fcntl_flock.c" title="flock.c">测试程序</a></p>
 <h3 id="_9">锁定状态下的读写操作</h3>
 <p>当对文件区域加锁之后，必须使用底层的 read 和 write 来访问文件中的数据，而不能使用更高级的 fread 和 fwrite 。这是因为高级函数会对读写数据进行缓存，缓存的数据可能在未来将会被加锁。</p>
 <h3 id="_10">死锁</h3>
@@ -984,9 +982,9 @@
 </ul>
 <p>dbm 使用一个 DBM 类型来访问数据库 API。当打开 dbm 数据库时，就会获取这个类型的变量的指针，然后会创建两个物理文件，它们的后缀分别是 .pag 和 .dir 。</p>
 <h3 id="dbm_2">dbm 访问函数</h3>
-<p>使用 <a href="../../codes/lab/api/dbm/open_close.c" title="open_close.c">dbm_open dbm_close</a> 打开/关闭数据库。</p>
-<p>使用 <a href="../../codes/lab/api/dbm/store_fetch_delete.c" title="store_fetch_delete.c">dbm_store dbm_fetch dbm_delete</a> 存储记录/获取记录/删除记录。</p>
-<p>使用 <a href="../../codes/lab/api/dbm/firstkey_nextkey.c" title="firstkey_nextkey.c">dbm_firstkey dbm_nextkey</a> 来遍历数据库的每一个记录。</p>
+<p>dbm_open dbm_close 打开/关闭数据库。</p>
+<p>dbm_store dbm_fetch dbm_delete 存储记录/获取记录/删除记录。</p>
+<p>dbm_firstkey dbm_nextkey 遍历数据库的每一个记录。</p>
                 
                   
                 

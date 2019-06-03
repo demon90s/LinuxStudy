@@ -647,7 +647,14 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" title="文本编辑" class="md-nav__link">
+  <a href="#_1" title="缓冲区" class="md-nav__link">
+    缓冲区
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="文本编辑" class="md-nav__link">
     文本编辑
   </a>
   
@@ -655,14 +662,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_2" title="移动光标" class="md-nav__link">
+  <a href="#_3" title="移动光标" class="md-nav__link">
     移动光标
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_3" title="其他命令" class="md-nav__link">
+  <a href="#_4" title="其他命令" class="md-nav__link">
     其他命令
   </a>
   
@@ -674,14 +681,14 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" title="在左侧打开文件浏览器" class="md-nav__link">
+  <a href="#_5" title="在左侧打开文件浏览器" class="md-nav__link">
     在左侧打开文件浏览器
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" title="窗口" class="md-nav__link">
+  <a href="#_6" title="窗口" class="md-nav__link">
     窗口
   </a>
   
@@ -695,7 +702,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" title="执行外部命令" class="md-nav__link">
+  <a href="#_7" title="执行外部命令" class="md-nav__link">
     执行外部命令
   </a>
   
@@ -745,7 +752,14 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_1" title="文本编辑" class="md-nav__link">
+  <a href="#_1" title="缓冲区" class="md-nav__link">
+    缓冲区
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="文本编辑" class="md-nav__link">
     文本编辑
   </a>
   
@@ -753,14 +767,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_2" title="移动光标" class="md-nav__link">
+  <a href="#_3" title="移动光标" class="md-nav__link">
     移动光标
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_3" title="其他命令" class="md-nav__link">
+  <a href="#_4" title="其他命令" class="md-nav__link">
     其他命令
   </a>
   
@@ -772,14 +786,14 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" title="在左侧打开文件浏览器" class="md-nav__link">
+  <a href="#_5" title="在左侧打开文件浏览器" class="md-nav__link">
     在左侧打开文件浏览器
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" title="窗口" class="md-nav__link">
+  <a href="#_6" title="窗口" class="md-nav__link">
     窗口
   </a>
   
@@ -793,7 +807,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" title="执行外部命令" class="md-nav__link">
+  <a href="#_7" title="执行外部命令" class="md-nav__link">
     执行外部命令
   </a>
   
@@ -854,11 +868,19 @@ set tabstop=4
 <td align="center">:set nolist</td>
 <td align="center">不显示不可见字符</td>
 </tr>
+<tr>
+<td align="center">:set path+=dir</td>
+<td align="center">添加dir为find命令的搜索路径</td>
+</tr>
 </tbody>
 </table>
-<h2 id="_1">文本编辑</h2>
+<h2 id="_1">缓冲区</h2>
+<p>:ls 命令列出已经打开的文件</p>
+<p>:bN 命令选择打开的文件, N是编号</p>
+<p>:bdelete N1 N2 删除编号为N1 N2的缓冲区</p>
+<h2 id="_2">文本编辑</h2>
 <p>核心在于明确操作单元.</p>
-<h3 id="_2">移动光标</h3>
+<h3 id="_3">移动光标</h3>
 <p>字符:</p>
 <p>h - 左移一个字符
 l - 右移一个字符</p>
@@ -880,21 +902,21 @@ L - 屏幕末尾</p>
 ctrl + Y - 向上滚动一行
 ctrl + F - 向下滚动一页
 ctrl + B - 向上滚动一页</p>
-<h3 id="_3">其他命令</h3>
+<h3 id="_4">其他命令</h3>
 <p>ctrl + g 显示文件名</p>
-<h2 id="_4">在左侧打开文件浏览器</h2>
+<h2 id="_5">在左侧打开文件浏览器</h2>
 <p>:Vex</p>
 <p>在文件浏览器窗口键入i切换浏览方式.</p>
 <p>键入Enter展开目录.</p>
 <p>键入-跳到上一级目录.</p>
-<h2 id="_5">窗口</h2>
+<h2 id="_6">窗口</h2>
 <p>修改垂直窗口大小, 减少20个char::</p>
 <p>:vertical resize -20</p>
 <h2 id="vim-shell">临时退出vim回到 shell</h2>
 <p>:sh</p>
 <p>$ exit # 返回 vim</p>
 <p>:qa # 关闭掉所有打开的窗口</p>
-<h2 id="_6">执行外部命令</h2>
+<h2 id="_7">执行外部命令</h2>
 <p><code>:! &lt;cmd&gt;</code></p>
 <p>显示命令历史, 可以从历史中选择</p>
 <p><code>q:</code></p>

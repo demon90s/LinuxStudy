@@ -1072,7 +1072,7 @@ $ ls -il foo*
 </ul>
 <p>你可以通过系统调用open把其他文件描述符与文件和设备相关联。</p>
 <h3 id="write">write系统调用</h3>
-<p>系统调用 <a href="../../codes/lab/api/文件操作/write.c">write</a> 的作用是把缓冲区buf的前nbytes个字节写入与文件描述符fildes关联的文件中。它返回实际写入的字节数。如果文件描述符有错或者底层设备驱动程序对数据块长度比较敏感，该返回值可能会小于nbytes。如果这个函数返回0，就表示未写入任何数据；如果返回-1，就表示出现了错误，错误代码保存到全局变量errno里。</p>
+<p>系统调用 write 的作用是把缓冲区buf的前nbytes个字节写入与文件描述符fildes关联的文件中。它返回实际写入的字节数。如果文件描述符有错或者底层设备驱动程序对数据块长度比较敏感，该返回值可能会小于nbytes。如果这个函数返回0，就表示未写入任何数据；如果返回-1，就表示出现了错误，错误代码保存到全局变量errno里。</p>
 <div class="codehilite"><pre><span></span>#include &lt;unistd.h&gt;
 
 ssize_t write(int fd, const void *buf, size_t count);
@@ -1081,7 +1081,7 @@ ssize_t write(int fd, const void *buf, size_t count);
 
 <p>当程序退出运行时，所有已经打开的文件描述符都会自动关闭，所以你不需要明确地关闭它们。但处理被缓冲的输出时，情况就不一样了。</p>
 <h3 id="read">read系统调用</h3>
-<p>系统调用 <a href="../../codes/lab/api/文件操作/read.c">read</a> 的作用是：从与文件描述符fildes相关联的文件里读入nbytes个字节的数据，并把它们放到数据区buf中。它返回实际读入的字节数，这可能会小于请求的字节数。如果read调用返回0，就表示未读入任何数据，已达到文件尾。如果返回-1，就表示出现了错误。</p>
+<p>系统调用 read 的作用是：从与文件描述符fildes相关联的文件里读入nbytes个字节的数据，并把它们放到数据区buf中。它返回实际读入的字节数，这可能会小于请求的字节数。如果read调用返回0，就表示未读入任何数据，已达到文件尾。如果返回-1，就表示出现了错误。</p>
 <div class="codehilite"><pre><span></span>#include &lt;unistd.h&gt;
 
 ssize_t read(int fd, void *buf, size_t count);
@@ -1137,7 +1137,7 @@ int creat(const char *pathname, mode_t mode);
 <p>任何一个运行中的程序能够打开的文件数是有限制的，这个限制通常是由limits.h头文件中的常量OPEN_MAX定义的，POSIX要求它至少为16。在Linux系统中，这个限制可以在系统运行时调整。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>在我的CentOS 7中，这个变量叫做FOPEN_MAX，其值为16。<code>/usr/include/bits/stdio_lim.h:## define FOPEN_MAX 16</code>，真实可以打开的文件描述符数量远高于这个值，见<a href="../../codes/lab/test_OPEN_MAX.c">测试代码</a></p>
+<p>在我的CentOS 7中，这个变量叫做FOPEN_MAX，其值为16。<code>/usr/include/bits/stdio_lim.h:## define FOPEN_MAX 16</code>，真实可以打开的文件描述符数量远高于这个值。</p>
 </div>
 <h3 id="_7">访问权限的初始值</h3>
 <p>当使用带有O_CREAT标志的open调用来创建文件时，必须使用有3个参数格式的open调用。第三个参数mode是几个标志按位或后得到的，这些标志有：</p>
@@ -1173,7 +1173,7 @@ int close(int fd);
 
 
 <p><strong>ioctl系统调用</strong></p>
-<p><a href="../../codes/lab/api/文件操作/ioctl.c">ioctl</a> 提供了一个用于控制设备及其描述符行为和配置底层服务的接口。</p>
+<p>ioctl 提供了一个用于控制设备及其描述符行为和配置底层服务的接口。</p>
 <div class="codehilite"><pre><span></span>#include &lt;sys/ioctl.h&gt;
 
 int ioctl(int fd, int cmd, ...);
@@ -1211,10 +1211,8 @@ int lstat(const char *path, struct stat *buf);
 
 
 <p>相关函数stat和lstat返回的是通过文件名查询的状态信息。它们产生相同的结果，但当文件是一个符号链接时，lstat返回的是该符号链接本身的信息，而stat返回的是该链接指向的文件的信息。</p>
-<p>参考 <a href="../../codes/lab/api/文件操作/fstat_stat_lstat.c">测试代码</a></p>
 <p><strong>dup和dup2系统调用</strong></p>
 <p>dup 系统调用提供了一种复制文件描述符的方法，使我们能够通过两个或者更多不同的描述符来访问同一个文件。</p>
-<p>参考 <a href="../../codes/lab/api/dup.c">测试代码</a></p>
 <h2 id="io">标准I/O库</h2>
 <p>略。</p>
 <h2 id="_9">格式化输入和输出</h2>
@@ -1231,8 +1229,8 @@ int lstat(const char *path, struct stat *buf);
 <h2 id="_11">扫描目录</h2>
 <p>Linux 系统上的一个常见问题就是扫描目录，在 shell 程序设计中，这很容易，使用通配符扩展即可做到。</p>
 <p>使用相关的函数也可以处理。</p>
-<p><a href="../../codes/lab/api/文件操作/opendir_closedir.c">opendir 和 closedir</a> 用来打开、关闭一个目录流，目录流类似文件流，可以用来读取目录项目。一个目录项就是一个目录或者一个文件。</p>
-<p><a href="../../codes/lab/api/文件操作/readdir.c">readdir</a> 用来读取当前目录流中的一个目录项。</p>
+<p>opendir 和 closedir 用来打开、关闭一个目录流，目录流类似文件流，可以用来读取目录项目。一个目录项就是一个目录或者一个文件。</p>
+<p>readdir 用来读取当前目录流中的一个目录项。</p>
 <p>telldir 和 seekdir 用来获取、设置当前目录流的读曲位置。</p>
 <h2 id="_12">错误处理</h2>
 <p>略。</p>
