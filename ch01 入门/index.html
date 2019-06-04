@@ -649,6 +649,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../cheatsheet/git_github-HowTo/" title="Git-GitHub HowTo" class="md-nav__link">
+      Git-GitHub HowTo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../cheatsheet/Bash-HowTo/" title="Bash HowTo" class="md-nav__link">
       Bash HowTo
     </a>
@@ -907,7 +919,8 @@
 <p>但这样的安装并非易事，幸运的是，许多人制作了Linux发行版，它不仅包含内核，还包含许多其他编程工具和应用程序。它通常都会包含一个X视窗系统的实现，即一个图形化环境。Linux发行版通常还带有安装程序和附加文档（一般在CD上），帮助你安装自己的Linux系统。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>学习中，我使用的Linux发行版是CentOS7，官网是：https://www.centos.org/</p>
+<p>学习中，我使用的Linux发行版有CentOS7和Ubuntu18.04。</p>
+<p>以Ubuntu举例，查看其发行版的命令是<code>sudo lsb_release -a</code>，查看内核版本的命令是<code>cat /proc/version</code>。</p>
 </div>
 <h2 id="linux_2">Linux程序设计</h2>
 <p>UNIX最初是用C语言编写的，并且UNIX的大多数应用程序也是用C语言编写的，但C语言并不是Linux程序员或UNIX程序员的唯一选择。</p>
@@ -917,7 +930,7 @@
 </div>
 <h3 id="linux_3">Linux程序</h3>
 <p>Linux应用程序表现为两种特殊类型的文件，可执行文件和脚本文件。可执行文件是计算机可以直接运行的程序，它们相当于Windows中的.exe文件。脚本文件是一组指令的集合，这些指令将由另一个程序（解释器）来执行，相当于Windows的bat文件。</p>
-<p>当登陆进Linux系统时，你与一个shell程序进行交互，它像Windows中的命令提示窗口一样运行程序。它在一组指定的目录路径下按照你给出的程序名搜索与之同名的文件。搜索目录路径存储在shell变量PATH里。</p>
+<p>当登陆进Linux系统时，你与一个shell程序进行交互，它像Windows中的命令提示窗口一样运行程序。它在一组指定的目录路径下按照你给出的程序名搜索与之同名的文件。搜索目录路径存储在shell变量<strong>PATH</strong>里。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>PATH变量定义在文件<code>~/.bash_profile</code>文件中。</p>
@@ -946,7 +959,7 @@
 <p>我们建议对于系统级的应用程序，你可以将它放在/usr/local目录中来运行和访问所需的文件。对于开发用和个人的应用程序，最好在你的家目录中使用一个文件夹来存放它。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>使用 whereis 命令可以查看系统命令所在的位置。比如 <code>whereis -b cat</code> 。</p>
+<p>使用 whereis 命令可以查看命令所在的位置。比如 <code>whereis -b cat</code> 。-b表示只搜索 binaries 。</p>
 </div>
 <p><strong>头文件</strong></p>
 <p>用C语言进行程序设计时，你需要用头文件来提供对常量的定义和对系统函数及库函数调用的声明。对C语言来说，这些头文件几乎总是位于/usr/include目录及其子目录中。</p>
