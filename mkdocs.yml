@@ -31,6 +31,7 @@ nav:
   - CheatSheet:
     - errno: cheatsheet/errno.md
     - MySQL操作: cheatsheet/MySQL操作.md
+    - Git-GitHub HowTo: cheatsheet/git_github-HowTo.md
     - Bash HowTo: cheatsheet/Bash-HowTo.md
     - CentOS7 HowTo: cheatsheet/CentOS7-HowTo.md
     - Ubuntu HowTo: cheatsheet/Ubuntu-HowTo.md
