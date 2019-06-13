@@ -49,7 +49,7 @@
       
         
         
-        <meta name="theme-color" content="#3f51b5">
+        <meta name="theme-color" content="#2196f3">
       
     
     
@@ -58,8 +58,8 @@
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700|Open+Sans+Mono">
-        <style>body,input{font-family:"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Open Sans Mono","Courier New",Courier,monospace}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:300,400,400i,700|PT+Sans">
+        <style>body,input{font-family:"PT Sans","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"PT Sans","Courier New",Courier,monospace}</style>
       
     
     <link rel="stylesheet" href="../assets/fonts/material-icons.css">
@@ -70,7 +70,7 @@
   
     
     
-    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-primary="blue" data-md-color-accent="blue">
   
     <svg class="md-svg">
       <defs>
@@ -740,18 +740,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../cheatsheet/MySQL操作/" title="MySQL操作" class="md-nav__link">
-      MySQL操作
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../cheatsheet/git_github-HowTo/" title="Git-GitHub HowTo" class="md-nav__link">
       Git-GitHub HowTo
     </a>
@@ -1087,7 +1075,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/demon90s/LinuxStudy/tree/master/study_notes/ch09 开发工具.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/demon90s/LinuxStudy/tree/master/notes/ch09 开发工具.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
                 <h1 id="_1">第九章 开发工具</h1>
@@ -1121,7 +1109,7 @@ sudo yum install patch.x86_64
 <p>对大型程序来说，如果每次都编译所有的文件来构建应用程序，就会有明显的问题。</p>
 <p>有时候，无需重新编译所有文件，而只需要编译需要编译的文件。 make 命令就是用于解决这个问题的，它会在必要时重新编译所有受改动影响的源文件。</p>
 <h2 id="make-makefile">make 命令和 makefile 文件</h2>
-<p>必须为 make 命令提供一个文件，告诉它应有程序如何构造，这个文件称为 makefile 。</p>
+<p>必须为 make 命令提供一个文件，告诉它应用程序如何构造，这个文件称为 makefile 。</p>
 <p>makefile 文件一般和项目的其他源文件放在同一目录下，如果管理的是一个大项目，可以用多个 makefile 文件来分别管理项目的不同部分。</p>
 <h3 id="makefile">makefile 的语法</h3>
 <p>makefile 文件由一组依赖关系和规则构成。每个依赖关系由一个目标和一组该目标所依赖的源文件组成。而规则描述了如何通过这些依赖文件创建目标。一般来说，目标是一个单独的可执行文件。</p>
@@ -1139,7 +1127,7 @@ sudo yum install patch.x86_64
 <p>-n ：它的作用是让 make 命令输出将要执行的步骤，而不真正执行这些操作。</p>
 </li>
 <li>
-<p>-f \&lt;filename> ：告诉 make 命令哪个文件是 makefile 文件。如果不加此参数，则默认选择 makefile 或 Makefile 文件。</p>
+<p><code>-f &lt;filename&gt;</code> ：告诉 make 命令哪个文件是 makefile 文件。如果不加此参数，则默认选择 makefile 或 Makefile 文件。</p>
 </li>
 </ul>
 <p>为了指示 make 命令创建一个特定的目标，可以把该目标的名字作为 make 命令的一个参数，如果不加参数， make 命令就试图在 makefile 中查找第一个目标。</p>
@@ -1264,6 +1252,7 @@ sudo yum install patch.x86_64
 <p>gcc -MM *.c ，它的作用是产生一个适用于 make 命令的依赖关系清单。</p>
 </li>
 </ul>
+<p>对于源代码中的头文件，如"foo.h"，那么就会认为它是一个依赖。但如果是<code>&lt;foo.h&gt;</code>就不会，因为尖括号被认为是系统头文件，通常不会修改的。</p>
 <h2 id="_6">源代码控制</h2>
 <h3 id="rcs">RCS</h3>
 <p>RCS 提供了许多用于管理源文件的命令。它能够跟踪并记录下源文件的每一次改动，并将这些改动都记录到一个文件中去，通过此文件可以重建出任何一个以前的版本，而且保有注释信息。</p>
