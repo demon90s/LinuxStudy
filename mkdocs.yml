@@ -6,7 +6,7 @@ copyright: 'Copyright &copy; since 2018 Diwen Liu'
 docs_dir: notes
 
 repo_url: https://github.com/demon90s/LinuxStudy
-edit_uri: "tree/master/study_notes"
+edit_uri: "tree/master/notes"
 
 nav:
   - Introduction: index.md
@@ -30,7 +30,6 @@ nav:
     - ch17 用Qt进行KDE编程: ch17 用Qt进行KDE编程.md
   - CheatSheet:
     - errno: cheatsheet/errno.md
-    - MySQL操作: cheatsheet/MySQL操作.md
     - Git-GitHub HowTo: cheatsheet/git_github-HowTo.md
     - Bash HowTo: cheatsheet/Bash-HowTo.md
     - CentOS7 HowTo: cheatsheet/CentOS7-HowTo.md
@@ -46,11 +45,11 @@ theme:
   logo:
     icon: 'school'
   palette:
-    primary: 'indigo'
-    accent: 'indigo'
+    primary: 'blue'
+    accent: 'blue'
   font:
-    text: 'Open Sans'
-    code: 'Open Sans Mono'
+    text: 'PT Sans'
+    code: 'PT Sans'
   language: 'zh'
 
 markdown_extensions:
