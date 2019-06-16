@@ -212,7 +212,7 @@
             <li><a href="#sh">sh 命令执行问题</a></li>
             <li><a href="#fbterm-tty">使用 fbterm 解决 tty 中文无法显示/输入问题</a></li>
             <li><a href="#laptop">laptop 右键失灵</a></li>
-            <li><a href="#_3">安装一些软件</a></li>
+            <li><a href="#rpm2deb">安装一些软件 &amp;&amp; rpm2deb</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -265,8 +265,13 @@ sudo chmod u+s /usr/bin/fbterm
 <h2 id="laptop">laptop 右键失灵</h2>
 <p>安装 gnome-tweaks: sudo apt-get install gnome-tweaks</p>
 <p>打开 keyboard &amp; mouse 标签页，勾选 Mouse click emulation 下的 area.</p>
-<h2 id="_3">安装一些软件</h2>
+<h2 id="rpm2deb">安装一些软件 &amp;&amp; rpm2deb</h2>
 <p>主要使用 apt-get 命令安装。</p>
+<p>使用 alien 工具可以将 rpm 包转换成 deb ：</p>
+<div class="codehilite"><pre><span></span>$ alien xxx.rpm xxx.deb
+</pre></div>
+
+
 <h3 id="svn">svn</h3>
 <p>sudo apt-get install subversion</p>
 <h3 id="vim">vim</h3>
