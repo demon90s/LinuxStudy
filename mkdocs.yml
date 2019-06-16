@@ -41,7 +41,8 @@ nav:
     - vim HowTo: cheatsheet/vim-HowTo.md
 
 theme:
-  name: 'material'
+  #name: 'material'
+  name: 'mkdocs'
   logo:
     icon: 'school'
   palette:
