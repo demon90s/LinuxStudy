@@ -75,9 +75,15 @@ sudo apt-get install fcitx-frontend-fbterm
 
 打开 keyboard & mouse 标签页，勾选 Mouse click emulation 下的 area.
 
-## 安装一些软件
+## 安装一些软件 && rpm2deb
 
 主要使用 apt-get 命令安装。
+
+使用 alien 工具可以将 rpm 包转换成 deb ：
+
+```
+$ alien xxx.rpm xxx.deb
+```
 
 ### svn
 
