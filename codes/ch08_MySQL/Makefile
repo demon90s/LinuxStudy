@@ -1,11 +1,7 @@
 CC = gcc
 CFLAGS = -g -Wall
-
-# how to get it: mysql_config --cflags
-MYSQL_INCLUDE = -I/usr/include/mysql
-
-# how to get it: mysql_config --libs
-MYSQL_LIB = -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -latomic -ldl
+MYSQL_INCLUDE = $(shell mysql_config --cflags)
+MYSQL_LIB = $(shell mysql_config --libs)
 
 TARGETS = connect1 \
 			connect2 \
