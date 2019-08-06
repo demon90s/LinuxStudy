@@ -35,7 +35,6 @@ nav:
     - CentOS7 HowTo: cheatsheet/CentOS7-HowTo.md
     - Ubuntu HowTo: cheatsheet/Ubuntu-HowTo.md
     - subversion HowTo: cheatsheet/subversion-HowTo.md
-    - cmake HowTo: cheatsheet/cmake-HowTo.md
     - ssh HowTo: cheatsheet/ssh-HowTo.md
 
 theme:
