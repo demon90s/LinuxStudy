@@ -75,6 +75,14 @@ sudo apt-get install fcitx-frontend-fbterm
 
 打开 keyboard & mouse 标签页，勾选 Mouse click emulation 下的 area.
 
+## X崩溃/卡死恢复
+
+ctrl+alt+Fn进到第n个tty，先kill掉X，然后会自动重启：
+
+```
+$ sudo pkill X
+```
+
 ## 安装一些软件 && rpm2deb
 
 主要使用 apt-get 命令安装。
